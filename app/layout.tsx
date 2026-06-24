@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Lato, Comfortaa } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -6,6 +7,17 @@ export const metadata: Metadata = {
   description: "Sleep-Not-Found",
 };
 
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-lato",
+});
+
+const comfortaa = Comfortaa({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-comfortaa",
+});
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -13,7 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${lato.variable} ${comfortaa.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
