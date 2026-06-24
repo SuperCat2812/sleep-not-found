@@ -1,6 +1,6 @@
 import RegistrationForm from "@/components/RegistrationForm/RegistrationForm"
 
 const register = () => {
-    <RegistrationForm/>
+  return  <RegistrationForm/>
 }
 export default register;
