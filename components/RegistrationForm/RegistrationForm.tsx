@@ -10,8 +10,8 @@ const RegistrationForm = () => {
       <h1>Реєстрація</h1>
       <Formik initialValues={{}} onSubmit={() => {}}>
         <Form>
-          <label htmlFor={`${fieldId}-name`}>Імя*</label>
-          <Field id={`${fieldId}-name`} type="text" name="name" placeholder='Ваше ім`я'></Field>
+          <label htmlFor={`${fieldId}-name`}>Ім&#39;я*</label>
+          <Field id={`${fieldId}-name`} type="text" name="name" placeholder='Ваше ім&#39;я'></Field>
 
           <label htmlFor={`${fieldId}-email`}>Пошта*</label>
           <Field id={`${fieldId}-email`} type="email" name="email" placeholder='hello@leleka.com'></Field>
