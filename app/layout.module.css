@@ -1,0 +1,36 @@
+.body {
+  font-family: var(--font-lato);
+  min-height: 100vh;
+  margin: 0;
+  background-color: #ffffff;
+}
+
+.wrapper {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 40px;
+}
+
+.main {
+  width: 100%;
+}
+
+@media (max-width: 1023px) {
+  .wrapper {
+    min-height: auto;
+  }
+
+  .content {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .content {
+    padding: 16px;
+  }
+}
