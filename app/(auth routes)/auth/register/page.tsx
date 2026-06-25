@@ -6,7 +6,7 @@ const register = () => {
   return (
     <>
       <RegistrationForm />
-      <Image src="/leleka.png" alt="leleka" width={720} height={900}></Image>
+      <Image src="/leleka.png" alt="leleka" width={720} height={900} priority />
     </>
   );
 };

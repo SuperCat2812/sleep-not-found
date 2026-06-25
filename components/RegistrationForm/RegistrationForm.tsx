@@ -8,6 +8,7 @@ import { useId } from "react";
 import { register } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useAuthStore } from "@/lib/store/authStore";
 
 interface RegisterFormValues {
   name: string;
@@ -30,6 +31,7 @@ const RegisterFormSchema = Yup.object().shape({
 const RegistrationForm = () => {
   const router = useRouter();
   const fieldId = useId();
+  const setUser = useAuthStore((state) => state.setUser);
 
   const handleSubmit = async (
     values: RegisterFormValues,
@@ -38,14 +40,15 @@ const RegistrationForm = () => {
     try {
       const res = await register(values);
       if (res) {
+        setUser(res);
         router.push("/profile");
+        actions.resetForm();
       } else {
         toast.error("Невірний формат пошти чи пароля");
       }
     } catch {
       toast.error("Невірний формат пошти чи пароля");
     }
-    actions.resetForm();
   };
 
   return (
