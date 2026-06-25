@@ -22,8 +22,7 @@ const Header = () => {
     <>
       <header className={css.header}>
         <Link href="/" className={css.logo}>
-          <Icon id="icon-leleka" className={css.logoIcon} />
-          <span>Лелека</span>
+          <Icon id="icon-Logo-leleka" className={css.logoIcon} />
         </Link>
 
         <button className={css.burger} type="button" aria-label="Відкрити меню" onClick={openMenu}>

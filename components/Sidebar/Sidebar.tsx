@@ -6,8 +6,7 @@ const Sidebar = () => {
   return (
     <aside className={css.sidebar}>
       <Link href="/" className={css.logo}>
-        <Icon id="icon-leleka" className={css.logoIcon} />
-        <span>Лелека</span>
+        <Icon id="icon-Logo-leleka" className={css.logoIcon} />
       </Link>
 
       <nav className={css.nav}>
