@@ -1,20 +1,28 @@
 .breadcrumbs {
   display: flex;
   align-items: center;
-  gap: 12px;
-
-  margin-bottom: 20px;
-
-  font-size: 14px;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+  width: 149px;
+  height: 24px;
 }
 
 .link {
   color: #3a3a3a;
   text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .current {
   color: #a0a0a0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .separator {
