@@ -52,15 +52,15 @@ const RegistrationForm = () => {
   };
 
   return (
-    <>
-      <h1>Реєстрація</h1>
+    <div className={css.wrapper}>
+      <h1 className={css.title}>Реєстрація</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={RegisterFormSchema}
       >
-        <Form>
-          <label htmlFor={`${fieldId}-name`}>Ім&#39;я*</label>
+        <Form className={css.form}>
+          <label htmlFor={`${fieldId}-name`} className={css.label}>Ім&#39;я*</label>
           <Field
             id={`${fieldId}-name`}
             type="text"
@@ -68,7 +68,7 @@ const RegistrationForm = () => {
             placeholder="Ваше ім&#39;я"
           />
           <ErrorMessage name="name" component="span" className={css.error} />
-          <label htmlFor={`${fieldId}-email`}>Пошта*</label>
+          <label htmlFor={`${fieldId}-email`} className={css.label}>Пошта*</label>
           <Field
             id={`${fieldId}-email`}
             type="email"
@@ -76,7 +76,7 @@ const RegistrationForm = () => {
             placeholder="hello@leleka.com"
           />
           <ErrorMessage name="email" component="span" className={css.error} />
-          <label htmlFor={`${fieldId}-password`}>Пароль*</label>
+          <label htmlFor={`${fieldId}-password`} className={css.label}>Пароль*</label>
           <Field
             id={`${fieldId}-password`}
             type="password"
@@ -94,7 +94,7 @@ const RegistrationForm = () => {
       <p>
         Вже маєте аккаунт?<Link href={"/auth/login"}>Увійти</Link>
       </p>
-    </>
+    </div>
   );
 };
 export default RegistrationForm;
