@@ -1,0 +1,16 @@
+.title {
+    font-family: var(--font-comfortaa);
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 120%;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: var(--color-neutral-darkest);
+}
+.error {
+    display: block;
+    color: #e53935;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
