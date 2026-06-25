@@ -5,7 +5,9 @@ interface IconProps {
 
 const Icon = ({ id, className }: IconProps) => {
   return (
-    <svg className={className} aria-hidden="true">
+    <svg
+      className={className}
+      aria-hidden="true">
       <use href={`/images/sprite.svg#${id}`} />
     </svg>
   );
