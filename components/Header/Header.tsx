@@ -23,7 +23,7 @@ const Header = () => {
       <header className={css.header}>
         <Link href="/" className={css.logo}>
           <Icon id="icon-leleka" className={css.logoIcon} />
-          <span>Лелека</span>
+          <span>Лелекa</span>
         </Link>
 
         <button className={css.burger} type="button" aria-label="Відкрити меню" onClick={openMenu}>
