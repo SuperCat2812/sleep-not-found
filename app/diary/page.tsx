@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Щоденник",
     description: "Странка Щоденника",
-    url: "https://sleep-not-found-dev.vercel.app/diary",
-    images: [{ url: "/leleka.png" }],
+    url: `${process.env.NEXT_PUBLIC_API_URL}/diary`,
+    images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
   },
 };
 

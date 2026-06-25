@@ -8,14 +8,16 @@ export const generateMetadata = async ({
   params,
 }: DiaryDetailsProps): Promise<Metadata> => {
   const { entryId } = await params;
+  const diarys = await getDiary({ page: 1, limit: 10 });
+  const diary = diarys.diaryNotes.find((diary) => diary._id === entryId);
   return {
-    title: "Щоденник",
-    description: "Сторінка Щоденника",
+    title: diary?.title,
+    description: diary?.description,
     openGraph: {
-      title: "Щоденник",
-      description: "Сторінка Щоденника",
-      url: `https://sleep-not-found-dev.vercel.app/diary/${entryId}`,
-      images: [{ url: "/leleka.png" }],
+      title: diary?.title,
+      description: diary?.description,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/${entryId}`,
+      images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
     },
   };
 };
