@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+.title {
+  font-family: var(--font-comfortaa);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 120%;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--color-neutral-darkest);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+.label {
+  font-size: 16px;
+}
+.error {
+  display: block;
+  color: #e53935;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
