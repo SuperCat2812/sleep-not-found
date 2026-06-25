@@ -1,10 +1,13 @@
 "use client";
-// import css from "./RegistrationForm.module.css";
-import { Formik, Form, Field, FormikHelpers } from "formik";
+import css from "./RegistrationForm.module.css";
+import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 
 import { useId } from "react";
+import { register } from "@/lib/api/clientApi";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 interface RegisterFormValues {
   name: string;
@@ -18,24 +21,33 @@ const initialValues: RegisterFormValues = {
 };
 const RegisterFormSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "The name must be at least 2 characters")
-    .max(20, "The name is too long")
-    .required("The name is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("The email is required"),
-  password: Yup.string().required(),
+    .min(2, "Ім'я має містити щонайменше 2 символи")
+    .max(20, "Ім'я задовге")
+    .required("Вкажіть ім'я"),
+  email: Yup.string().email("Невірний формат пошти").required("Вкажіть пошту"),
+  password: Yup.string().required("Вкажіть пароль"),
 });
 const RegistrationForm = () => {
+  const router = useRouter();
   const fieldId = useId();
-  const handleSubmit = (
+
+  const handleSubmit = async (
     values: RegisterFormValues,
     actions: FormikHelpers<RegisterFormValues>,
   ) => {
-    /*register(values)  дані які ми передаємо у функцію для post на бекенд*/
-    console.log(values); //ВИДАЛИТИ ПОТІМ!!!
+    try {
+      const res = await register(values);
+      if (res) {
+        router.push("/profile");
+      } else {
+        toast.error("Невірний формат пошти чи пароля");
+      }
+    } catch {
+      toast.error("Невірний формат пошти чи пароля");
+    }
     actions.resetForm();
   };
+
   return (
     <>
       <h1>Реєстрація</h1>
@@ -51,29 +63,33 @@ const RegistrationForm = () => {
             type="text"
             name="name"
             placeholder="Ваше ім&#39;я"
-          ></Field>
-
+          />
+          <ErrorMessage name="name" component="span" className={css.error} />
           <label htmlFor={`${fieldId}-email`}>Пошта*</label>
           <Field
             id={`${fieldId}-email`}
             type="email"
             name="email"
             placeholder="hello@leleka.com"
-          ></Field>
-
+          />
+          <ErrorMessage name="email" component="span" className={css.error} />
           <label htmlFor={`${fieldId}-password`}>Пароль*</label>
           <Field
             id={`${fieldId}-password`}
             type="password"
             name="password"
             placeholder="********"
-          ></Field>
-
+          />
+          <ErrorMessage
+            name="password"
+            component="span"
+            className={css.error}
+          />
           <button type="submit">Зареєструватись</button>
         </Form>
       </Formik>
       <p>
-        Вже маєте аккаунт?<Link href={{}}>Увійти</Link>
+        Вже маєте аккаунт?<Link href={"/auth/login"}>Увійти</Link>
       </p>
     </>
   );
