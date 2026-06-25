@@ -2,6 +2,7 @@
   display: flex;
   gap: 32px;
   padding-block: 32px;
+  min-height: 100vh;
 }
 
 .diaryContainer,
@@ -9,10 +10,9 @@
   border-radius: 32px;
   padding-block: 24px;
   padding-inline: 16px;
-  height: 100vh;
+
   width: 100%;
   background: #fff4f6;
-  overflow: hidden;
 }
 
 .title {
@@ -64,4 +64,8 @@
 .iconPlus {
   width: 24px;
   height: 24px;
+}
+.diaryListScroll {
+  height: calc(100vh - 110px);
+  overflow-y: auto;
 }

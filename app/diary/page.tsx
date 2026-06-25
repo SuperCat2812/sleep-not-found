@@ -12,21 +12,14 @@ export const metadata: Metadata = {
     images: [{ url: "/leleka.png" }],
   },
 };
-interface diaryPageProps {
-  username: string;
-}
-const diaryPage = async ({ username }: diaryPageProps) => {
+
+const diaryPage = async () => {
   const page = 1;
   const limit = 10;
 
   const diarys = await getDiary({ page, limit });
 
-  return (
-    <>
-      <h2>{`Доброго ранку, ${username}!`}</h2>
-      <DiaryClient diarys={diarys} />;
-    </>
-  );
+  return <DiaryClient diarys={diarys} />;
 };
 
 export default diaryPage;
