@@ -1,0 +1,48 @@
+.header {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    background-color: #ffffff;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #000000;
+  font-family: var(--font-comfortaa);
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.burger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.burgerIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}

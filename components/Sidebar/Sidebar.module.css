@@ -1,0 +1,144 @@
+.sidebar {
+  width: 312px;
+  height: 100vh;
+  padding: 32px 24px;
+  flex-shrink: 0;
+  border-right: 1px solid #e0dedb;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-family: var(--font-comfortaa);
+  display: inline-block;
+  margin-bottom: 40px;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.link {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 8px;
+  color: #000000;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.link:hover {
+  background-color: #fff1f5;
+}
+
+.authBar {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid #e0dedb;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.registerButton,
+.loginButton {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.registerButton {
+  border: none;
+  background-color: #fff0d8;
+  color: #000000;
+}
+
+.loginButton {
+  border: none;
+  background-color: #f2f2f2;
+  color: #000000;
+}
+@media (max-width: 1023px) {
+  .sidebar {
+    display: none;
+  }
+}
+.userBar {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e0dedb;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+
+.name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.email {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #666666;
+}
+@media (min-width: 1023px) {
+  .email {
+    font-size: 14px;
+  }
+}
+
+.logout {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ---------svg sizes-- */
+
+.icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.logoutIcon {
+  width: 24px;
+  height: 24px;
+}
