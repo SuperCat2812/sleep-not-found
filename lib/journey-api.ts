@@ -1,10 +1,16 @@
-import axios from "axios";
+import { BabyByWeek, MomByWeek, WeeksData } from "@/types/journeyTypes";
+import { api } from "./api";
 
-const api = axios.create({
-  baseURL: "https://lehlehka.b.goit.study",
-});
+export const getPublicWeeks = async (): Promise<WeeksData> => {
+  const { data } = await api.get<WeeksData>("/weeks/greeting/public");
+  return data;
+};
 
-export const getPublicWeeks = async () => {
-  const { data } = await api.get("/weeks/greeting/public");
+export const getWeekBabyByNumber = async (weekNumber: number) => {
+  const { data } = await api.get<BabyByWeek>(`/weeks/${weekNumber}/baby`);
+  return data;
+};
+export const getWeekMomByNumber = async (weekNumber: number) => {
+  const { data } = await api.get<MomByWeek>(`/weeks/${weekNumber}/mom`);
   return data;
 };
