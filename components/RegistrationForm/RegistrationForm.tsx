@@ -26,7 +26,9 @@ const RegisterFormSchema = Yup.object().shape({
     .max(20, "Ім'я задовге")
     .required("Вкажіть ім'я"),
   email: Yup.string().email("Невірний формат пошти").required("Вкажіть пошту"),
-  password: Yup.string().required("Вкажіть пароль"),
+  password: Yup.string()
+    .min(8, "Пароль має містити щонайменше 8 символів")
+    .required("Вкажіть пароль"),
 });
 const RegistrationForm = () => {
   const router = useRouter();
@@ -41,7 +43,7 @@ const RegistrationForm = () => {
       const res = await register(values);
       if (res) {
         setUser(res);
-        router.push("/profile");
+        router.push("/profile/edit");
         actions.resetForm();
       } else {
         toast.error("Невірний формат пошти чи пароля");
@@ -60,7 +62,9 @@ const RegistrationForm = () => {
         validationSchema={RegisterFormSchema}
       >
         <Form className={css.form}>
-          <label htmlFor={`${fieldId}-name`} className={css.label}>Ім&#39;я*</label>
+          <label htmlFor={`${fieldId}-name`} className={css.label}>
+            Ім&#39;я*
+          </label>
           <Field
             id={`${fieldId}-name`}
             type="text"
@@ -68,7 +72,9 @@ const RegistrationForm = () => {
             placeholder="Ваше ім&#39;я"
           />
           <ErrorMessage name="name" component="span" className={css.error} />
-          <label htmlFor={`${fieldId}-email`} className={css.label}>Пошта*</label>
+          <label htmlFor={`${fieldId}-email`} className={css.label}>
+            Пошта*
+          </label>
           <Field
             id={`${fieldId}-email`}
             type="email"
@@ -76,7 +82,9 @@ const RegistrationForm = () => {
             placeholder="hello@leleka.com"
           />
           <ErrorMessage name="email" component="span" className={css.error} />
-          <label htmlFor={`${fieldId}-password`} className={css.label}>Пароль*</label>
+          <label htmlFor={`${fieldId}-password`} className={css.label}>
+            Пароль*
+          </label>
           <Field
             id={`${fieldId}-password`}
             type="password"
