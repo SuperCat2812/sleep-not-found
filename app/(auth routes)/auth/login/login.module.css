@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+  justify-content: space-between;
+}
+.image {
+  width: 50%;
+  height: 100vh;
+  object-fit: cover;
+}
