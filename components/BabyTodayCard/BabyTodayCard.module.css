@@ -51,3 +51,16 @@
     line-height: 150%;
     color: var(--color-neutral-darkest);
 }
+
+.mediaRow {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media (min-width: 1128px) {
+    .mediaRow {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+}
