@@ -12,7 +12,7 @@
   @media (min-width: 768px) {
     gap: 15px;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     margin-top: 0;
   }
 }
@@ -46,7 +46,7 @@
   letter-spacing: 0.01em;
   display: flex;
   gap: 16px;
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 20px;
   }
 }
@@ -58,7 +58,7 @@
 
   display: flex;
   gap: 16px;
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 14px;
   }
 }
@@ -73,7 +73,7 @@
   font-size: 14px;
   line-height: 1.5;
   font-family: var(--font-lato);
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 16px;
   }
 }
@@ -89,7 +89,7 @@
   line-height: 1.6;
   width: max-content;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 14px;
   }
 }
