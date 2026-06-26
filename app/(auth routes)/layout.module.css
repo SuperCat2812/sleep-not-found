@@ -1,0 +1,13 @@
+.authLayout {
+    position: relative;
+    min-height: 100vh;
+}
+
+.logoIcon {
+  width: 105px;
+  height: 45px;
+  margin: 13.5px 64px;
+}
+.logo {
+    position: absolute;
+}

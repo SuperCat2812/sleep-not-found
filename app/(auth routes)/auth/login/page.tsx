@@ -6,14 +6,16 @@ const login = () => {
   return (
     <div className={css.wrapper}>
       <LoginForm />
-      <Image
-        src="/eggs.png"
-        alt="eggs in the nest"
-        priority
-        className={css.image}
-        width={720}
-        height={900}
-      />
+      <div className={css.imageWrapper}>
+        <Image
+          src="/eggs.png"
+          alt="eggs in the nest"
+          priority
+          className={css.image}
+          width={720}
+          height={900}
+        />
+      </div>
     </div>
   );
 };

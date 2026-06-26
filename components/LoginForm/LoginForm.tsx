@@ -75,12 +75,15 @@ const LoginForm = () => {
             component="span"
             className={css.error}
           />
-          <button type="submit" className={css.button}>Увійти</button>
+          <button type="submit" className={css.button}>
+            Увійти
+          </button>
         </Form>
       </Formik>
-      <p className={css.paragraph}>
-        Немає аккаунта?<Link href={"/auth/register"} className={css.link}> Зареєструватись</Link>
-      </p>
+      <p className={css.paragraph}>Немає аккаунта? <Link href={"/auth/register"} className={css.link}>
+        Зареєструватись
+      </Link></p>
+      
     </div>
   );
 };

@@ -99,9 +99,8 @@ const RegistrationForm = () => {
           <button type="submit">Зареєструватись</button>
         </Form>
       </Formik>
-      <p>
-        Вже маєте аккаунт?<Link href={"/auth/login"}>Увійти</Link>
-      </p>
+      <p>Вже маєте аккаунт?</p>
+      <Link href={"/auth/login"}>Увійти</Link>
     </div>
   );
 };
