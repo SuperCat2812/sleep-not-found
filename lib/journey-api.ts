@@ -1,13 +1,8 @@
 import { BabyByWeek, MomByWeek, WeeksData } from "@/types/journeyTypes";
-import axios from "axios";
+import { api } from "./api/api";
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true,
-});
-
-export const getPublicWeeks = async (): Promise<WeeksData> => {
-  const { data } = await api.get<WeeksData>("/weeks/greeting/public");
+export const getWeeks = async (): Promise<WeeksData> => {
+  const { data } = await api.get<WeeksData>("/weeks/greeting");
   return data;
 };
 

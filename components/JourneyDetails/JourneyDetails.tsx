@@ -3,6 +3,7 @@ import { useState } from "react";
 import css from "./JourneyDetails.module.css";
 import { useParams } from "next/navigation";
 import BabyJourney from "./BabyJourney/BabyJourney";
+import MomJourney from "./MomJourney/MomJourney";
 
 type Tab = "baby" | "mom";
 
@@ -32,7 +33,7 @@ function JourneyDetails() {
         </button>
       </div>
       {tab === "baby" && <BabyJourney week={activeWeek} />}
-      {tab === "mom" && <div className={css.detailsMom}></div>}
+      {tab === "mom" && <MomJourney week={activeWeek} />}
     </div>
   );
 }
