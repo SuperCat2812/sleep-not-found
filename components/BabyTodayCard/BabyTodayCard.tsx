@@ -1,4 +1,5 @@
 import Image from "next/image";
+import styles from "./BabyTodayCard.module.css";
 
 type BabyTodayCardProps = {
   imageUrl: string;
@@ -16,23 +17,26 @@ const BabyTodayCard = ({
   description,
 }: BabyTodayCardProps) => {
   return (
-    <div>
-      <h2>Малюк сьогодні</h2>
-      <div>
-        <Image src={imageUrl} alt="Малюк" width={160} height={160} />
-        <div>
-          <p>
-            <strong>Розмір:</strong> {size}
-          </p>
-          <p>
-            <strong>Вага:</strong> {weight}
-          </p>
-          <p>
-            <strong>Активність:</strong> {activity}
-          </p>
-        </div>
+    <div className={styles.card}>
+      <h2 className={styles.title}>Малюк сьогодні</h2>
+      <div className={styles.imageWrapper}>
+        <Image src={imageUrl} alt="Малюк" fill style={{ objectFit: "cover" }} />
       </div>
-      <p>{description}</p>
+      <div className={styles.infoList}>
+        <p className={styles.infoItem}>
+          <strong>Розмір:</strong>{" "}
+          <span className={styles.infoValue}>{size}</span>
+        </p>
+        <p className={styles.infoItem}>
+          <strong>Вага:</strong>{" "}
+          <span className={styles.infoValue}>{weight}</span>
+        </p>
+        <p className={styles.infoItem}>
+          <strong>Активність:</strong>{" "}
+          <span className={styles.infoValue}>{activity}</span>
+        </p>
+      </div>
+      <p className={styles.description}>{description}</p>
     </div>
   );
 };

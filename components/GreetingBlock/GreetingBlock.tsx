@@ -1,3 +1,5 @@
+import styles from "./GreetingBlock.module.css";
+
 type GreetingBlockProps = {
   name: string;
 };
@@ -5,7 +7,7 @@ type GreetingBlockProps = {
 const GreetingBlock = ({ name }: GreetingBlockProps) => {
   return (
     <div>
-      <h1>Доброго ранку, {name}!</h1>
+      <h1 className={styles.greeting}>Доброго ранку, {name}!</h1>
     </div>
   );
 };

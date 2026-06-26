@@ -1,0 +1,27 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 32px;
+    padding: 24px;
+    background: var(--color-pastel-pink-lighter);
+}
+
+.title {
+    font-family: var(--font-comfortaa);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: 0.01em;
+    color: var(--color-neutral-darkest);
+    align-self: flex-start;
+}
+
+.tip {
+    font-family: var(--font-lato);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 160%;
+    color: var(--color-neutral-darkest);
+}
