@@ -17,3 +17,13 @@ export const getMe = async (): Promise<User> => {
   const { data } = await api.get<User>("/users/current");
   return data;
 };
+
+export interface LoginUserData {
+  email: string;
+  password: string;
+}
+
+export const login = async (loginData: LoginUserData): Promise<User> => {
+  const { data } = await api.post<User>("/auth/login", loginData);
+  return data;
+};

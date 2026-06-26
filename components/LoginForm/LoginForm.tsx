@@ -4,6 +4,10 @@ import css from "./LoginForm.module.css";
 import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
+import { useAuthStore } from "@/lib/store/authStore";
+import { login } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface LoginFormValues {
   email: string;
@@ -16,39 +20,66 @@ const initialValues: LoginFormValues = {
 const LoginFormShema = Yup.object().shape({
   email: Yup.string().email("Невірний формат пошти").required("Вкажіть пошту"),
   password: Yup.string()
-    .min(8, "Пароль має містити щонайменше 8 символи")
+    .min(8, "Пароль має містити щонайменше 8 символів")
     .required("Вкажіть пароль"),
 });
 const LoginForm = () => {
-  const handleSubmit = (
+  const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+  const handleSubmit = async (
     values: LoginFormValues,
     actions: FormikHelpers<LoginFormValues>,
   ) => {
-    console.log(values); //TO REMOVE IT ONCE THE LOGIN REQUEST FUNCTION IS READY
-    actions.resetForm();
+    try {
+      const res = await login(values);
+      if (res) {
+        setUser(res);
+        router.push("/");
+        actions.resetForm();
+      } else {
+        toast.error("Перевірте пошту чи пароль");
+      }
+    } catch {
+      toast.error("Перевірте пошту чи пароль");
+    }
   };
   return (
-    <div>
+    <div className={css.wrapper}>
       <h1 className={css.title}>Вхід</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
         validationSchema={LoginFormShema}
       >
-        <Form>
-          <Field type="email" name="email" placeholder="Пошта" />
+        <Form className={css.form}>
+          <Field
+            type="email"
+            name="email"
+            placeholder="Пошта"
+            aria-label="Електронна пошта користувача"
+            className={css.label}
+          />
+
           <ErrorMessage name="email" component="span" className={css.error} />
-          <Field type="password" name="password" placeholder="Пароль" />
+
+          <Field
+            type="password"
+            name="password"
+            placeholder="Пароль"
+            aria-label="Пароль користувача"
+            className={css.label}
+          />
+
           <ErrorMessage
             name="password"
             component="span"
             className={css.error}
           />
-          <button type="submit">Увійти</button>
+          <button type="submit" className={css.button}>Увійти</button>
         </Form>
       </Formik>
-      <p>
-        Немає аккаунта?<Link href={"/auth/register"}>Зареєструватись</Link>
+      <p className={css.paragraph}>
+        Немає аккаунта?<Link href={"/auth/register"} className={css.link}> Зареєструватись</Link>
       </p>
     </div>
   );

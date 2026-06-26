@@ -38,10 +38,10 @@ const Layout = ({ children }: LayoutProps) => {
           <Header />
 
           <div className={css.wrapper}>
-            <Sidebar />
+            {/* <Sidebar /> */}
 
             <div className={css.content}>
-              <Breadcrumbs />
+              {/* <Breadcrumbs /> */}
               <main className={css.main}>{children}</main>
             </div>
           </div>
