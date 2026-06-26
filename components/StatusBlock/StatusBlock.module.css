@@ -29,6 +29,7 @@
     flex: 1;
     height: 105px;
     background: var(--color-pastel-pink-lighter);
+    justify-content: center;
 }
 
 .label {

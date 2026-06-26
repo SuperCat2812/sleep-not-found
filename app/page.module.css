@@ -16,7 +16,7 @@
 .leftColumn {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
     width: 100%;
 }
 
@@ -27,7 +27,17 @@
     width: 100%;
 }
 
-@media (min-width: 1128px) {
+@media (min-width: 768px) {
+    .content {
+        gap: 48px;
+    }
+
+    .leftColumn {
+        gap: 32px;
+    }
+}
+
+@media (min-width: 1440px) {
     .content {
         flex-direction: row;
         gap: 32px;
@@ -44,6 +54,5 @@
         flex-shrink: 0;
         padding-block: 0 32px;
         padding-inline: 0 32px;
-        justify-content: flex-start;
     }
 }
