@@ -17,11 +17,17 @@
     color: var(--color-neutral-darkest);
 }
 
+.mediaRow {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .imageWrapper {
     border: 1px solid var(--opacity-neutral-darkest-15);
     border-radius: 24px;
     overflow: hidden;
-    width: 287px;
+    width: 100%;
     height: 216px;
     position: relative;
 }
@@ -52,15 +58,15 @@
     color: var(--color-neutral-darkest);
 }
 
-.mediaRow {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
+@media (min-width: 768px) {
+    .imageWrapper {
+        width: 287px;
+        height: 216px;
+        flex-shrink: 0;
+    }
 
-@media (min-width: 1128px) {
     .mediaRow {
         flex-direction: row;
-        align-items: flex-start;
+        align-items: center;
     }
 }
