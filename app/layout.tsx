@@ -8,6 +8,7 @@ import Header from "@/components/Header/Header";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import { Toaster } from "react-hot-toast";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ const Layout = ({ children }: LayoutProps) => {
     <html lang="uk">
       <body className={`${css.body} ${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
+          <Toaster position="top-center" reverseOrder={false} />
           <Header />
 
           <div className={css.wrapper}>
