@@ -1,4 +1,12 @@
+"use client";
+
+import { ChangeEvent, useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+
 import type { User } from "@/types/user";
+import { updateAvatar } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileAvatar.module.css";
 
 interface ProfileAvatarProps {
@@ -6,6 +14,40 @@ interface ProfileAvatarProps {
 }
 
 export default function ProfileAvatar({ user }: ProfileAvatarProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const queryClient = useQueryClient();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const handleUploadClick = () => {
+    inputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.currentTarget.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    try {
+      setIsUploading(true);
+
+      const updatedUser = await updateAvatar(file);
+
+      setUser(updatedUser);
+      queryClient.setQueryData(["currentUser"], updatedUser);
+
+      toast.success("Фото профілю оновлено");
+    } catch {
+      toast.error("Не вдалося оновити фото");
+    } finally {
+      setIsUploading(false);
+      event.currentTarget.value = "";
+    }
+  };
+
   return (
     <div className={css.wrapper}>
       <div className={css.avatarBox}>
@@ -22,9 +64,22 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
         <h2 className={css.name}>{user.name}</h2>
         <p className={css.email}>{user.email}</p>
 
-        <button type="button" className={css.uploadButton}>
-          Завантажити нове фото
+        <button
+          type="button"
+          className={css.uploadButton}
+          onClick={handleUploadClick}
+          disabled={isUploading}
+        >
+          {isUploading ? "Завантаження..." : "Завантажити нове фото"}
         </button>
+
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          hidden
+          onChange={handleFileChange}
+        />
       </div>
     </div>
   );

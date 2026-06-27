@@ -39,3 +39,11 @@ export const updateMe = async (userData: UpdateUserData): Promise<User> => {
   const { data } = await api.patch<User>("/users/current", userData);
   return data;
 };
+
+export const updateAvatar = async (file: File): Promise<User> => {
+  const formData = new FormData();
+  formData.append("avatar", file);
+
+  const { data } = await api.patch<User>("/users/current/avatar", formData);
+  return data;
+};
