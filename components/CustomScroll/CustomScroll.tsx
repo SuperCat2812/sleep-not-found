@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import css from "./CustomScroll.module.css";
 interface CustomScrollProps {
   children: React.ReactNode;
@@ -14,15 +14,25 @@ export default function CustomScroll({ children }: CustomScrollProps) {
 
   const thumbHeight = 56;
 
-  const updateThumb = () => {
+  const [showScrollbar, setShowScrollbar] = useState(false);
+
+  const updateScrollbar = () => {
     const content = contentRef.current;
+    if (!content) return;
+
+    const hasScroll = content.scrollHeight > content.clientHeight;
+
+    setShowScrollbar(hasScroll);
+
+    if (!hasScroll) {
+      setThumbTop(0);
+      return;
+    }
     const track = trackRef.current;
-    if (!content || !track) return;
+    if (!track) return;
 
     const maxScroll = content.scrollHeight - content.clientHeight;
-    const maxThumbTop = track.clientHeight - thumbHeight;
-
-    if (maxScroll <= 0) return;
+    const maxThumbTop = trackRef.current!.clientHeight - thumbHeight;
 
     const percent = content.scrollTop / maxScroll;
     setThumbTop(percent * maxThumbTop);
@@ -65,30 +75,34 @@ export default function CustomScroll({ children }: CustomScrollProps) {
     setIsDragging(false);
     e.currentTarget.releasePointerCapture(e.pointerId);
   };
-
+  useEffect(() => {
+    updateScrollbar();
+  }, [children]);
   return (
     <div className={css.wrapper}>
       <div
         ref={contentRef}
         className={css.content}
-        onScroll={updateThumb}>
+        onScroll={updateScrollbar}>
         {children}
       </div>
 
-      <div
-        ref={trackRef}
-        className={css.scrollbar}>
+      {showScrollbar && (
         <div
-          className={css.thumb}
-          onPointerDown={startDrag}
-          onPointerMove={drag}
-          onPointerUp={stopDrag}
-          style={{
-            height: `${thumbHeight}px`,
-            transform: `translateY(${thumbTop}px)`,
-          }}
-        />
-      </div>
+          ref={trackRef}
+          className={css.scrollbar}>
+          <div
+            className={css.thumb}
+            onPointerDown={startDrag}
+            onPointerMove={drag}
+            onPointerUp={stopDrag}
+            style={{
+              height: `${thumbHeight}px`,
+              transform: `translateY(${thumbTop}px)`,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
