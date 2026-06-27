@@ -1,5 +1,8 @@
 "use client";
 
+import Icon from "@/components/Icon/Icon";
+import Link from "next/link";
+import css from "./layout.module.css";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -13,7 +16,14 @@ const PublicLayout = ({ children }: Props) => {
   useEffect(() => {
     router.refresh();
   }, [router]);
-//I NEED TO ADD LOGO HERE - REMINDER
-  return <>{children}</>;
+
+  return (
+    <div className={css.authLayout}>
+      <Link href="/" className={css.logo}>
+        <Icon id="icon-Logo-leleka"className={css.logoIcon} />
+      </Link>
+      {children}
+    </div>
+  );
 };
 export default PublicLayout;
