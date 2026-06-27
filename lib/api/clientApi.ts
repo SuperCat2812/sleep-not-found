@@ -27,3 +27,15 @@ export const login = async (loginData: LoginUserData): Promise<User> => {
   const { data } = await api.post<User>("/auth/login", loginData);
   return data;
 };
+
+export interface UpdateUserData {
+  name: string;
+  email: string;
+  babyGender: string;
+  dueDate: string;
+}
+
+export const updateMe = async (userData: UpdateUserData): Promise<User> => {
+  const { data } = await api.patch<User>("/users/current", userData);
+  return data;
+};

@@ -94,3 +94,10 @@
   background-color: var(--color-pastel-pink);
   color: var(--color-neutral-darkest);
 }
+
+.error {
+  margin-top: 4px;
+  color: var(--color-red);
+  font-size: 12px;
+  line-height: 1.3;
+}

@@ -1,88 +1,188 @@
+"use client";
+
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
+import * as Yup from "yup";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+
 import type { User } from "@/types/user";
+import { updateMe } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileEditForm.module.css";
 
 interface ProfileEditFormProps {
   user: User;
 }
 
+interface ProfileFormValues {
+  name: string;
+  email: string;
+  babyGender: string;
+  dueDate: string;
+}
+
+const profileSchema = Yup.object({
+  name: Yup.string()
+    .min(2, "Ім’я має містити щонайменше 2 символи")
+    .max(50, "Ім’я занадто довге")
+    .required("Вкажіть ім’я"),
+
+  email: Yup.string()
+    .email("Невірний формат пошти")
+    .required("Вкажіть пошту"),
+
+  babyGender: Yup.string()
+    .oneOf(["boy", "girl", "unknown"], "Оберіть коректне значення")
+    .required("Оберіть стать дитини"),
+
+  dueDate: Yup.string().required("Оберіть планову дату пологів"),
+});
+
 export default function ProfileEditForm({ user }: ProfileEditFormProps) {
+  const queryClient = useQueryClient();
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const initialValues: ProfileFormValues = {
+    name: user.name || "",
+    email: user.email || "",
+    babyGender: user.babyGender || "unknown",
+    dueDate: user.dueDate || "",
+  };
+
+  const handleSubmit = async (
+    values: ProfileFormValues,
+    actions: FormikHelpers<ProfileFormValues>,
+  ) => {
+    try {
+      const updatedUser = await updateMe(values);
+
+      setUser(updatedUser);
+      queryClient.setQueryData(["currentUser"], updatedUser);
+
+      toast.success("Профіль оновлено");
+      actions.resetForm({ values });
+    } catch {
+      toast.error("Не вдалося оновити профіль");
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
+
   return (
-    <form className={css.form}>
-      <div className={css.fields}>
-        <div className={css.field}>
-          <div className={css.inputGroup}>
-            <label className={css.label} htmlFor="name">
-              Ім’я
-            </label>
-            <input
-              id="name"
-              className={css.input}
-              type="text"
-              defaultValue={user.name}
-              placeholder="Ганна"
-            />
-          </div>
-        </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={profileSchema}
+      onSubmit={handleSubmit}
+      enableReinitialize
+    >
+      {({ isSubmitting, resetForm }) => (
+        <Form className={css.form}>
+          <div className={css.fields}>
+            <div className={css.field}>
+              <div className={css.inputGroup}>
+                <label className={css.label} htmlFor="name">
+                  Ім’я
+                </label>
+                <Field
+                  id="name"
+                  name="name"
+                  className={css.input}
+                  type="text"
+                  placeholder="Ганна"
+                />
+                <ErrorMessage
+                  name="name"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
+            </div>
 
-        <div className={css.field}>
-          <div className={css.inputGroup}>
-            <label className={css.label} htmlFor="email">
-              Пошта
-            </label>
-            <input
-              id="email"
-              className={css.input}
-              type="email"
-              defaultValue={user.email}
-              placeholder="hanna@gmail.com"
-            />
-          </div>
-        </div>
+            <div className={css.field}>
+              <div className={css.inputGroup}>
+                <label className={css.label} htmlFor="email">
+                  Пошта
+                </label>
+                <Field
+                  id="email"
+                  name="email"
+                  className={css.input}
+                  type="email"
+                  placeholder="hanna@gmail.com"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
+            </div>
 
-        <div className={css.selectFields}>
-          <div className={css.field}>
-            <div className={css.inputGroup}>
-              <label className={css.label} htmlFor="babyGender">
-                Стать дитини
-              </label>
-              <select
-                id="babyGender"
-                className={css.input}
-                defaultValue={user.babyGender || ""}
-              >
-                <option value="">Оберіть стать</option>
-                <option value="boy">Хлопчик</option>
-                <option value="girl">Дівчинка</option>
-                <option value="unknown">Ще не знаю</option>
-              </select>
+            <div className={css.selectFields}>
+              <div className={css.field}>
+                <div className={css.inputGroup}>
+                  <label className={css.label} htmlFor="babyGender">
+                    Стать дитини
+                  </label>
+                  <Field
+                    as="select"
+                    id="babyGender"
+                    name="babyGender"
+                    className={css.input}
+                  >
+                    <option value="boy">Хлопчик</option>
+                    <option value="girl">Дівчинка</option>
+                    <option value="unknown">Ще не знаю</option>
+                  </Field>
+                  <ErrorMessage
+                    name="babyGender"
+                    component="span"
+                    className={css.error}
+                  />
+                </div>
+              </div>
+
+              <div className={css.field}>
+                <div className={css.inputGroup}>
+                  <label className={css.label} htmlFor="dueDate">
+                    Планова дата пологів
+                  </label>
+                  <Field
+                    id="dueDate"
+                    name="dueDate"
+                    className={css.input}
+                    type="date"
+                  />
+                  <ErrorMessage
+                    name="dueDate"
+                    component="span"
+                    className={css.error}
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className={css.field}>
-            <div className={css.inputGroup}>
-              <label className={css.label} htmlFor="dueDate">
-                Планова дата пологів
-              </label>
-              <input
-                id="dueDate"
-                className={css.input}
-                type="date"
-                defaultValue={user.dueDate}
-              />
-            </div>
+          <div className={css.actions}>
+            <button
+              type="button"
+              className={css.cancelButton}
+              onClick={() => resetForm()}
+              disabled={isSubmitting}
+            >
+              Відмінити зміни
+            </button>
+
+            <button
+              type="submit"
+              className={css.saveButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Збереження..." : "Зберегти зміни"}
+            </button>
           </div>
-        </div>
-      </div>
-
-      <div className={css.actions}>
-        <button type="button" className={css.cancelButton}>
-          Відмінити зміни
-        </button>
-
-        <button type="submit" className={css.saveButton}>
-          Зберегти зміни
-        </button>
-      </div>
-    </form>
+        </Form>
+      )}
+    </Formik>
   );
 }
