@@ -12,7 +12,7 @@ export async function PATCH(request: Request) {
     const cookieStore = await cookies();
     const formData = await request.formData();
 
-    const res = await api.patch("/users/current/avatar", formData, {
+    const res = await api.patch("/users/current/avatars", formData, {
       headers: {
         Cookie: cookieStore.toString(),
       },
