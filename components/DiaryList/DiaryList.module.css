@@ -16,14 +16,14 @@
 .diaryTitle {
   font-weight: 600;
   font-size: 16px;
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 18px;
   }
 }
 .diaryData {
   font-weight: 400;
   font-size: 12px;
-  @media (min-width: 1024px) {
+  @media (min-width: 1440px) {
     font-size: 16px;
   }
 }
