@@ -25,28 +25,37 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
   };
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.currentTarget.files?.[0];
+  const input = event.currentTarget;
+  const file = input.files?.[0];
 
-    if (!file) {
-      return;
-    }
+  if (!file) {
+    return;
+  }
 
-    try {
-      setIsUploading(true);
+  const maxFileSize = 1024 * 1024; // 1 MB
 
-      const updatedUser = await updateAvatar(file);
+  if (file.size > maxFileSize) {
+    toast.error("Фото занадто велике. Оберіть файл до 1 MB.");
+    input.value = "";
+    return;
+  }
 
-      setUser(updatedUser);
-      queryClient.setQueryData(["currentUser"], updatedUser);
+  try {
+    setIsUploading(true);
 
-      toast.success("Фото профілю оновлено");
-    } catch {
-      toast.error("Не вдалося оновити фото");
-    } finally {
-      setIsUploading(false);
-      event.currentTarget.value = "";
-    }
-  };
+    const updatedUser = await updateAvatar(file);
+
+    setUser(updatedUser);
+    queryClient.setQueryData(["currentUser"], updatedUser);
+
+    toast.success("Фото профілю оновлено");
+  } catch {
+    toast.error("Не вдалося оновити фото");
+  } finally {
+    setIsUploading(false);
+    input.value = "";
+  }
+};
 
   return (
     <div className={css.wrapper}>
