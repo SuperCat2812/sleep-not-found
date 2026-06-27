@@ -8,6 +8,7 @@ import { DiaryNote, DiaryResponse } from "@/types/diary-types";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
 import Icon from "@/components/Icon/Icon";
 import { api } from "@/lib/api/api";
+import CustomScroll from "@/components/CustomScroll/CustomScroll";
 interface DiaryClientProps {
   diarys: DiaryResponse;
 }
@@ -66,14 +67,16 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
           </div>
         </div>
         <div className={css.diaryContainer}>
-          <div
-            className={css.diaryListScroll}
-            onScroll={handleScroll}>
-            <DiaryList
-              diarys={data}
-              setId={setId}
-            />
-          </div>
+          <CustomScroll>
+            <div
+              className={css.diaryListScroll}
+              onScroll={handleScroll}>
+              <DiaryList
+                diarys={data}
+                setId={setId}
+              />
+            </div>
+          </CustomScroll>
         </div>
       </div>
       <div className={css.diaryContainerDetails}>
