@@ -61,47 +61,73 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit}
         validationSchema={RegisterFormSchema}
       >
-        <Form className={css.form}>
-          <label htmlFor={`${fieldId}-name`} className={css.label}>
-            Ім&#39;я*
-          </label>
-          <Field
-            id={`${fieldId}-name`}
-            type="text"
-            name="name"
-            placeholder="Ваше ім&#39;я"
-          />
-          <ErrorMessage name="name" component="span" className={css.error} />
-          <label htmlFor={`${fieldId}-email`} className={css.label}>
-            Пошта*
-          </label>
-          <Field
-            id={`${fieldId}-email`}
-            type="email"
-            name="email"
-            placeholder="hello@leleka.com"
-          />
-          <ErrorMessage name="email" component="span" className={css.error} />
-          <label htmlFor={`${fieldId}-password`} className={css.label}>
-            Пароль*
-          </label>
-          <Field
-            id={`${fieldId}-password`}
-            type="password"
-            name="password"
-            placeholder="********"
-          />
-          <ErrorMessage
-            name="password"
-            component="span"
-            className={css.error}
-          />
-          <button type="submit">Зареєструватись</button>
-        </Form>
+        {({ errors, touched }) => (
+          <Form className={css.form}>
+            <div className={css.fieldGroup}>
+              <label htmlFor={`${fieldId}-name`} className={css.label}>
+                Ім&#39;я*
+              </label>
+              <Field
+                id={`${fieldId}-name`}
+                type="text"
+                name="name"
+                placeholder="Ваше ім&#39;я"
+                className={`${css.input} ${touched.name && errors.name ? css.error : ""}`}
+              />
+              <ErrorMessage
+                name="name"
+                component="span"
+                className={css.error}
+              />
+            </div>
+
+            <div className={css.fieldGroup}>
+              <label htmlFor={`${fieldId}-email`} className={css.label}>
+                Пошта*
+              </label>
+              <Field
+                id={`${fieldId}-email`}
+                type="email"
+                name="email"
+                placeholder="hello@leleka.com"
+                className={`${css.input} ${touched.email && errors.email ? css.error : ""}`}
+              />
+              <ErrorMessage
+                name="email"
+                component="span"
+                className={css.error}
+              />
+            </div>
+            <div className={css.fieldGroup}>
+              <label htmlFor={`${fieldId}-password`} className={css.label}>
+                Пароль*
+              </label>
+              <Field
+                id={`${fieldId}-password`}
+                type="password"
+                name="password"
+                placeholder="********"
+                className={`${css.input} ${touched.password && errors.password ? css.error : ""}`}
+              />
+
+              <ErrorMessage
+                name="password"
+                component="span"
+                className={css.error}
+              />
+            </div>
+            <button className={css.button} type="submit">
+              Зареєструватись
+            </button>
+            <p className={css.paragraph}>
+              Вже маєте аккаунт?{" "}
+              <Link className={css.link} href={"/auth/login"}>
+                Увійти
+              </Link>
+            </p>
+          </Form>
+        )}
       </Formik>
-      <p>
-        Вже маєте аккаунт?<Link href={"/auth/login"}>Увійти</Link>
-      </p>
     </div>
   );
 };
