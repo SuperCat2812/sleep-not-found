@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 24px;
   align-items: center;
-  justify-content: flex-start;
+  margin: 0 auto;
 
   @media only screen and (min-width: 1440px) {
     flex-direction: row;
@@ -37,6 +37,7 @@
 .tag {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 .momTag {
   font-family: var(--font-lato);
@@ -48,6 +49,8 @@
   border-radius: 100px;
   padding: 4px 10px;
   background: rgba(0, 0, 0, 0.05);
+  text-align: center;
+  align-content: center;
 
   @media only screen and (min-width: 1440px) {
     font-size: 14px;
@@ -96,6 +99,7 @@
 .tipsIcon {
   width: 24px;
   height: 24px;
+  flex-shrink: 0;
 }
 .tipsText {
   font-family: var(--font-lato);

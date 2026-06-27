@@ -1,17 +1,16 @@
 import JourneyDetails from "@/components/JourneyDetails/JourneyDetails";
 import WeekSelector from "@/components/WeekSelector/WeekSelector";
-import css from "./Journey.module.css";
 import { getWeekServer } from "@/lib/journey-api-server";
-import { Toaster } from "react-hot-toast";
-
+import GreetingBlock from "@/components/GreetingBlock/GreetingBlock";
 const Journey = async () => {
   const week = await getWeekServer();
+
   return (
-    <div className={css.container}>
-      <Toaster position="top-center" reverseOrder={false} />
+    <>
+      <GreetingBlock name="" />
       <WeekSelector currentWeek={week.curWeekToPregnant} />
       {week && <JourneyDetails />}
-    </div>
+    </>
   );
 };
 

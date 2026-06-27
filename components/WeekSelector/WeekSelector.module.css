@@ -23,14 +23,37 @@
 }
 
 .carousel {
+  margin-top: 24px;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 97px;
   gap: 1rem;
-  scroll-snap-type: x mandatory;
   margin-bottom: 32px;
+
+  margin-left: -40px;
+  margin-right: -40px;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  @media only screen and (max-width: 1023px) {
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  @media only screen and (max-width: 767px) {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
+.wrapper {
+  overflow: visible;
+  margin-right: -100px;
+}
 .slide {
   display: flex;
   flex-direction: column;

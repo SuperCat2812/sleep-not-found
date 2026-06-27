@@ -4,6 +4,7 @@ import css from "./MomJourney.module.css";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "@/components/Loader/Loader";
 import Icon from "@/components/Icon/Icon";
+import TasksReminderCard from "@/components/TasksReminderCard/TasksReminderCard";
 
 const MomJourney = ({ week }: { week: number }) => {
   const { data, isLoading } = useQuery({
@@ -57,7 +58,6 @@ const MomJourney = ({ week }: { week: number }) => {
           </ul>
         </div>
       </div>
-      <div className={css.placeholder}></div>
     </div>
   );
 };
