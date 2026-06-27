@@ -1,13 +1,17 @@
 .authLayout {
-    position: relative;
-    min-height: 100vh;
+  position: relative;
+  /* min-height: 100dvh; */
 }
 
 .logoIcon {
   width: 105px;
   height: 45px;
-  margin: 13.5px 64px;
 }
 .logo {
+  margin: 13.5px 0 0 20px;
+
+  @media screen and (min-width: 1440px) {
     position: absolute;
+    margin: 13.5px 0 0 64px;
+  }
 }

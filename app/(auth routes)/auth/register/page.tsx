@@ -2,8 +2,17 @@ import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
 import Image from "next/image";
 
 import css from "./register.module.css";
+import { Metadata } from "next";
 
-//metadata
+export const metadata: Metadata = {
+  title: "Реєстрація",
+  description: "Реєстрація аккаунта",
+  openGraph: {
+    title: "Реєстрація",
+    description: "Реєстрація аккаунта",
+    url: "/auth/register",
+  },
+};
 const register = () => {
   return (
     <div className={css.wrapper}>
