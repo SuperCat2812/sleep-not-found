@@ -1,8 +1,7 @@
-"use client";
-import { useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import css from "./WeekSelector.module.css";
-import { BlossomCarousel } from "@blossom-carousel/react";
+'use client';
+import { useParams, useRouter } from 'next/navigation';
+import css from './WeekSelector.module.css';
+import { BlossomCarousel } from '@blossom-carousel/react';
 
 interface WeekSelectorProps {
   currentWeek: number;
@@ -12,12 +11,6 @@ function WeekSelector({ currentWeek }: WeekSelectorProps) {
   const router = useRouter();
   const params = useParams();
   const activeWeek = Number(params.weekNumber);
-
-  useEffect(() => {
-    if (activeWeek > currentWeek) {
-      router.push(`/journey/${currentWeek}`);
-    }
-  }, [activeWeek, currentWeek, router]);
 
   return (
     <div className={css.wrapper}>
