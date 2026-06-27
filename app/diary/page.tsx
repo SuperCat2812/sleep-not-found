@@ -4,10 +4,10 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Щоденник",
-  description: "Странка Щоденника",
+  description: "Сторінка Щоденника",
   openGraph: {
     title: "Щоденник",
-    description: "Странка Щоденника",
+    description: "Сторінка Щоденника",
     url: `${process.env.NEXT_PUBLIC_API_URL}/diary`,
     images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
   },

@@ -7,8 +7,9 @@ export const metadata: Metadata = {
   description: "Вхід в аккаунт користувача",
   openGraph: {
     title: "Вхід",
-    description: "Вхід в акаунт користувача",
-    url: "/auth/login",
+    description: "Вхід в аккаунт користувача",
+    url: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+    images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
   },
 };
 const login = () => {

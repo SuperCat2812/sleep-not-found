@@ -4,13 +4,15 @@ import Image from "next/image";
 import css from "./register.module.css";
 import { Metadata } from "next";
 
+
 export const metadata: Metadata = {
   title: "Реєстрація",
-  description: "Реєстрація аккаунта",
+  description: "Реєстрація нового користувача",
   openGraph: {
     title: "Реєстрація",
-    description: "Реєстрація аккаунта",
-    url: "/auth/register",
+    description: "Реєстрація нового користувача",
+    url: `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+    images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
   },
 };
 const register = () => {
