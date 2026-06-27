@@ -9,7 +9,7 @@ const DashboardPage = () => {
   // Ця частина коду взята з конспекту — дані мають приходити з бекенду
   return (
     <div className={styles.page}>
-      <GreetingBlock name="Ганна" />
+      <GreetingBlock />
       <div className={styles.content}>
         <div className={styles.leftColumn}>
           <StatusBlock week={14} daysLeft={165} />

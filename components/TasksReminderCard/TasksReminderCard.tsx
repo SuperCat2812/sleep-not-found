@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuthStore } from "@/lib/store/authStore";
 import styles from "./TasksReminderCard.module.css";
 
 type Task = {
@@ -11,17 +12,17 @@ type Task = {
 
 type TasksReminderCardProps = {
   tasks: Task[];
-  isAuthorized: boolean;
   onToggle: (id: string) => void;
   onAddClick: () => void;
 };
 
 const TasksReminderCard = ({
   tasks,
-  isAuthorized,
   onToggle,
   onAddClick,
 }: TasksReminderCardProps) => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <div className={styles.card}>
       <div className={styles.header}>
