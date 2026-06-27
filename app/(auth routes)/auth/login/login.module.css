@@ -1,10 +1,19 @@
 .wrapper {
   display: flex;
-  height: 100vh;
-  justify-content: space-between;
+  min-height: 100dvh;
+  overflow: hidden;
 }
+/*
+коли ми приберемо з layout все в окремий layout для
+приватних шляхів і заберуться стилі то ось тоді wrapper 
+спрацює і не буде скрола
+*/
 .image {
-  width: 50%;
-  height: 100vh;
-  object-fit: cover;
+  display: none;
+  @media screen and (min-width: 1440px) {
+    display: block;
+    height: 100dvh;
+    width: 50vw;
+    object-fit: cover;
+  }
 }
