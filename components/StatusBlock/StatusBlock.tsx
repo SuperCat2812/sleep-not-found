@@ -1,4 +1,4 @@
-import styles from "./StatusBlock.module.css";
+import styles from './StatusBlock.module.css';
 
 type StatusBlockProps = {
   week: number;
