@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   description: "Персональний помічник для майбутніх мам",
 };
 
+
 const Layout = ({ children }: LayoutProps) => {
   return (
     <html lang="uk">

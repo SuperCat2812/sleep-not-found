@@ -1,17 +1,11 @@
 import LoginForm from "@/components/LoginForm/LoginForm";
 import Image from "next/image";
 import css from "./login.module.css";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Вхід",
-  description: "Вхід в аккаунт користувача",
-  openGraph: {
-    title: "Вхід",
-    description: "Вхід в аккаунт користувача",
-    url: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-    images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
-  },
-};
+// import { Metadata } from "next";
+
+//metadata
+//я додам сюди коли визначимся з варіантом
+
 const login = () => {
   return (
     <div className={css.wrapper}>
