@@ -19,7 +19,7 @@ export const generateMetadata = async ({
     return { title: 'Сторінку не знайдено' };
   }
   const data = await getWeekBabyByNumberServer(week);
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  
   const description = data
     ? `Детальне відстеження росту малюка. ${data.analogy}. ${data.description}`
     : `Детальне відстеження росту малюка на ${week} тижні`;
@@ -31,12 +31,12 @@ export const generateMetadata = async ({
     openGraph: {
       title: `${week} Тиждень | Лелека`,
       description,
-      url: `${baseUrl}/journey/${week}`,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/journey/${week}`,
       images: [
         {
           url: data?.image
-            ? `${baseUrl}/week/baby?${data.image}`
-            : `$${baseUrl}/leleka.png }`,
+            ? `${process.env.NEXT_PUBLIC_API_URL}/week/baby?${data.image}`
+            : `${process.env.NEXT_PUBLIC_API_URL}/leleka.png }`,
           width: 1200,
           height: 630,
           alt: `Week ${week} baby`,
@@ -45,6 +45,7 @@ export const generateMetadata = async ({
     },
   };
 };
+
 const Journey = async ({
   params,
 }: {
