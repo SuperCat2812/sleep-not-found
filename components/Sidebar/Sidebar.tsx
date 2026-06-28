@@ -4,12 +4,16 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import css from './Sidebar.module.css';
 import Icon from '../Icon/Icon';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useAuthStore } from '@/lib/store/authStore';
 import { getMe } from '@/lib/api/clientApi';
+import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 
 const Sidebar = () => {
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
+
+  const setOpen = useConfirmationModal().open;
 
   useEffect(() => {
     if (user) return;
@@ -77,9 +81,23 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <button className={css.logout} type="button" onClick={handleLogout}>
+          <button
+            className={css.logout}
+            type="button"
+            onClick={() => {
+              setOpen();
+            }}
+          >
             <Icon id="icon-logaut" className={css.logoutIcon} />
           </button>
+
+          <ConfirmationModal
+            title="Ви точно хочете вийти?"
+            cancelButtonText="Ні"
+            confirmButtonText="Так"
+            onCancel={() => {}}
+            onConfirm={handleLogout}
+          />
         </div>
       ) : (
         <div className={css.authBar}>
