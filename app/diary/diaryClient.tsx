@@ -1,4 +1,5 @@
 'use client';
+
 import DiaryList from '@/components/DiaryList/DiaryList';
 import css from './DiaryPage.module.css';
 import { useState } from 'react';
@@ -8,6 +9,13 @@ import Icon from '@/components/Icon/Icon';
 import { api } from '@/lib/api/api';
 import CustomScroll from '@/components/CustomScroll/CustomScroll';
 import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
+import { api } from '@/lib/api/api';
+import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
+import CustomScroll from '@/components/CustomScroll/CustomScroll';
+import Icon from '@/components/Icon/Icon';
+import Link from 'next/link';
+import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
+import { deleteDiary } from '@/lib/diary-api-client';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;
@@ -28,6 +36,12 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
       const { data } = await api.get<DiaryResponse>('/diary', {
         params: { page: nextPage, limit: 10 },
       });
+        params: {
+          page: nextPage,
+          limit: 10,
+        },
+      });
+
       setData(prev => [...prev, ...data.diaryNotes]);
       setPage(nextPage);
     } catch {
@@ -68,11 +82,25 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
               <span className={css.newTask}>Новий запис</span>
               <Icon id="icon-plus" className={css.iconPlus} />
             </button>
+    <>
+      <div className={css.Greeting}>{/* <GreetingBlock /> */}</div>
+      <section className={css.SectionDiary}>
+        <div className={css.DiaryContainer}>
+          <div className={css.DiaryContainer}>
+            <div className={css.Title}>
+              <h2>Ваші записи</h2>
+              <div className={css.createContainer}>
+                <Link href="#">
+                  <span className={css.newTask}>Новий запис</span>
+
+                  <Icon id="icon-plus" className={css.iconPlus} />
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className={css.diaryContainer}>
           <CustomScroll>
             <div className={css.diaryListScroll} onScroll={handleScroll}>
+            <div className={css.DiaryListScroll} onScroll={handleScroll}>
               <DiaryList diarys={data} setId={setId} />
             </div>
           </CustomScroll>
@@ -88,6 +116,23 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
         />
       )}
     </section>
+        <div className={css.DiaryContainerDetails}>
+          {selectedDiary && <DiaryEntryDetails diary={selectedDiary} />}
+        </div>
+        <ConfirmationModal
+          id="delete"
+          title="Видалити?"
+          confirmButtonText="так"
+          cancelButtonText="ні"
+          onConfirm={async id => {
+            if (!id) return;
+            await deleteDiary(id);
+            setData(prev => prev.filter(item => item._id !== id));
+          }}
+          onCancel={() => {}}
+        />
+      </section>
+    </>
   );
 };
 

@@ -1,3 +1,7 @@
+.listDiary {
+  max-height: 61vh;
+}
+
 .diaryItem {
   border: 1px solid #ffdae0;
   border-radius: 16px;
@@ -6,28 +10,28 @@
   margin-top: 16px;
   font-family: var(--font-lato);
 }
-.diaryItemContent {
+.DiaryItemContent {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   line-height: 1.6;
 }
 
-.diaryTitle {
+.DiaryTitle {
   font-weight: 600;
   font-size: 16px;
   @media (min-width: 1440px) {
     font-size: 18px;
   }
 }
-.diaryData {
+.DiaryData {
   font-weight: 400;
   font-size: 12px;
   @media (min-width: 1440px) {
     font-size: 16px;
   }
 }
-.diaryItemEmotionContent {
+.DiaryItemEmotionContent {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -35,7 +39,7 @@
   gap: 8px;
 }
 
-.diaryEmotionTitle {
+.DiaryEmotionTitle {
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 100px;
   padding-block: 2px;
@@ -46,4 +50,10 @@
   line-height: 1.5;
   text-align: left;
   margin-top: 10px;
+}
+
+.EmotionList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
