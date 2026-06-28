@@ -1,17 +1,11 @@
-"use client";
+'use client';
 
-import { Formik, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import toast from "react-hot-toast";
-import styles from "./AddDiaryEntryModal.module.css";
-import Icon from "@/components/Icon/Icon";
-
-const backendApi = axios.create({
-  baseURL: "https://lehlehka.b.goit.study",
-  withCredentials: true,
-});
+import { Formik, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import styles from './AddDiaryEntryModal.module.css';
+import Icon from '@/components/Icon/Icon';
 
 interface Emotion {
   _id: string;
@@ -30,9 +24,9 @@ interface AddDiaryEntryFormProps {
 }
 
 const validationSchema = Yup.object({
-  title: Yup.string().required("Введіть заголовок"),
-  emotions: Yup.array().min(1, "Оберіть хоча б одну емоцію"),
-  description: Yup.string().required("Введіть текст запису"),
+  title: Yup.string().required('Введіть заголовок'),
+  emotions: Yup.array().min(1, 'Оберіть хоча б одну емоцію'),
+  description: Yup.string().required('Введіть текст запису'),
 });
 
 export default function AddDiaryEntryForm({
@@ -46,12 +40,11 @@ export default function AddDiaryEntryForm({
   useEffect(() => {
     const fetchEmotions = async () => {
       try {
-        const { data } = await backendApi.get("/emotions", {
-          params: { limit: 100 },
-        });
+        const res = await fetch('/api/emotions');
+        const data = await res.json();
         setEmotionsList(data.emotions);
       } catch {
-        toast.error("Не вдалось завантажити емоції");
+        toast.error('Не вдалось завантажити емоції');
       }
     };
     fetchEmotions();
@@ -60,22 +53,31 @@ export default function AddDiaryEntryForm({
   return (
     <Formik
       initialValues={{
-        title: entryToEdit?.title ?? "",
+        title: entryToEdit?.title ?? '',
         emotions: entryToEdit?.emotions ?? [],
-        description: entryToEdit?.description ?? "",
+        description: entryToEdit?.description ?? '',
       }}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
           if (entryToEdit) {
-            await backendApi.patch(`/diary/${entryToEdit._id}`, values);
+            await fetch(`/api/diary/${entryToEdit._id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(values),
+            });
           } else {
-            await backendApi.post("/diary", values);
+            const res = await fetch('/api/diary', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(values),
+            });
+            if (!res.ok) throw new Error();
           }
           onClose();
           onSuccess?.();
         } catch {
-          toast.error("Помилка збереження запису");
+          toast.error('Помилка збереження запису');
         } finally {
           setSubmitting(false);
         }
@@ -106,8 +108,8 @@ export default function AddDiaryEntryForm({
                 <div className={styles.tags}>
                   {values.emotions.length > 0 ? (
                     emotionsList
-                      .filter((e) => values.emotions.includes(e._id))
-                      .map((e) => (
+                      .filter(e => values.emotions.includes(e._id))
+                      .map(e => (
                         <span key={e._id} className={styles.tag}>
                           {e.title}
                         </span>
@@ -118,21 +120,21 @@ export default function AddDiaryEntryForm({
                 </div>
                 <Icon
                   id="icon-bottom"
-                  className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpen : ""}`}
+                  className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpen : ''}`}
                 />
               </div>
               {isDropdownOpen && (
                 <div className={styles.dropdownList}>
-                  {emotionsList.map((emotion) => (
+                  {emotionsList.map(emotion => (
                     <label key={emotion._id} className={styles.dropdownItem}>
                       <input
                         type="checkbox"
                         checked={values.emotions.includes(emotion._id)}
                         onChange={() => {
                           const updated = values.emotions.includes(emotion._id)
-                            ? values.emotions.filter((id) => id !== emotion._id)
+                            ? values.emotions.filter(id => id !== emotion._id)
                             : [...values.emotions, emotion._id];
-                          setFieldValue("emotions", updated);
+                          setFieldValue('emotions', updated);
                         }}
                       />
                       {emotion.title}

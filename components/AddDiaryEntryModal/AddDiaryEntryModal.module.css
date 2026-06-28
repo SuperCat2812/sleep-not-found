@@ -35,18 +35,20 @@
 
 .title {
   font-weight: 700;
-  font-size: 36px;
+  font-size: 48px;
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
   color: var(--color-scheme-text);
   margin-bottom: 32px;
+  font-family: 'Comfortaa', sans-serif;
 }
 
 .label {
+  font-family: 'Lato', sans-serif;
   display: block;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   color: var(--color-scheme-text);
   margin-bottom: 8px;
@@ -57,7 +59,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 12px 16px;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
   margin-bottom: 16px;
   background: #f3f3f3;
@@ -65,6 +67,7 @@
   transition: border 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
   font-weight: 400;
   line-height: 1.5;
+  font-family: 'Lato', sans-serif;
 }
 
 .input:focus {
@@ -82,7 +85,7 @@
   border: none;
   border-radius: 8px;
   padding: 10px 14px;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -104,7 +107,7 @@
   border: 1px solid #ddd;
   border-radius: 20px;
   padding: 2px 10px;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .dropdownList {
@@ -141,7 +144,7 @@
   align-items: center;
   gap: 10px;
   padding: 10px 14px;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: background 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
@@ -150,7 +153,7 @@
   background: #fdf0f5;
 }
 
-.dropdownItem input[type="checkbox"] {
+.dropdownItem input[type='checkbox'] {
   accent-color: #f9a8c9;
   width: 16px;
   height: 16px;
@@ -162,7 +165,7 @@
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 12px 16px;
-  font-size: 14px;
+  font-size: 16px;
   resize: none;
   height: 200px;
   outline: none;
@@ -170,6 +173,7 @@
   background: #f3f3f3;
   color: #1a1a1a;
   transition: border 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  font-family: 'Lato', sans-serif;
 }
 
 .textarea:focus {
@@ -177,6 +181,7 @@
 }
 
 .submitBtn {
+  font-family: 'Lato', sans-serif;
   border: none;
   border-bottom: 4px solid #ffcbd3;
   outline: none;
@@ -187,7 +192,6 @@
   padding-inline: 24px;
   width: 268px;
   height: 46px;
-
   color: #000;
   background: #ffdae0;
   transition: background 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
@@ -216,19 +220,22 @@
   transform: rotate(180deg);
 }
 
-/* Tablet 768px */
 @media (max-width: 768px) {
   .modal {
-    width: 100%;
-    max-width: 704px;
+    width: 550px;
+
     height: auto;
-    padding: 40px 32px;
+    padding: 32px;
     border-radius: 24px;
   }
 
   .title {
-    font-size: 28px;
-    margin-bottom: 24px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: #000;
   }
 
   .textarea {
@@ -241,19 +248,22 @@
   }
 }
 
-/* Mobile 375px */
-@media (max-width: 480px) {
+@media (max-width: 375px) {
   .modal {
-    width: 100%;
-    max-width: 375px;
-    height: auto;
-    padding: 32px 16px;
+    width: 335px;
+    height: 550px;
+    padding: 20px;
     border-radius: 16px;
   }
 
   .title {
-    font-size: 24px;
+    font-size: 36px;
     margin-bottom: 16px;
+  }
+
+  .closeBtn {
+    top: 16px;
+    right: 16px;
   }
 
   .input {
