@@ -1,18 +1,36 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import css from './Sidebar.module.css';
 import Icon from '../Icon/Icon';
 import { useAuthStore } from '@/lib/store/authStore';
+import { getMe } from '@/lib/api/clientApi';
 
 const Sidebar = () => {
-  const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, setUser, clearIsAuthenticated } =
+    useAuthStore();
+
+  useEffect(() => {
+    if (user) return;
+
+    const fetchUser = async () => {
+      try {
+        const currentUser = await getMe();
+        setUser(currentUser);
+      } catch {
+        clearIsAuthenticated();
+      }
+    };
+
+    fetchUser();
+  }, [user, setUser, clearIsAuthenticated]);
 
   const handleLogout = () => {
     clearIsAuthenticated();
   };
 
-  const navHref = isAuthenticated ? '' : '/auth/login';
+  const navHref = '/auth/login';
 
   return (
     <aside className={css.sidebar}>
