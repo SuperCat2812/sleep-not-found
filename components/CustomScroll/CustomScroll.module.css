@@ -1,0 +1,46 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  border-radius: 24px;
+  background: #fff7f9;
+  overflow: hidden;
+}
+
+.content {
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px 40px 24px 24px;
+
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar {
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  border-radius: 4px;
+  width: 6px;
+
+  height: calc(100% - 5px);
+  background: #bdbdbd;
+  border-radius: 999px;
+}
+
+.thumb {
+  position: absolute;
+  left: -1.7px;
+  border-radius: 4px;
+  width: 10px;
+  background: #ffcbd3;
+  cursor: grab;
+  touch-action: none;
+}
+
+.thumb:active {
+  cursor: grabbing;
+}
