@@ -19,3 +19,7 @@ export async function createTask(body: {
   const { data } = await api.post<Task>('/tasks', body);
   return data;
 }
+
+export async function updateTaskStatus(taskId: string, isDone: boolean): Promise<void> {
+  await api.patch(`/tasks/status/${taskId}`, { isDone });
+}

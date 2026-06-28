@@ -7,7 +7,7 @@ import { useAuthStore } from '@/lib/store/authStore';
 import TasksReminderCard from '@/components/TasksReminderCard/TasksReminderCard';
 import FeelingCheckCard from '@/components/FeelingCheckCard/FeelingCheckCard';
 import AddTaskModal from '@/components/AddTaskModal/AddTaskModal';
-import { getTasks, updateTaskStatus } from '@/lib/api/tasksApi';
+import { fetchTasks, updateTaskStatus, Task } from '@/lib/api/tasks';
 
 const DashboardClient = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +17,7 @@ const DashboardClient = () => {
 
   const { data: tasksData } = useQuery({
     queryKey: ['tasks'],
-    queryFn: () => getTasks(),
+    queryFn: () => fetchTasks(),
     enabled: isAuthenticated,
   });
 
@@ -45,7 +45,7 @@ const DashboardClient = () => {
     // TODO: відкрити AddDiaryEntryModal коли буде готовий
   };
 
-  const tasks = (tasksData?.tasks ?? []).map(task => ({
+  const tasks = (tasksData ?? []).map((task: Task) => ({
     id: task._id,
     date: task.date,
     title: task.name,
@@ -57,7 +57,7 @@ const DashboardClient = () => {
       <TasksReminderCard
         tasks={tasks}
         onToggle={id => {
-          const task = (tasksData?.tasks ?? []).find(t => t._id === id);
+          const task = (tasksData ?? []).find((t: Task) => t._id === id);
           if (task) toggleTask({ taskId: id, isDone: !task.isDone });
         }}
         onAddClick={handleAddTask}
