@@ -1,10 +1,10 @@
-import { api } from '@/app/api/api';
+import { api } from '@/lib/api/api';
 import { DiaryNote } from '@/types/diary-types';
 import { AxiosError } from 'axios';
 
-export const deleteDiary = async (id: string) => {
+export const deleteDiary = async (noteID: string) => {
   try {
-    const { data } = await api.delete<DiaryNote['_id']>(`/diary/${id}`);
+    const { data } = await api.delete<DiaryNote>(`/diary/${noteID}`);
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
