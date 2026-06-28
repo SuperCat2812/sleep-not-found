@@ -11,6 +11,7 @@ import CustomScroll from '@/components/CustomScroll/CustomScroll';
 import Icon from '@/components/Icon/Icon';
 import Link from 'next/link';
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
+import { deleteDiary } from '@/lib/diary-api-client';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;
@@ -84,7 +85,11 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
           title="Видалити?"
           confirmButtonText="так"
           cancelButtonText="ні"
-          onConfirm={() => {}}
+          onConfirm={async id => {
+            if (!id) return;
+            await deleteDiary(id);
+            setData(prev => prev.filter(item => item._id !== id));
+          }}
           onCancel={() => {}}
         />
       </section>

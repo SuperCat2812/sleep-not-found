@@ -30,7 +30,7 @@ const DiaryEntryDetails = ({ diary }: DiaryEntryDetailsProps) => {
           <button
             className={css.deleteBtn}
             onClick={() => {
-              setOpen('delete');
+              setOpen('delete',diary._id);
             }}
           >
             <Icon id="icon-delete" className={css.iconDetail} />

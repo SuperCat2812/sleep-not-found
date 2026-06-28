@@ -10,7 +10,7 @@ interface ConfirmationModalProps {
   title: string;
   confirmButtonText: string;
   cancelButtonText: string;
-  onConfirm: () => void;
+  onConfirm: (idDiary?: string) => void | Promise<void>;
   onCancel: () => void;
 }
 
@@ -22,7 +22,7 @@ const ConfirmationModal = ({
   onConfirm,
   onCancel,
 }: ConfirmationModalProps) => {
-  const { isOpen, modalId, close } = useConfirmationModal();
+  const { isOpen, modalId, close, idDiary } = useConfirmationModal();
 
   const shouldRender = isOpen && modalId === id;
 
@@ -67,8 +67,8 @@ const ConfirmationModal = ({
           <button
             className={css.confirmBtn}
             type="button"
-            onClick={() => {
-              onConfirm();
+            onClick={async () => {
+              await onConfirm(idDiary);
               close();
             }}
           >
