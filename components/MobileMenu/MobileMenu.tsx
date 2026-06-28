@@ -1,18 +1,29 @@
-import Link from "next/link";
-import Icon from "../Icon/Icon";
-import css from "./MobileMenu.module.css";
+'use client';
+
+import Link from 'next/link';
+import Icon from '../Icon/Icon';
+import css from './MobileMenu.module.css';
+import { useAuthStore } from '@/lib/store/authStore';
 
 interface MobileMenuProps {
   onClose: () => void;
 }
 
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
+  const { user, isAuthenticated } = useAuthStore();
+
+  const navHref = '/auth/login';
+
   return (
     <div className={css.backdrop} onClick={onClose}>
-      <aside className={css.menu} onClick={(event) => event.stopPropagation()}>
+      <aside className={css.menu} onClick={event => event.stopPropagation()}>
         <div className={css.top}>
-          <Link href="/" className={css.logo} onClick={onClose}>
-            <Icon id="icon-leleka" className={css.logoIcon} />
+          <Link
+            href={isAuthenticated ? '/' : navHref}
+            className={css.logo}
+            onClick={onClose}
+          >
+            <Icon id="icon-Logo-leleka" className={css.logoIcon} />
             <span>Лелека</span>
           </Link>
 
@@ -27,41 +38,77 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
         </div>
 
         <nav className={css.nav}>
-          <Link href="/" className={css.link} onClick={onClose}>
+          <Link
+            href={isAuthenticated ? '/' : navHref}
+            className={css.link}
+            onClick={onClose}
+          >
             <Icon id="icon-calendar" className={css.icon} />
             <span>Мій день</span>
           </Link>
 
-          <Link href="/journey/1" className={css.link} onClick={onClose}>
+          <Link
+            href={isAuthenticated ? '/journey' : navHref}
+            className={css.link}
+            onClick={onClose}
+          >
             <Icon id="icon-travel" className={css.icon} />
             <span>Подорож</span>
           </Link>
 
-          <Link href="/diary" className={css.link} onClick={onClose}>
+          <Link
+            href={isAuthenticated ? '/diary' : navHref}
+            className={css.link}
+            onClick={onClose}
+          >
             <Icon id="icon-book" className={css.icon} />
             <span>Щоденник</span>
           </Link>
 
-          <Link href="/profile" className={css.link} onClick={onClose}>
+          <Link
+            href={isAuthenticated ? '/profile' : navHref}
+            className={css.link}
+            onClick={onClose}
+          >
             <Icon id="icon-profile" className={css.icon} />
             <span>Профіль</span>
           </Link>
         </nav>
 
-        <div className={css.userBar}>
-          <div className={css.userInfo}>
-            <div className={css.avatar}></div>
+        {isAuthenticated && user ? (
+          <div className={css.userBar}>
+            <div className={css.userInfo}>
+              <div className={css.avatar}></div>
 
-            <div>
-              <p className={css.name}>Ганна</p>
-              <p className={css.email}>hanna@gmail.com</p>
+              <div>
+                <p className={css.name}>{user.name}</p>
+                <p className={css.email}>{user.email}</p>
+              </div>
             </div>
-          </div>
 
-          <button className={css.logout} type="button">
-            <Icon id="icon-logaut" className={css.logoutIcon} />
-          </button>
-        </div>
+            <button className={css.logout} type="button">
+              <Icon id="icon-logaut" className={css.logoutIcon} />
+            </button>
+          </div>
+        ) : (
+          <div className={css.authBar}>
+            <Link
+              href="/auth/register"
+              className={css.registerButton}
+              onClick={onClose}
+            >
+              Зареєструватися
+            </Link>
+
+            <Link
+              href="/auth/login"
+              className={css.loginButton}
+              onClick={onClose}
+            >
+              Увійти
+            </Link>
+          </div>
+        )}
       </aside>
     </div>
   );
