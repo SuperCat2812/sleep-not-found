@@ -21,12 +21,12 @@
 
 .scrollbar {
   position: absolute;
-  top: 20px;
+  top: 2px;
   right: 12px;
   border-radius: 4px;
   width: 6px;
 
-  height: calc(100% - 23px);
+  height: calc(100% - 5px);
   background: #bdbdbd;
   border-radius: 999px;
 }
