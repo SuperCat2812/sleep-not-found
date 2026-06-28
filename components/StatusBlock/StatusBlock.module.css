@@ -23,7 +23,7 @@
 .card {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 4px;
     border-radius: 32px;
     padding: 16px;
     flex: 1;

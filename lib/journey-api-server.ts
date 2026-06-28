@@ -41,15 +41,3 @@ export const getWeekBabyByNumberServer = async (
   }
 };
 
-export const getWeekPublicServer = async (): Promise<WeeksData> => {
-  try {
-    const { data } = await api.get<WeeksData>("/weeks/greeting/public");
-    return data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log("GET PUBLIC WEEK ERROR STATUS:", error.response?.status);
-      console.log("GET PUBLIC WEEK ERROR DATA:", error.response?.data);
-    }
-    throw error;
-  }
-};
