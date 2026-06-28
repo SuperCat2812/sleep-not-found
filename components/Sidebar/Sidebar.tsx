@@ -50,13 +50,14 @@ const Sidebar = () => {
           className={css.logout}
           type="button"
           onClick={() => {
-            setOpen();
+            setOpen('logout');
           }}
         >
           <Icon id="icon-logaut" className={css.logoutIcon} />
         </button>
 
         <ConfirmationModal
+          id="logout"
           title="Ви точно хочете вийти?"
           cancelButtonText="Ні"
           confirmButtonText="Так"

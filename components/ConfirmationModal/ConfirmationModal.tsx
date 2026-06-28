@@ -2,41 +2,44 @@
 import { createPortal } from 'react-dom';
 import Icon from '../Icon/Icon';
 import css from './ConfirmationModal.module.css';
-import { useConfirmationModal } from '@/lib/store/confirmModalStore';
+import { ModalType, useConfirmationModal } from '@/lib/store/confirmModalStore';
 import { useEffect } from 'react';
 
 interface ConfirmationModalProps {
+  id: ModalType;
   title: string;
   confirmButtonText: string;
   cancelButtonText: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
-function ConfirmationModal({
+
+const ConfirmationModal = ({
+  id,
   title,
   confirmButtonText,
   cancelButtonText,
   onConfirm,
   onCancel,
-}: ConfirmationModalProps) {
-  const { isOpen, close } = useConfirmationModal();
-  useEffect(() => {
-    if (!isOpen) return;
+}: ConfirmationModalProps) => {
+  const { isOpen, modalId, close } = useConfirmationModal();
 
+  const shouldRender = isOpen && modalId === id;
+
+  useEffect(() => {
+    if (!shouldRender) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         close();
         (document.activeElement as HTMLElement)?.blur();
       }
     };
-
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, close]);
+  }, [shouldRender, close]);
 
-  if (!isOpen) {
-    return null;
-  }
+  if (!shouldRender) return null;
+
   return createPortal(
     <div
       className={css.backdrop}
@@ -46,11 +49,7 @@ function ConfirmationModal({
       }}
     >
       <div className={css.modal}>
-        <button
-          className={css.closeButton}
-          type="button"
-          onClick={() => close()}
-        >
+        <button className={css.closeButton} type="button" onClick={close}>
           <Icon id="icon-close" className={css.closeSvg} />
         </button>
         <h2 className={css.title}>{title}</h2>
@@ -80,6 +79,6 @@ function ConfirmationModal({
     </div>,
     document.body
   );
-}
+};
 
 export default ConfirmationModal;
