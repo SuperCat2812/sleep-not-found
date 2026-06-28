@@ -1,4 +1,4 @@
-.sectionDiary {
+.SectionDiary {
   display: flex;
   gap: 32px 20px;
   padding-block: 32px;
@@ -8,8 +8,8 @@
   }
 }
 
-.diaryContainer,
-.diaryContainerDetails {
+.DiaryContainer,
+.DiaryContainerDetails {
   border-radius: 32px;
   padding-block: 24px;
   padding-inline: 16px;
@@ -18,13 +18,13 @@
   background: #fff4f6;
 }
 
-.title {
+.Title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
 }
-.title > h2 {
+.Title > h2 {
   font-family: var(--font-comfortaa);
   font-weight: 700;
   font-size: 18px;
@@ -56,7 +56,7 @@
   }
 }
 
-.diaryContainerDetails {
+.DiaryContainerDetails {
   display: none;
   @media (min-width: 1440px) {
     display: block;
@@ -69,6 +69,6 @@
   height: 24px;
 }
 
-.greeting {
+.Greeting {
   margin-top: 16px;
 }

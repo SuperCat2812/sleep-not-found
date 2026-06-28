@@ -1,4 +1,4 @@
-.containerDetail {
+.ContainerDetail {
   background: #fff4f6;
   display: flex;
   justify-content: flex-start;
@@ -16,7 +16,7 @@
     margin-top: 0;
   }
 }
-.diaryContainer {
+.DiaryContainer {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -29,8 +29,8 @@
   }
 }
 
-.diaryTitle,
-.diaryData {
+.DiaryTitle,
+.DiaryData {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -38,7 +38,7 @@
   gap: 8px;
 }
 
-.diaryTitle {
+.DiaryTitle {
   font-family: var(--font-comfortaa);
   font-weight: 700;
   font-size: 18px;
@@ -51,7 +51,7 @@
   }
 }
 
-.diaryData {
+.DiaryData {
   font-weight: 400;
   font-size: 12px;
   line-height: 1.6;
@@ -63,7 +63,7 @@
   }
 }
 
-.diaryDescriptionContainer {
+.DiaryDescriptionContainer {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -78,7 +78,7 @@
   }
 }
 
-.diaryEmotion {
+.DiaryEmotion {
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 100px;
   padding-block: 4px;
@@ -94,11 +94,11 @@
   }
 }
 
-.iconDetail {
+.IconDetail {
   width: 24px;
   height: 24px;
 }
 
-.deleteBtn {
+.DeleteBtn {
   border: none;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import DiaryList from '@/components/DiaryList/DiaryList';
-import css from './DiaryPage.module.css';
+import css from './diaryPage.module.css';
 import { useState } from 'react';
 import { DiaryNote, DiaryResponse } from '@/types/diary-types';
 import DiaryEntryDetails from '@/components/DiaryEntryDetails/DiaryEntryDetails';
@@ -56,11 +56,11 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
   };
   return (
     <>
-      <div className={css.greeting}>{/* <GreetingBlock /> */}</div>
-      <section className={css.sectionDiary}>
-        <div className={css.diaryContainer}>
-          <div className={css.diaryContainer}>
-            <div className={css.title}>
+      <div className={css.Greeting}>{/* <GreetingBlock /> */}</div>
+      <section className={css.SectionDiary}>
+        <div className={css.DiaryContainer}>
+          <div className={css.DiaryContainer}>
+            <div className={css.Title}>
               <h2>Ваші записи</h2>
               <div className={css.createContainer}>
                 <Link href="#">
@@ -77,7 +77,7 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             </div>
           </CustomScroll>
         </div>
-        <div className={css.diaryContainerDetails}>
+        <div className={css.DiaryContainerDetails}>
           {selectedDiary && <DiaryEntryDetails diary={selectedDiary} />}
         </div>
         <ConfirmationModal
