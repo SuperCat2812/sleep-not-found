@@ -53,13 +53,13 @@ export default function AddTaskForm({ onClose }: AddTaskFormProps) {
         <Form className={css.form} noValidate>
           <div className={css.field}>
             <label className={css.label} htmlFor="name">
-              Завдання
+              Назва завдання
             </label>
             <Field
               id="name"
               name="name"
               type="text"
-              placeholder="Введіть назву завдання"
+              placeholder="Прийняти вітаміни"
               className={`${css.input} ${errors.name && touched.name ? css.inputError : ''}`}
             />
             <ErrorMessage name="name">

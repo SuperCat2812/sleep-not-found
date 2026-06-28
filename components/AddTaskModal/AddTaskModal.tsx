@@ -38,7 +38,9 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
           onClick={onClose}
           aria-label="Закрити модальне вікно"
         >
-          ✕
+          <svg width="20" height="20" fill="currentColor">
+            <use href="/images/sprite.svg#icon-close" />
+          </svg>
         </button>
         <h2 className={css.title}>Нове завдання</h2>
         <AddTaskForm onClose={onClose} />
