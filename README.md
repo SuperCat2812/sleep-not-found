@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🤰 Лелека (Leleka)
 
-## Getting Started
+Лелека — це вебдодаток-помічник для майбутніх мам, що супроводжує жінку протягом
+усієї вагітності. Додаток допомагає відстежувати тиждень вагітності, отримувати
+персоналізовані поради, вести особистий щоденник, планувати завдання та стежити
+за розвитком малюка тиждень за тижнем.
 
-First, run the development server:
+Проєкт реалізований на Next.js (App Router) з повноцінною системою авторизації,
+приватними та публічними маршрутами, серверним проксуванням запитів та
+збереженням стану користувача.
 
-```bash
+🔗 [Жива сторінка проєкту (Demo)](https://sleep-not-found.vercel.app/)
+
+💡 Про проєкт
+
+Вагітність — особливий період, коли важливо мати під рукою зрозумілий і
+турботливий інструмент. «Лелека» вирішує саме цю задачу: збирає в одному місці
+все, що потрібно майбутній мамі.
+
+Основні розділи додатку:
+
+Мій день (Дашборд) — головний екран із привітанням, поточним терміном
+вагітності, відліком днів до зустрічі, інформацією про розвиток малюка, порадою
+дня та нагадуваннями про завдання. Подорож вагітності — інтерактивний календар
+по тижнях із детальною інформацією про розвиток дитини та стан мами. Щоденник —
+особистий простір для записів про самопочуття, думки та емоції. Профіль —
+особистий кабінет із можливістю редагувати дані, аватар, планову дату пологів та
+стать дитини.
+
+Для неавторизованих користувачів доступний перегляд загального контенту, а
+будь-яка персональна дія перенаправляє на сторінки реєстрації чи входу.
+
+🚀 Основні можливості
+
+Авторизація та безпека — реєстрація, вхід і вихід через cookies-сесію з
+проксуванням запитів через сервер Next.js. Приватні та публічні маршрути —
+захист сторінок на рівні компонентів і проксі. Персоналізація — привітання на
+ім'я, синхронізація терміну вагітності з профілю, теми оформлення залежно від
+статі дитини. Щоденник і завдання — створення, редагування та видалення записів
+і завдань через модальні вікна. Адаптивність — mobile-first підхід із підтримкою
+мобільних, планшетних і десктопних екранів. Зворотний зв'язок — індикатори
+завантаження під час запитів і toast-повідомлення про помилки.
+
+🛠️ Технологічний стек
+
+Фреймворк: Next.js 15 (App Router), React, TypeScript Стилізація: CSS Modules,
+modern-normalize Стейт-менеджмент: Zustand Робота з даними: TanStack Query
+(React Query), Axios Форми та валідація: Formik, Yup Сповіщення: react-hot-toast
+Деплой: Vercel
+
+📂 Структура проєкту
+
+app/ # Маршрути (App Router) ├── (auth routes)/ # Сторінки реєстрації та входу
+├── api/ # Серверні роути-проксі до бекенду ├── diary/ # Сторінка щоденника ├──
+journey/ # Сторінка подорожі вагітності └── ... components/ #
+Перевикористовувані UI-компоненти lib/ # Функції запитів та Zustand-стори
+public/ # Статичні ресурси (зображення, іконки)
+
+⚙️ Встановлення та запуск
+
+Клонувати репозиторій:
+
+git clone https://github.com/SuperCat2812/sleep-not-found.git
+
+Перейти в папку проєкту та встановити залежності:
+
+cd sleep-not-found npm install
+
+Створити файл .env у корені проєкту та додати змінну середовища:
+
+NEXT_PUBLIC_API_URL = http://localhost:3000
+
+Запустити проєкт у режимі розробки:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Проєкт буде доступний за адресою http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Зібрати продакшн-версію:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm run build npm run start
 
-## Learn More
+🔌 Бекенд
 
-To learn more about Next.js, take a look at the following resources:
+Додаток працює з REST API. Документація доступна за посиланням:
+https://lehlehka.b.goit.study/api-docs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+👥 Командна робота
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Проєкт розроблено командою за методологією Scrum:
 
-## Deploy on Vercel
+Team Lead — координація завдань, code review та цілісність проєкту. Scrum Master
+— організація зустрічей і контроль робочого процесу. Розробники — реалізація
+окремих сторінок, компонентів і функціоналу.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Проєкт створено в рамках навчання в GoIT (2026).
