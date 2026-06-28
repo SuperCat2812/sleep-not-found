@@ -2,7 +2,7 @@ import { DiaryParams, DiaryResponse } from '@/types/diary-types';
 
 import { cookies } from 'next/headers';
 import { AxiosError } from 'axios';
-import { api } from '@/app/api/api';
+import { api } from '@/lib/api/api';
 
 export const getDiary = async ({ page, limit }: DiaryParams) => {
   try {
