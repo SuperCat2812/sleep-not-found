@@ -1,12 +1,40 @@
 'use client';
+
+import { useEffect } from 'react';
 import Link from 'next/link';
 import css from './Sidebar.module.css';
 import Icon from '../Icon/Icon';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { useAuthStore } from '@/lib/store/authStore';
+import { getMe } from '@/lib/api/clientApi';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 
 const Sidebar = () => {
+  const { user, isAuthenticated, setUser, clearIsAuthenticated } =
+    useAuthStore();
+
   const setOpen = useConfirmationModal().open;
+
+  useEffect(() => {
+    if (user) return;
+
+    const fetchUser = async () => {
+      try {
+        const currentUser = await getMe();
+        setUser(currentUser);
+      } catch {
+        clearIsAuthenticated();
+      }
+    };
+
+    fetchUser();
+  }, [user, setUser, clearIsAuthenticated]);
+
+  const handleLogout = () => {
+    clearIsAuthenticated();
+  };
+
+  const navHref = '/auth/login';
 
   return (
     <aside className={css.sidebar}>
@@ -15,55 +43,72 @@ const Sidebar = () => {
       </Link>
 
       <nav className={css.nav}>
-        <Link href="/" className={css.link}>
+        <Link href={isAuthenticated ? '/' : navHref} className={css.link}>
           <Icon id="icon-calendar" className={css.icon} />
           <span>Мій день</span>
         </Link>
 
-        <Link href="/journey/1" className={css.link}>
+        <Link
+          href={isAuthenticated ? '/journey' : navHref}
+          className={css.link}
+        >
           <Icon id="icon-travel" className={css.icon} />
           <span>Подорож</span>
         </Link>
 
-        <Link href="/diary" className={css.link}>
+        <Link href={isAuthenticated ? '/diary' : navHref} className={css.link}>
           <Icon id="icon-book" className={css.icon} />
           <span>Щоденник</span>
         </Link>
 
-        <Link href="/profile" className={css.link}>
+        <Link
+          href={isAuthenticated ? '/profile' : navHref}
+          className={css.link}
+        >
           <Icon id="icon-profile" className={css.icon} />
           <span>Профіль</span>
         </Link>
       </nav>
 
-      <div className={css.userBar}>
-        <div className={css.userInfo}>
-          <div className={css.avatar}></div>
+      {isAuthenticated && user ? (
+        <div className={css.userBar}>
+          <div className={css.userInfo}>
+            <div className={css.avatar}></div>
 
-          <div>
-            <p className={css.name}>Ганна</p>
-            <p className={css.email}>hanna@gmail.com</p>
+            <div>
+              <p className={css.name}>{user.name}</p>
+              <p className={css.email}>{user.email}</p>
+            </div>
           </div>
+
+          <button
+            className={css.logout}
+            type="button"
+            onClick={() => setOpen('logout')}
+          >
+            <Icon id="icon-logaut" className={css.logoutIcon} />
+          </button>
+
+          <ConfirmationModal
+            id="logout"
+            title="Ви точно хочете вийти?"
+            cancelButtonText="Ні"
+            confirmButtonText="Так"
+            onCancel={() => {}}
+            onConfirm={handleLogout}
+          />
         </div>
+      ) : (
+        <div className={css.authBar}>
+          <Link href="/auth/register" className={css.registerButton}>
+            Зареєструватися
+          </Link>
 
-        <button
-          className={css.logout}
-          type="button"
-          onClick={() => {
-            setOpen();
-          }}
-        >
-          <Icon id="icon-logaut" className={css.logoutIcon} />
-        </button>
-
-        <ConfirmationModal
-          title="Ви точно хочете вийти?"
-          cancelButtonText="Ні"
-          confirmButtonText="Так"
-          onCancel={() => {}}
-          onConfirm={() => {}}
-        />
-      </div>
+          <Link href="/auth/login" className={css.loginButton}>
+            Увійти
+          </Link>
+        </div>
+      )}
     </aside>
   );
 };

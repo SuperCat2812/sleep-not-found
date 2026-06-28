@@ -1,27 +1,30 @@
-.sectionDiary {
+.SectionDiary {
   display: flex;
-  gap: 32px;
+  gap: 32px 20px;
   padding-block: 32px;
-  min-height: 100vh;
+  min-height: 80vh;
+  @media (min-width: 768px) {
+    margin-top: 32px;
+  }
 }
 
-.diaryContainer,
-.diaryContainerDetails {
+.DiaryContainer,
+.DiaryContainerDetails {
   border-radius: 32px;
   padding-block: 24px;
   padding-inline: 16px;
-
+  /* max-height: 64vh; */
   width: 100%;
   background: #fff4f6;
 }
 
-.title {
+.Title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
 }
-.title > h2 {
+.Title > h2 {
   font-family: var(--font-comfortaa);
   font-weight: 700;
   font-size: 18px;
@@ -56,7 +59,7 @@
   }
 }
 
-.diaryContainerDetails {
+.DiaryContainerDetails {
   display: none;
   @media (min-width: 1440px) {
     display: block;
@@ -67,4 +70,8 @@
 .iconPlus {
   width: 24px;
   height: 24px;
+}
+
+.Greeting {
+  margin-top: 16px;
 }
