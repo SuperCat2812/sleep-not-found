@@ -80,6 +80,7 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
           {selectedDiary && <DiaryEntryDetails diary={selectedDiary} />}
         </div>
         <ConfirmationModal
+          id="delete"
           title="Видалити?"
           confirmButtonText="так"
           cancelButtonText="ні"
