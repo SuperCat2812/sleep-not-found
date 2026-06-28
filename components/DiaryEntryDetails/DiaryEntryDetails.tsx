@@ -39,7 +39,7 @@ const DiaryEntryDetails = ({ diary }: DiaryEntryDetailsProps) => {
       </div>
       <div className={css.DiaryDescriptionContainer}>
         <p className={css.DiaryDescription}>{diary.description}</p>
-        <ul>
+        <ul className={css.EmotionList}>
           {diary.emotions.map(emotion => {
             return (
               <li key={diary._id}>

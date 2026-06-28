@@ -102,3 +102,8 @@
 .DeleteBtn {
   border: none;
 }
+
+.EmotionList {
+  display: flex;
+  gap: 8px;
+}

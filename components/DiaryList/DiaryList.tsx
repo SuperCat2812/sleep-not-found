@@ -36,7 +36,7 @@ const DiaryList = ({ diarys, setId }: DiaryListProps) => {
               <p className={css.DiaryData}>{formatDate(diary.date)}</p>
             </div>
             <div className={css.DiaryItemEmotionContent}>
-              <ul>
+              <ul className={css.EmotionList}>
                 {diary.emotions.map(emotion => (
                   <li key={emotion._id}>
                     <p className={css.DiaryEmotionTitle}>{emotion.title}</p>

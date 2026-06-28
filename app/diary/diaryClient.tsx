@@ -72,7 +72,7 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             </div>
           </div>
           <CustomScroll>
-            <div className={css.diaryListScroll} onScroll={handleScroll}>
+            <div className={css.DiaryListScroll} onScroll={handleScroll}>
               <DiaryList diarys={data} setId={setId} />
             </div>
           </CustomScroll>

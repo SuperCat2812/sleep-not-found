@@ -47,3 +47,8 @@
   text-align: left;
   margin-top: 10px;
 }
+
+.EmotionList {
+  display: flex;
+  gap: 8px;
+}
