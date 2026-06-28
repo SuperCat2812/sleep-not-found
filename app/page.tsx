@@ -3,16 +3,23 @@ import StatusBlock from '@/components/StatusBlock/StatusBlock';
 import BabyTodayCard from '@/components/BabyTodayCard/BabyTodayCard';
 import MomTipCard from '@/components/MomTipCard/MomTipCard';
 import DashboardClient from '@/components/DashboardClient/DashboardClient';
-import { getWeekServer } from '@/lib/journey-api-server';
+import {
+  getDashboardDataServer,
+  getDashboardDataPublicServer,
+} from '@/lib/api/dashboardApiServer';
 import styles from './page.module.css';
 
 const DashboardPage = async () => {
   let weekData = null;
 
   try {
-    weekData = await getWeekServer();
+    weekData = await getDashboardDataServer();
   } catch {
-    weekData = null;
+    try {
+      weekData = await getDashboardDataPublicServer();
+    } catch {
+      weekData = null;
+    }
   }
 
   return (
