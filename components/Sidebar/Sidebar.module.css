@@ -5,7 +5,7 @@
 @media (min-width: 1440px) {
   .sidebar {
     width: 312px;
-    height: 100vh;
+
     padding: 32px 24px;
     flex-shrink: 0;
     border-right: 1px solid #e0dedb;
