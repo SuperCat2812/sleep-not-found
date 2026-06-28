@@ -18,7 +18,7 @@ const DiaryList = ({ diarys, setId }: DiaryListProps) => {
       .replace(' р.', '');
   }
   return (
-    <ul>
+    <ul className={css.listDiary}>
       {!diarys[0] && <p>Наразі записи у щоденнику відстні</p>}
       {diarys.map(diary => (
         <li key={diary._id} className={css.diaryItem}>
