@@ -1,18 +1,14 @@
 "use client";
 import DiaryList from "@/components/DiaryList/DiaryList";
 import css from "./DiaryPage.module.css";
+import Link from "next/link";
+
 import { useState } from "react";
 import { DiaryNote, DiaryResponse } from "@/types/diary-types";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
 import Icon from "@/components/Icon/Icon";
-import axios from "axios";
-import AddDiaryEntryModal from "@/components/AddDiaryEntryModal/AddDiaryEntryModal";
-
-const backendApi = axios.create({
-  baseURL: "https://lehlehka.b.goit.study",
-  withCredentials: true,
-});
-
+import { api } from "@/lib/api/api";
+import CustomScroll from "@/components/CustomScroll/CustomScroll";
 interface DiaryClientProps {
   diarys: DiaryResponse;
 }
@@ -22,16 +18,19 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
   const [data, setData] = useState<DiaryNote[]>(diarys.diaryNotes);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const loaderMore = async () => {
     if (isLoading || page >= diarys.totalPages) return;
     setIsLoading(true);
     const nextPage = page + 1;
     try {
-      const { data } = await backendApi.get<DiaryResponse>("/diary", {
-        params: { page: nextPage, limit: 10 },
+      const { data } = await api.get<DiaryResponse>("/diary", {
+        params: {
+          page: nextPage,
+          limit: 10,
+        },
       });
+
       setData((prev) => [...prev, ...data.diaryNotes]);
       setPage(nextPage);
     } catch {
@@ -39,21 +38,11 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
       setIsLoading(false);
     }
   };
-
-  const handleSuccess = async () => {
-    try {
-      const { data } = await backendApi.get<DiaryResponse>("/diary", {
-        params: { page: 1, limit: 10 },
-      });
-      setData(data.diaryNotes);
-      setPage(1);
-    } catch {}
-  };
-
   const selectedDiary = data.find((diary) => diary._id === id);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const element = e.currentTarget;
+
     if (
       element.scrollTop + element.clientHeight >=
       element.scrollHeight - 100
@@ -61,34 +50,38 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
       loaderMore();
     }
   };
-
   return (
     <section className={css.sectionDiary}>
       <div className={css.diaryContainer}>
         <div className={css.title}>
           <h2>Ваші записи</h2>
           <div className={css.createContainer}>
-            <button onClick={() => setIsModalOpen(true)}>
+            <Link href="#">
               <span className={css.newTask}>Новий запис</span>
-              <Icon id="icon-plus" className={css.iconPlus} />
-            </button>
+
+              <Icon
+                id="icon-plus"
+                className={css.iconPlus}
+              />
+            </Link>
           </div>
         </div>
         <div className={css.diaryContainer}>
-          <div className={css.diaryListScroll} onScroll={handleScroll}>
-            <DiaryList diarys={data} setId={setId} />
-          </div>
+          <CustomScroll>
+            <div
+              className={css.diaryListScroll}
+              onScroll={handleScroll}>
+              <DiaryList
+                diarys={data}
+                setId={setId}
+              />
+            </div>
+          </CustomScroll>
         </div>
       </div>
       <div className={css.diaryContainerDetails}>
         {selectedDiary && <DiaryEntryDetails diary={selectedDiary} />}
       </div>
-      {isModalOpen && (
-        <AddDiaryEntryModal
-          onClose={() => setIsModalOpen(false)}
-          onSuccess={handleSuccess}
-        />
-      )}
     </section>
   );
 };

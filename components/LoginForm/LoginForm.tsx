@@ -17,7 +17,7 @@ const initialValues: LoginFormValues = {
   email: "",
   password: "",
 };
-const LoginFormShema = Yup.object().shape({
+const LoginFormSchema = Yup.object().shape({
   email: Yup.string().email("Невірний формат пошти").required("Вкажіть пошту"),
   password: Yup.string()
     .min(8, "Пароль має містити щонайменше 8 символів")
@@ -49,37 +49,52 @@ const LoginForm = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
-        validationSchema={LoginFormShema}
+        validationSchema={LoginFormSchema}
       >
-        <Form className={css.form}>
-          <Field
-            type="email"
-            name="email"
-            placeholder="Пошта"
-            aria-label="Електронна пошта користувача"
-            className={css.label}
-          />
+        {({ errors, touched }) => (
+          <Form className={css.form}>
+            <div className={css.fieldGroup}>
+              <Field
+                type="email"
+                name="email"
+                placeholder="Пошта"
+                aria-label="Електронна пошта користувача"
+                className={`${css.input} ${touched.email && errors.email ? css.error : ""}`}
+              />
 
-          <ErrorMessage name="email" component="span" className={css.error} />
+              <ErrorMessage
+                name="email"
+                component="span"
+                className={css.error}
+              />
+            </div>
+            <div className={css.fieldGroup}>
+              <Field
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                aria-label="Пароль користувача"
+                className={`${css.input} ${touched.password && errors.password ? css.error : ""}`}
+              />
 
-          <Field
-            type="password"
-            name="password"
-            placeholder="Пароль"
-            aria-label="Пароль користувача"
-            className={css.label}
-          />
+              <ErrorMessage
+                name="password"
+                component="span"
+                className={css.error}
+              />
+            </div>
 
-          <ErrorMessage
-            name="password"
-            component="span"
-            className={css.error}
-          />
-          <button type="submit" className={css.button}>Увійти</button>
-        </Form>
+            <button type="submit" className={css.button}>
+              Увійти
+            </button>
+          </Form>
+        )}
       </Formik>
       <p className={css.paragraph}>
-        Немає аккаунта?<Link href={"/auth/register"} className={css.link}> Зареєструватись</Link>
+        Немає аккаунту?{" "}
+        <Link href={"/auth/register"} className={css.link}>
+          Зареєструватися
+        </Link>
       </p>
     </div>
   );

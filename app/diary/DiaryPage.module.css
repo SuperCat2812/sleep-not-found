@@ -65,7 +65,3 @@
   width: 24px;
   height: 24px;
 }
-.diaryListScroll {
-  height: calc(100vh - 110px);
-  overflow-y: auto;
-}

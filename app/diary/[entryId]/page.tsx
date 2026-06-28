@@ -4,6 +4,8 @@ import { Metadata } from "next";
 interface DiaryDetailsProps {
   params: Promise<{ entryId: string }>;
 }
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
 export const generateMetadata = async ({
   params,
 }: DiaryDetailsProps): Promise<Metadata> => {
@@ -16,8 +18,8 @@ export const generateMetadata = async ({
     openGraph: {
       title: diary?.title,
       description: diary?.description,
-      url: `${process.env.NEXT_PUBLIC_API_URL}/${entryId}`,
-      images: [{ url: `${process.env.NEXT_PUBLIC_API_URL}/leleka.png` }],
+      url: `${baseUrl}/${entryId}`,
+      images: [{ url: `${baseUrl}/leleka.png` }],
     },
   };
 };

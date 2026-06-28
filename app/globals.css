@@ -69,7 +69,6 @@ body {
   font-family: var(--font-lato);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0 20px;
 }
 
 * {
@@ -89,4 +88,22 @@ ul {
 
 button {
   cursor: pointer;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  position: relative;
+}
+
+::-webkit-scrollbar-track {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+  right: -4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffcbd3;
+  border-radius: 999px;
 }

@@ -1,8 +1,13 @@
-import Link from "next/link";
-import css from "./Sidebar.module.css";
-import Icon from "../Icon/Icon";
+'use client';
+import Link from 'next/link';
+import css from './Sidebar.module.css';
+import Icon from '../Icon/Icon';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 
 const Sidebar = () => {
+  const setOpen = useConfirmationModal().open;
+
   return (
     <aside className={css.sidebar}>
       <Link href="/" className={css.logo}>
@@ -41,9 +46,23 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <button className={css.logout}>
+        <button
+          className={css.logout}
+          type="button"
+          onClick={() => {
+            setOpen();
+          }}
+        >
           <Icon id="icon-logaut" className={css.logoutIcon} />
         </button>
+
+        <ConfirmationModal
+          title="Ви точно хочете вийти?"
+          cancelButtonText="Ні"
+          confirmButtonText="Так"
+          onCancel={() => {}}
+          onConfirm={() => {}}
+        />
       </div>
     </aside>
   );
