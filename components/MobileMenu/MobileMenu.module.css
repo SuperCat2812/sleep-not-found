@@ -19,7 +19,7 @@
 }
 
 .menu {
-  width: 280px;
+  width: 240px;
   height: 100vh;
   padding: 24px 20px;
   box-sizing: border-box;
@@ -162,4 +162,10 @@
 .logoutIcon {
   width: 24px;
   height: 24px;
+}
+
+@media (min-width: 1440px) {
+  .backdrop {
+    display: none;
+  }
 }

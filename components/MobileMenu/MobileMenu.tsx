@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Icon from "../Icon/Icon";
-import css from "./MobileMenu.module.css";
+import Link from 'next/link';
+import Icon from '../Icon/Icon';
+import css from './MobileMenu.module.css';
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -9,10 +9,10 @@ interface MobileMenuProps {
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
   return (
     <div className={css.backdrop} onClick={onClose}>
-      <aside className={css.menu} onClick={(event) => event.stopPropagation()}>
+      <aside className={css.menu} onClick={event => event.stopPropagation()}>
         <div className={css.top}>
           <Link href="/" className={css.logo} onClick={onClose}>
-            <Icon id="icon-leleka" className={css.logoIcon} />
+            <Icon id="icon-Logo-leleka" className={css.logoIcon} />
             <span>Лелека</span>
           </Link>
 
@@ -32,7 +32,7 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
             <span>Мій день</span>
           </Link>
 
-          <Link href="/journey/1" className={css.link} onClick={onClose}>
+          <Link href="/journey" className={css.link} onClick={onClose}>
             <Icon id="icon-travel" className={css.icon} />
             <span>Подорож</span>
           </Link>
