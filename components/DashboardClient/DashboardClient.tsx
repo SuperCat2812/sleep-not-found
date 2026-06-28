@@ -1,13 +1,16 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import TasksReminderCard from '@/components/TasksReminderCard/TasksReminderCard';
 import FeelingCheckCard from '@/components/FeelingCheckCard/FeelingCheckCard';
+import AddTaskModal from '@/components/AddTaskModal/AddTaskModal';
 import { getTasks, updateTaskStatus } from '@/lib/api/tasksApi';
 
 const DashboardClient = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
   const queryClient = useQueryClient();
@@ -31,7 +34,7 @@ const DashboardClient = () => {
       router.push('/auth/register');
       return;
     }
-    // TODO: відкрити AddTaskModal коли буде готовий
+    setIsModalOpen(true);
   };
 
   const handleDiaryClick = () => {
@@ -48,6 +51,7 @@ const DashboardClient = () => {
     title: task.name,
     completed: task.isDone,
   }));
+
   return (
     <>
       <TasksReminderCard
@@ -62,6 +66,7 @@ const DashboardClient = () => {
         recommendation="Занотуйте незвичні відчуття у тілі."
         onDiaryClick={handleDiaryClick}
       />
+      {isModalOpen && <AddTaskModal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };
