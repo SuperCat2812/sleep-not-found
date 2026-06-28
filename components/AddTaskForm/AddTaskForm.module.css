@@ -240,3 +240,13 @@
     font-size: 14px;
   }
 }
+
+.input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+  opacity: 0;
+}
+
+.input[type='date'] {
+  -webkit-appearance: none;
+  appearance: none;
+}
