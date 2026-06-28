@@ -1,16 +1,9 @@
 import { getDiary } from '@/lib/diary-api-server';
 import DiaryClient from './diaryClient';
 import { Metadata } from 'next';
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 export const metadata: Metadata = {
   title: 'Щоденник',
   description: 'Сторінка Щоденника',
-  openGraph: {
-    title: 'Щоденник',
-    description: 'Странка Щоденника',
-    url: `${baseUrl}/diary`,
-    images: [{ url: `${baseUrl}/leleka.png` }],
-  },
 };
 
 const diaryPage = async () => {

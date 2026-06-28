@@ -8,7 +8,7 @@ export interface RegisterUserData {
 }
 
 export const register = async (userData: RegisterUserData): Promise<User> => {
-  await api.post("/auth/register", userData);
+  await api.post<User>("/auth/register", userData);
   const user = await getMe();
   return user;
 };
@@ -47,3 +47,7 @@ export const updateAvatar = async (file: File): Promise<User> => {
   const { data } = await api.patch<User>("/users/current/avatars", formData);
   return data;
 };
+  await api.post<User>("/auth/login", loginData);
+  const user = await getMe();
+  return user;
+}

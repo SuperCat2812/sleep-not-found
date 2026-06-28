@@ -19,7 +19,7 @@
 }
 
 .menu {
-  width: 280px;
+  width: 240px;
   height: 100vh;
   padding: 24px 20px;
   box-sizing: border-box;
@@ -94,14 +94,15 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  font-weight: 400;
+
   padding: 10px 12px;
   border-radius: 8px;
-  line-height: 1.5;
 
   font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
   text-decoration: none;
-  color: #000;
+  color: #000000;
 }
 
 .link:hover {
@@ -135,6 +136,7 @@
   height: 40px;
   border-radius: 50%;
   background-color: #d9d9d9;
+  flex-shrink: 0;
 }
 
 .name {
@@ -154,6 +156,7 @@
   align-items: center;
   justify-content: center;
 
+  padding: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -162,4 +165,45 @@
 .logoutIcon {
   width: 24px;
   height: 24px;
+}
+
+.authBar {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e0dedb;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.registerButton,
+.loginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.registerButton {
+  background-color: #ff5c8a;
+  color: #ffffff;
+}
+
+.loginButton {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #e0dedb;
+}
+
+@media (min-width: 1440px) {
+  .backdrop {
+    display: none;
+  }
 }

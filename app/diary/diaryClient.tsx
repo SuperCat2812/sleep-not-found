@@ -11,6 +11,7 @@ import CustomScroll from '@/components/CustomScroll/CustomScroll';
 import Icon from '@/components/Icon/Icon';
 import Link from 'next/link';
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
+import { deleteDiary } from '@/lib/diary-api-client';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;
@@ -55,11 +56,11 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
   };
   return (
     <>
-      <div className={css.greeting}>{/* <GreetingBlock /> */}</div>
-      <section className={css.sectionDiary}>
-        <div className={css.diaryContainer}>
-          <div className={css.diaryContainer}>
-            <div className={css.title}>
+      <div className={css.Greeting}>{/* <GreetingBlock /> */}</div>
+      <section className={css.SectionDiary}>
+        <div className={css.DiaryContainer}>
+          <div className={css.DiaryContainer}>
+            <div className={css.Title}>
               <h2>Ваші записи</h2>
               <div className={css.createContainer}>
                 <Link href="#">
@@ -71,12 +72,12 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             </div>
           </div>
           <CustomScroll>
-            <div className={css.diaryListScroll} onScroll={handleScroll}>
+            <div className={css.DiaryListScroll} onScroll={handleScroll}>
               <DiaryList diarys={data} setId={setId} />
             </div>
           </CustomScroll>
         </div>
-        <div className={css.diaryContainerDetails}>
+        <div className={css.DiaryContainerDetails}>
           {selectedDiary && <DiaryEntryDetails diary={selectedDiary} />}
         </div>
         <ConfirmationModal
@@ -84,7 +85,11 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
           title="Видалити?"
           confirmButtonText="так"
           cancelButtonText="ні"
-          onConfirm={() => {}}
+          onConfirm={async id => {
+            if (!id) return;
+            await deleteDiary(id);
+            setData(prev => prev.filter(item => item._id !== id));
+          }}
           onCancel={() => {}}
         />
       </section>

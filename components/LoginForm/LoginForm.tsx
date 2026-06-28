@@ -1,46 +1,46 @@
-"use client";
+'use client';
 
-import css from "./LoginForm.module.css";
-import { Formik, Form, Field, FormikHelpers, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import Link from "next/link";
-import { useAuthStore } from "@/lib/store/authStore";
-import { login } from "@/lib/api/clientApi";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import css from './LoginForm.module.css';
+import { Formik, Form, Field, FormikHelpers, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import Link from 'next/link';
+import { useAuthStore } from '@/lib/store/authStore';
+import { login } from '@/lib/api/clientApi';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface LoginFormValues {
   email: string;
   password: string;
 }
 const initialValues: LoginFormValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 const LoginFormSchema = Yup.object().shape({
-  email: Yup.string().email("Невірний формат пошти").required("Вкажіть пошту"),
+  email: Yup.string().email('Невірний формат пошти').required('Вкажіть пошту'),
   password: Yup.string()
-    .min(8, "Пароль має містити щонайменше 8 символів")
-    .required("Вкажіть пароль"),
+    .min(8, 'Пароль має містити щонайменше 8 символів')
+    .required('Вкажіть пароль'),
 });
 const LoginForm = () => {
   const router = useRouter();
-  const setUser = useAuthStore((state) => state.setUser);
+  const setUser = useAuthStore(state => state.setUser);
   const handleSubmit = async (
     values: LoginFormValues,
-    actions: FormikHelpers<LoginFormValues>,
+    actions: FormikHelpers<LoginFormValues>
   ) => {
     try {
       const res = await login(values);
       if (res) {
         setUser(res);
-        router.push("/");
+        router.push('/');
         actions.resetForm();
       } else {
-        toast.error("Перевірте пошту чи пароль");
+        toast.error('Перевірте пошту чи пароль');
       }
     } catch {
-      toast.error("Перевірте пошту чи пароль");
+      toast.error('Перевірте пошту чи пароль');
     }
   };
   return (
@@ -59,7 +59,7 @@ const LoginForm = () => {
                 name="email"
                 placeholder="Пошта"
                 aria-label="Електронна пошта користувача"
-                className={`${css.input} ${touched.email && errors.email ? css.error : ""}`}
+                className={`${css.input} ${touched.email && errors.email ? css.error : ''}`}
               />
 
               <ErrorMessage
@@ -74,7 +74,7 @@ const LoginForm = () => {
                 name="password"
                 placeholder="Пароль"
                 aria-label="Пароль користувача"
-                className={`${css.input} ${touched.password && errors.password ? css.error : ""}`}
+                className={`${css.input} ${touched.password && errors.password ? css.error : ''}`}
               />
 
               <ErrorMessage
@@ -91,8 +91,8 @@ const LoginForm = () => {
         )}
       </Formik>
       <p className={css.paragraph}>
-        Немає аккаунту?{" "}
-        <Link href={"/auth/register"} className={css.link}>
+        Немає аккаунту?{' '}
+        <Link href={'/auth/register'} className={css.link}>
           Зареєструватися
         </Link>
       </p>
