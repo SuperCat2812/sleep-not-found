@@ -4,14 +4,14 @@ import { NextResponse } from 'next/server';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../../_utils/utils';
 type Props = {
-  params: Promise<{ id: string }>;
+  params: Promise<{ noteID: string }>;
 };
 export async function DELETE(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
-    const { id } = await params;
+    const { noteID } = await params;
 
-    const res = await api.delete(`/diary/${id}`, {
+    const res = await api.delete(`/diary/${noteID}`, {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -36,10 +36,10 @@ export async function DELETE(request: Request, { params }: Props) {
 export async function PATCH(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
-    const { id } = await params;
+    const { noteID } = await params;
     const body = await request.json();
 
-    const res = await api.patch(`/diary/${id}`, body, {
+    const res = await api.patch(`/diary/${noteID}`, body, {
       headers: {
         Cookie: cookieStore.toString(),
       },
