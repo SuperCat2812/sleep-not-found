@@ -1,7 +1,7 @@
 'use client';
 
 import DiaryList from '@/components/DiaryList/DiaryList';
-import css from './diaryPage.module.css';
+import css from './DiaryPage.module.css';
 import { useState } from 'react';
 import { DiaryNote, DiaryResponse } from '@/types/diary-types';
 import DiaryEntryDetails from '@/components/DiaryEntryDetails/DiaryEntryDetails';
