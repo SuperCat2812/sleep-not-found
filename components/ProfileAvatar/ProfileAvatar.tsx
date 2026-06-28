@@ -13,6 +13,8 @@ interface ProfileAvatarProps {
   user: User;
 }
 
+const MAX_FILE_SIZE = 1024 * 1024; // 1 MB
+
 export default function ProfileAvatar({ user }: ProfileAvatarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -25,43 +27,40 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
   };
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
-  const input = event.currentTarget;
-  const file = input.files?.[0];
+    const input = event.currentTarget;
+    const file = input.files?.[0];
 
-  if (!file) {
-    return;
-  }
+    if (!file) {
+      return;
+    }
 
-  const maxFileSize = 1024 * 1024; // 1 MB
+    if (file.size > MAX_FILE_SIZE) {
+      toast.error("Фото занадто велике. Оберіть файл до 1 MB.");
+      input.value = "";
+      return;
+    }
 
-  if (file.size > maxFileSize) {
-    toast.error("Фото занадто велике. Оберіть файл до 1 MB.");
-    input.value = "";
-    return;
-  }
+    try {
+      setIsUploading(true);
 
-  try {
-    setIsUploading(true);
+      const updatedUser = await updateAvatar(file);
 
-    const updatedUser = await updateAvatar(file);
+      const mergedUser = {
+        ...user,
+        ...updatedUser,
+      };
 
-const mergedUser = {
-  ...user,
-  ...updatedUser,
-};
+      setUser(mergedUser);
+      queryClient.setQueryData(["currentUser"], mergedUser);
 
-setUser(mergedUser);
-
-queryClient.setQueryData(["currentUser"], mergedUser);
-
-toast.success("Фото профілю оновлено");
-  } catch {
-    toast.error("Не вдалося оновити фото");
-  } finally {
-    setIsUploading(false);
-    input.value = "";
-  }
-};
+      toast.success("Фото профілю оновлено");
+    } catch {
+      toast.error("Не вдалося оновити фото");
+    } finally {
+      setIsUploading(false);
+      input.value = "";
+    }
+  };
 
   return (
     <div className={css.wrapper}>

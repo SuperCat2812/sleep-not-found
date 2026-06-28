@@ -21,6 +21,19 @@ interface ProfileFormValues {
   dueDate: string;
 }
 
+const getTodayDate = () => {
+  return new Date().toISOString().split("T")[0];
+};
+
+const getMaxDueDate = () => {
+  const date = new Date();
+  date.setDate(date.getDate() + 42 * 7);
+  return date.toISOString().split("T")[0];
+};
+
+const todayDate = getTodayDate();
+const maxDueDate = getMaxDueDate();
+
 const profileSchema = Yup.object({
   name: Yup.string()
     .min(2, "Ім’я має містити щонайменше 2 символи")
@@ -35,7 +48,18 @@ const profileSchema = Yup.object({
     .oneOf(["boy", "girl", "unknown"], "Оберіть коректне значення")
     .required("Оберіть стать дитини"),
 
-  dueDate: Yup.string().required("Оберіть планову дату пологів"),
+  dueDate: Yup.string()
+  .required("Оберіть планову дату пологів")
+  .test(
+    "not-in-past",
+    "Дата не може бути раніше сьогоднішньої",
+    (value) => !value || value >= todayDate,
+  )
+  .test(
+    "not-too-far",
+    "Дата не може бути пізніше ніж через 42 тижні",
+    (value) => !value || value <= maxDueDate,
+  ),
 });
 
 export default function ProfileEditForm({ user }: ProfileEditFormProps) {
@@ -153,6 +177,8 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
                     name="dueDate"
                     className={css.input}
                     type="date"
+                    min={todayDate}
+                    max={maxDueDate}
                   />
                   <ErrorMessage
                     name="dueDate"
