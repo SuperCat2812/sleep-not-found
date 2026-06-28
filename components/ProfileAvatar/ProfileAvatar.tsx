@@ -45,10 +45,16 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
 
     const updatedUser = await updateAvatar(file);
 
-    setUser(updatedUser);
-    queryClient.setQueryData(["currentUser"], updatedUser);
+const mergedUser = {
+  ...user,
+  ...updatedUser,
+};
 
-    toast.success("Фото профілю оновлено");
+setUser(mergedUser);
+
+queryClient.setQueryData(["currentUser"], mergedUser);
+
+toast.success("Фото профілю оновлено");
   } catch {
     toast.error("Не вдалося оновити фото");
   } finally {
