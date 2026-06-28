@@ -86,13 +86,15 @@
 }
 
 .cancelButton {
-  background-color: var(--color-neutral-lightest);
+  background-color: var(--opacity-neutral-darkest-5);
   color: var(--color-neutral-darkest);
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
 }
 
 .saveButton {
-  background-color: var(--color-pastel-pink);
+  background-color: var(--color-pastel-pink-light);
   color: var(--color-neutral-darkest);
+  border-bottom: 4px solid var(--color-pastel-pink);
 }
 
 .error {

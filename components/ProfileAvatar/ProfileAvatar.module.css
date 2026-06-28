@@ -50,20 +50,25 @@
 }
 
 .uploadButton {
-  width: fit-content;
-  margin-top: 8px;
+  min-width: 218px;
+  height: 42px;
   padding: 8px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: none;
   border-bottom: 4px solid var(--opacity-neutral-darkest-15);
   border-radius: 100px;
-  background-color: var(--color-neutral-lightest);
+
+  background-color: var(--opacity-neutral-darkest-5);
   color: var(--color-neutral-darkest);
-  font-size: 14px;
-  line-height: 1.4;
+
+  font: inherit;
   font-weight: 500;
   cursor: pointer;
-  transition:
-    background-color 200ms ease,
-    border-color 200ms ease;
 }
 
 .uploadButton:hover {
