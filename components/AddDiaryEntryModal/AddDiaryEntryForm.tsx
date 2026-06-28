@@ -2,7 +2,7 @@
 
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import styles from './AddDiaryEntryModal.module.css';
 import Icon from '@/components/Icon/Icon';
@@ -36,6 +36,7 @@ export default function AddDiaryEntryForm({
 }: AddDiaryEntryFormProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [emotionsList, setEmotionsList] = useState<Emotion[]>([]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchEmotions = async () => {
@@ -48,6 +49,19 @@ export default function AddDiaryEntryForm({
       }
     };
     fetchEmotions();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -100,7 +114,7 @@ export default function AddDiaryEntryForm({
 
           <div>
             <label className={styles.label}>Категорії</label>
-            <div className={styles.dropdownWrapper}>
+            <div className={styles.dropdownWrapper} ref={dropdownRef}>
               <div
                 className={styles.dropdownTrigger}
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
