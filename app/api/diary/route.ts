@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getDiary } from '@/lib/diary';
 import { cookies } from 'next/headers';
 import { api } from '@/app/api/api';
+import { isAxiosError } from 'axios';
+import { logErrorResponse } from '../_utils/utils';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -28,6 +30,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
+    if (isAxiosError(error)) {
+      logErrorResponse(error);
+    }
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

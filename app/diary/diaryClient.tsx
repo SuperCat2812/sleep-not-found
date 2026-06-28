@@ -25,10 +25,10 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
     setIsLoading(true);
     const nextPage = page + 1;
     try {
-      const { data } = await api.get<DiaryResponse>('/diary', {
+      const response = await api.get<DiaryResponse>('/diary', {
         params: { page: nextPage, limit: 10 },
       });
-      setData(prev => [...prev, ...data.diaryNotes]);
+      setData(prev => [...prev, ...response.data.diaryNotes]);
       setPage(nextPage);
     } catch {
     } finally {
@@ -38,10 +38,10 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
 
   const handleSuccess = async () => {
     try {
-      const { data } = await api.get<DiaryResponse>('/diary', {
+      const response = await api.get<DiaryResponse>('/diary', {
         params: { page: 1, limit: 10 },
       });
-      setData(data.diaryNotes);
+      setData(response.data.diaryNotes);
       setPage(1);
     } catch {}
   };
