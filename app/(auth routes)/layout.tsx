@@ -1,29 +1,49 @@
-"use client";
+import type { Metadata } from 'next';
+import { Lato, Comfortaa } from 'next/font/google';
+import '@blossom-carousel/react/style.css';
+import './Auth-globals.css';
+import css from './layout.module.css';
 
-import Icon from "@/components/Icon/Icon";
-import Link from "next/link";
-import css from "./layout.module.css";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import { Toaster } from 'react-hot-toast';
 
-type Props = {
+const lato = Lato({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-lato',
+});
+
+const comfortaa = Comfortaa({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-comfortaa',
+});
+
+interface LayoutProps {
   children: React.ReactNode;
+}
+
+export const metadata: Metadata = {
+  title: 'Лелека',
+  description: 'Персональний помічник для майбутніх мам',
 };
 
-const PublicLayout = ({ children }: Props) => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.refresh();
-  }, [router]);
-
+const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className={css.authLayout}>
-      <Link href="/" className={css.logo}>
-        <Icon id="icon-Logo-leleka"className={css.logoIcon} />
-      </Link>
-      {children}
-    </div>
+    <html lang="uk">
+      <body className={`${css.body} ${lato.variable} ${comfortaa.variable}`}>
+        <TanStackProvider>
+          <Toaster position="top-center" reverseOrder={false} />
+
+          <div className={css.wrapper}>
+            <div className={css.content}>
+              <main className={css.main}>{children}</main>
+            </div>
+          </div>
+        </TanStackProvider>
+      </body>
+    </html>
   );
 };
-export default PublicLayout;
+
+export default Layout;
