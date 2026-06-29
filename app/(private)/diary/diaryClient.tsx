@@ -31,7 +31,15 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
       const response = await api.get<DiaryResponse>('/diary', {
         params: { page: nextPage, limit: 10 },
       });
-      setData(prev => [...prev, ...response.data.diaryNotes]);
+      setData(prev => {
+        const existingIds = new Set(prev.map(item => item._id));
+
+        const newItems = response.data.diaryNotes.filter(
+          item => !existingIds.has(item._id)
+        );
+
+        return [...prev, ...newItems];
+      });
       setPage(nextPage);
     } catch {
     } finally {
