@@ -4,7 +4,6 @@ import DiaryDetailsClient from './DiaryDetailsClient';
 interface DiaryDetailsProps {
   params: Promise<{ entryId: string }>;
 }
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export const generateMetadata = async ({
   params,
@@ -15,12 +14,6 @@ export const generateMetadata = async ({
   return {
     title: diary?.title,
     description: diary?.description,
-    openGraph: {
-      title: diary?.title,
-      description: diary?.description,
-      url: `${baseUrl}/${entryId}`,
-      images: [{ url: `${baseUrl}/leleka.png` }],
-    },
   };
 };
 

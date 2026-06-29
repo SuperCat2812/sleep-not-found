@@ -1,13 +1,16 @@
+"use client";
+
+import { useAuthStore } from "@/lib/store/authStore";
 import styles from "./GreetingBlock.module.css";
 
-type GreetingBlockProps = {
-  name: string;
-};
+const GreetingBlock = () => {
+  const user = useAuthStore((state) => state.user);
 
-const GreetingBlock = ({ name }: GreetingBlockProps) => {
   return (
     <div>
-      <h1 className={styles.greeting}>Доброго ранку, {name}!</h1>
+      <h1 className={styles.greeting}>
+        Доброго ранку, {user?.name ?? "Гостю"}!
+      </h1>
     </div>
   );
 };

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 0;
     border: 0px solid var(--opacity-neutral-darkest-15);
     border-radius: 32px;
     padding: 24px;
@@ -26,6 +26,7 @@
     line-height: 160%;
     color: var(--color-neutral-darkest);
     align-self: flex-start;
+    margin-top: 8px;
 }
 
 .recommendationText {
@@ -35,6 +36,7 @@
     line-height: 160%;
     color: var(--color-neutral-darkest);
     align-self: flex-start;
+    margin-top: 0;
 }
 
 .button {
@@ -56,4 +58,11 @@
     line-height: 160%;
     color: var(--color-neutral-darkest);
     margin-top: 16px;
+}
+
+@media (min-width: 1440px) {
+    .card {
+        height: 210px;
+        overflow-y: auto;
+    }
 }

@@ -1,3 +1,7 @@
+.listDiary {
+  max-height: 61vh;
+}
+
 .diaryItem {
   border: 1px solid #ffdae0;
   border-radius: 16px;

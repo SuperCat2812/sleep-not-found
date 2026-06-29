@@ -1,30 +1,29 @@
-.SectionDiary {
+.sectionDiary {
   display: flex;
   gap: 32px 20px;
   padding-block: 32px;
-  min-height: 100vh;
+  min-height: 80vh;
   @media (min-width: 768px) {
-    gap: 32px;
+    margin-top: 32px;
   }
 }
 
-.DiaryContainer,
-.DiaryContainerDetails {
+.diaryContainer,
+.diaryContainerDetails {
   border-radius: 32px;
   padding-block: 24px;
   padding-inline: 16px;
-
   width: 100%;
   background: #fff4f6;
 }
 
-.Title {
+.title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
 }
-.Title > h2 {
+.title > h2 {
   font-family: var(--font-comfortaa);
   font-weight: 700;
   font-size: 18px;
@@ -36,9 +35,8 @@
   }
 }
 
-.createContainer > a {
+.createContainer > button {
   font-family: var(--font-lato);
-
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -50,13 +48,17 @@
   font-size: 14px;
   line-height: 1.6;
   margin-left: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 
   @media (min-width: 1440px) {
     font-size: 16px;
   }
 }
 
-.DiaryContainerDetails {
+.diaryContainerDetails {
   display: none;
   @media (min-width: 1440px) {
     display: block;
@@ -69,6 +71,6 @@
   height: 24px;
 }
 
-.Greeting {
+.greeting {
   margin-top: 16px;
 }

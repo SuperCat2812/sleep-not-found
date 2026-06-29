@@ -115,3 +115,10 @@
     line-height: 150%;
     color: var(--color-neutral-darkest);
 }
+
+@media (min-width: 1440px) {
+    .card {
+        height: 498px;
+        overflow-y: auto;
+    }
+}
