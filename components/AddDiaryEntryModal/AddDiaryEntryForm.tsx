@@ -41,7 +41,6 @@ export default function AddDiaryEntryForm({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  // FETCH EMOTIONS
   useEffect(() => {
     const fetchEmotions = async () => {
       try {
@@ -56,7 +55,6 @@ export default function AddDiaryEntryForm({
     fetchEmotions();
   }, []);
 
-  // CLOSE OUTSIDE DROPDOWN
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (
@@ -71,14 +69,12 @@ export default function AddDiaryEntryForm({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // RESET ON OPEN
   useEffect(() => {
     if (isDropdownOpen) {
       setVisibleCount(10);
     }
   }, [isDropdownOpen]);
 
-  // INFINITE SCROLL
   useEffect(() => {
     const el = listRef.current;
     if (!el || !isDropdownOpen) return;
@@ -136,7 +132,6 @@ export default function AddDiaryEntryForm({
     >
       {({ isSubmitting, values, setFieldValue, handleChange }) => (
         <Form>
-          {/* TITLE */}
           <div>
             <label className={styles.label}>Заголовок</label>
             <input
@@ -150,7 +145,6 @@ export default function AddDiaryEntryForm({
             <ErrorMessage name="title" component="p" className={styles.error} />
           </div>
 
-          {/* EMOTIONS */}
           <div>
             <label className={styles.label}>Категорії</label>
 
@@ -210,7 +204,6 @@ export default function AddDiaryEntryForm({
             />
           </div>
 
-          {/* DESCRIPTION */}
           <div>
             <label className={styles.label}>Запис</label>
             <textarea
@@ -227,7 +220,6 @@ export default function AddDiaryEntryForm({
             />
           </div>
 
-          {/* SUBMIT */}
           <button
             type="submit"
             className={styles.submitBtn}
