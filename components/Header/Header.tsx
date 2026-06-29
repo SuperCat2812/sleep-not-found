@@ -1,20 +1,22 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Link from "next/link";
+import { useState } from 'react';
+import Link from 'next/link';
 
-import Icon from "../Icon/Icon";
-import MobileMenu from "../MobileMenu/MobileMenu";
-import css from "./Header.module.css";
+import Icon from '../Icon/Icon';
+import MobileMenu from '../MobileMenu/MobileMenu';
+import css from './Header.module.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const openMenu = () => {
+    document.body.style.overflow = 'hidden';
     setIsMenuOpen(true);
   };
 
   const closeMenu = () => {
+    document.body.style.overflow = '';
     setIsMenuOpen(false);
   };
 
@@ -25,7 +27,12 @@ const Header = () => {
           <Icon id="icon-Logo-leleka" className={css.logoIcon} />
         </Link>
 
-        <button className={css.burger} type="button" aria-label="Відкрити меню" onClick={openMenu}>
+        <button
+          className={css.burger}
+          type="button"
+          aria-label="Відкрити меню"
+          onClick={openMenu}
+        >
           <Icon id="icon-burger" className={css.burgerIcon} />
         </button>
       </header>

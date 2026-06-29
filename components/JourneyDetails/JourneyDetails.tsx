@@ -125,7 +125,7 @@ function JourneyDetails({ currentWeek }: { currentWeek: number }) {
               </ul>
             </div>
           </div>
-          <TasksReminderCard onAddClick={() => {}} />
+          <TasksReminderCard />
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
-import { User } from "@/types/user";
-import { api } from "./api";
+import { User } from '@/types/user';
+import { api } from './api';
 
 export interface RegisterUserData {
   name: string;
@@ -8,13 +8,13 @@ export interface RegisterUserData {
 }
 
 export const register = async (userData: RegisterUserData): Promise<User> => {
-  await api.post<User>("/auth/register", userData);
+  await api.post<User>('/auth/register', userData);
   const user = await getMe();
   return user;
 };
 
 export const getMe = async (): Promise<User> => {
-  const { data } = await api.get<User>("/users/current");
+  const { data } = await api.get<User>('/users/current');
   return data;
 };
 
@@ -31,7 +31,7 @@ export interface UpdateUserData {
 }
 
 export const updateMe = async (userData: UpdateUserData): Promise<User> => {
-  const { data } = await api.patch<User>("/users/current", userData);
+  const { data } = await api.patch<User>('/users/current', userData);
   return data;
 };
 
@@ -41,22 +41,25 @@ export interface UpdateOnboardingData {
 }
 
 export const updateOnboarding = async (
-  onboardingData: UpdateOnboardingData,
+  onboardingData: UpdateOnboardingData
 ): Promise<User> => {
-  const { data } = await api.patch<User>("/users/current", onboardingData);
+  const { data } = await api.patch<User>('/users/current', onboardingData);
   return data;
 };
 
 export const updateAvatar = async (file: File): Promise<User> => {
   const formData = new FormData();
-  formData.append("avatar", file);
+  formData.append('avatar', file);
 
-  const { data } = await api.patch<User>("/users/current/avatars", formData);
+  const { data } = await api.patch<User>('/users/current/avatars', formData);
   return data;
 };
 
 export const login = async (loginData: LoginUserData): Promise<User> => {
-  await api.post<User>("/auth/login", loginData);
+  await api.post<User>('/auth/login', loginData);
   const user = await getMe();
   return user;
+};
+export const logout = async (): Promise<void> => {
+  await api.post('/auth/logout');
 };

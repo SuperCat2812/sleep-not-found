@@ -6,10 +6,13 @@ import css from './Sidebar.module.css';
 import Icon from '../Icon/Icon';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useAuthStore } from '@/lib/store/authStore';
-import { getMe } from '@/lib/api/clientApi';
+import { getMe, logout } from '@/lib/api/clientApi';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Sidebar = () => {
+  const router = useRouter();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
 
@@ -30,11 +33,13 @@ const Sidebar = () => {
     fetchUser();
   }, [user, setUser, clearIsAuthenticated]);
 
-  const handleLogout = () => {
-    clearIsAuthenticated();
-  };
-
   const navHref = '/auth/login';
+
+  const handleLogout = async () => {
+    await logout();
+    clearIsAuthenticated();
+    router.push('/');
+  };
 
   return (
     <aside className={css.sidebar}>
@@ -73,7 +78,14 @@ const Sidebar = () => {
       {isAuthenticated && user ? (
         <div className={css.userBar}>
           <div className={css.userInfo}>
-            <div className={css.avatar}></div>
+            <div className={css.avatar}>
+              <Image
+                src={user.avatarUrl}
+                alt="Users avatar"
+                width={40}
+                height={40}
+              />
+            </div>
 
             <div className={css.userText}>
               <p className={css.name}>{user.name}</p>
