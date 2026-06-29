@@ -10,6 +10,8 @@ import * as Yup from "yup";
 import { updateAvatar, updateOnboarding } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./OnboardingForm.module.css";
+import GenderSelect from "@/components/GenderSelect/GenderSelect";
+import DueDatePicker from "@/components/DueDatePicker/DueDatePicker";
 
 interface OnboardingFormValues {
   babyGender: string;
@@ -164,26 +166,19 @@ export default function OnboardingForm() {
         validationSchema={onboardingSchema}
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values, setFieldValue }) => (
           <Form className={css.form}>
             <div className={css.field}>
               <label className={css.label} htmlFor="babyGender">
                 Стать дитини
               </label>
 
-              <Field
-                as="select"
+              <GenderSelect
                 id="babyGender"
                 name="babyGender"
-                className={css.input}
-              >
-                <option value="" disabled hidden>
-                  Оберіть стать
-                </option>
-                <option value="boy">Хлопчик</option>
-                <option value="girl">Дівчинка</option>
-                <option value="unknown">Ще не знаю</option>
-              </Field>
+                value={values.babyGender}
+                onChange={(value) => setFieldValue("babyGender", value)}
+              />
 
               <ErrorMessage
                 name="babyGender"
@@ -197,13 +192,13 @@ export default function OnboardingForm() {
                 Планова дата пологів
               </label>
 
-              <Field
+              <DueDatePicker
                 id="dueDate"
                 name="dueDate"
-                type="date"
-                className={css.input}
-                min={todayDate}
-                max={maxDueDate}
+                value={values.dueDate}
+                onChange={(value) => setFieldValue("dueDate", value)}
+                minDate={todayDate}
+                maxDate={maxDueDate}
               />
 
               <ErrorMessage
