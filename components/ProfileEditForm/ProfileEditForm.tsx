@@ -133,7 +133,6 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
                   className={css.input}
                   type="email"
                   placeholder="hanna@gmail.com"
-                  readOnly
                />
                 <ErrorMessage
                   name="email"
