@@ -1,7 +1,6 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
 import { fetchTasks, updateTaskStatus, Task } from '@/lib/api/tasks';
 import styles from './TasksReminderCard.module.css';
@@ -12,7 +11,6 @@ type TasksReminderCardProps = {
 
 const TasksReminderCard = ({ onAddClick }: TasksReminderCardProps) => {
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   const { data: tasksData } = useQuery({
