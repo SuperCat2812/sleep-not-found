@@ -3,16 +3,16 @@ export interface DiaryParams {
   limit: number;
   DiaryList?: string;
 }
-interface emotion {
-  _id: "string";
-  title: "string";
+interface Emotion {
+  _id: string;
+  title: string;
 }
 export interface DiaryNote {
-  _id: "string";
-  title: "string";
-  date: "string";
-  emotions: emotion[];
-  description: "string";
+  _id: string;
+  title: string;
+  date: string;
+  emotions: Emotion[];
+  description: string;
 }
 export interface DiaryResponse {
   diaryNotes: DiaryNote[];
