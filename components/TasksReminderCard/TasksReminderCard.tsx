@@ -64,23 +64,28 @@ const TasksReminderCard = () => {
           <ul className={styles.list}>
             {tasks.map(task => (
               <li key={task.id} className={styles.taskItem}>
-                <span className={styles.taskDate}>{task.date}</span>
-                <div className={styles.taskRow}>
-                  <input
-                    type="checkbox"
-                    className={styles.checkbox}
-                    checked={task.completed}
-                    onChange={() => {
-                      const original = tasksData?.tasks.find(
-                        t => t._id === task.id
-                      );
-                      if (original)
-                        toggleTask({
-                          taskId: task.id,
-                          isDone: !original.isDone,
-                        });
-                    }}
-                  />
+                <input
+                  type="checkbox"
+                  className={styles.checkbox}
+                  checked={task.completed}
+                  onChange={() => {
+                    console.log('task.id:', task.id);
+                    console.log('tasksData?.tasks:', tasksData?.tasks);
+                    const original = tasksData?.tasks.find(
+                      t => t._id === task.id
+                    );
+                    console.log('original:', original);
+                    if (original)
+                      toggleTask({ taskId: task.id, isDone: !original.isDone });
+                  }}
+                />
+                <div className={styles.taskContent}>
+                  <span className={styles.taskDate}>
+                    {new Date(task.date).toLocaleDateString('uk-UA', {
+                      day: '2-digit',
+                      month: '2-digit',
+                    })}
+                  </span>
                   <span
                     className={`${styles.taskText} ${task.completed ? styles.taskTextCompleted : ''}`}
                   >
