@@ -10,6 +10,7 @@ import { updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileEditForm.module.css";
 import GenderSelect from "@/components/GenderSelect/GenderSelect";
+import DueDatePicker from "@/components/DueDatePicker/DueDatePicker";
 
 interface ProfileEditFormProps {
   user: User;
@@ -169,13 +170,13 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
                   <label className={css.label} htmlFor="dueDate">
                     Планова дата пологів
                   </label>
-                  <Field
+                  <DueDatePicker
                     id="dueDate"
                     name="dueDate"
-                    className={css.input}
-                    type="date"
-                    min={todayDate}
-                    max={maxDueDate}
+                    value={values.dueDate}
+                    onChange={(value) => setFieldValue("dueDate", value)}
+                    minDate={todayDate}
+                    maxDate={maxDueDate}
                   />
                   <ErrorMessage
                     name="dueDate"

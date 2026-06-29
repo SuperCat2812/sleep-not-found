@@ -11,6 +11,7 @@ import { updateAvatar, updateOnboarding } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./OnboardingForm.module.css";
 import GenderSelect from "@/components/GenderSelect/GenderSelect";
+import DueDatePicker from "@/components/DueDatePicker/DueDatePicker";
 
 interface OnboardingFormValues {
   babyGender: string;
@@ -191,13 +192,13 @@ export default function OnboardingForm() {
                 Планова дата пологів
               </label>
 
-              <Field
+              <DueDatePicker
                 id="dueDate"
                 name="dueDate"
-                type="date"
-                className={css.input}
-                min={todayDate}
-                max={maxDueDate}
+                value={values.dueDate}
+                onChange={(value) => setFieldValue("dueDate", value)}
+                minDate={todayDate}
+                maxDate={maxDueDate}
               />
 
               <ErrorMessage
