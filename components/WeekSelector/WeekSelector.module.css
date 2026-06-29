@@ -23,35 +23,23 @@
 }
 
 .carousel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
   margin-top: 24px;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 97px;
   gap: 1rem;
-  margin-bottom: 32px;
+  margin-top: 122px;
+  user-select: none;
 
-  margin-inline: -20px;
-  padding-inline: 20px;
-}
-
-@media (min-width: 768px) {
-  .carousel {
-    margin-inline: -30px;
-    padding-inline: 30px;
+  @media only screen and (min-width: 1440px) {
+    margin-top: 133px;
   }
 }
 
-@media (min-width: 1440px) {
-  .carousel {
-    margin-inline: -40px;
-    padding-inline: 40px;
-  }
-}
-
-.wrapper {
-  overflow: visible;
-  margin-right: -100px;
-}
 .slide {
   display: flex;
   flex-direction: column;

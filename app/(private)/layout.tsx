@@ -1,25 +1,25 @@
-import type { Metadata } from "next";
-import { Lato, Comfortaa } from "next/font/google";
-import "@blossom-carousel/react/style.css";
-import "./globals.css";
-import css from "./layout.module.css";
+import type { Metadata } from 'next';
+import { Lato, Comfortaa } from 'next/font/google';
+import '@blossom-carousel/react/style.css';
+import './globals.css';
+import css from './layout.module.css';
 
-import Header from "@/components/Header/Header";
-import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
-import { Toaster } from "react-hot-toast";
+import Header from '@/components/Header/Header';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import Sidebar from '@/components/Sidebar/Sidebar';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+import { Toaster } from 'react-hot-toast';
 
 const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-lato",
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-lato',
 });
 
 const comfortaa = Comfortaa({
-  subsets: ["latin"],
-  weight: ["700"],
-  variable: "--font-comfortaa",
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-comfortaa',
 });
 
 interface LayoutProps {
@@ -27,10 +27,9 @@ interface LayoutProps {
 }
 
 export const metadata: Metadata = {
-  title: "Лелека",
-  description: "Персональний помічник для майбутніх мам",
+  title: 'Лелека',
+  description: 'Персональний помічник для майбутніх мам',
 };
-
 
 const Layout = ({ children }: LayoutProps) => {
   return (
@@ -44,8 +43,10 @@ const Layout = ({ children }: LayoutProps) => {
             <Sidebar />
 
             <div className={css.content}>
-              <Breadcrumbs />
-              <main className={css.main}>{children}</main>
+              <div className={css.position}>
+                <Breadcrumbs />
+                <main className={css.main}>{children}</main>
+              </div>
             </div>
           </div>
         </TanStackProvider>

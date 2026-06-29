@@ -19,6 +19,7 @@
 
     position: sticky;
     top: 0;
+    z-index: 100;
   }
 }
 
@@ -111,6 +112,7 @@
   height: 40px;
   border-radius: 50%;
   background-color: #d9d9d9;
+  object-fit: cover;
 }
 
 .name {
