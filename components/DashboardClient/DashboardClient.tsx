@@ -35,3 +35,5 @@ const DashboardClient = () => {
 };
 
 export default DashboardClient;
+
+// чисто для комміту.
