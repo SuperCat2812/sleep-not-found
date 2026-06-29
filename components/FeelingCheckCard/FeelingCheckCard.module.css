@@ -59,3 +59,10 @@
     color: var(--color-neutral-darkest);
     margin-top: 16px;
 }
+
+@media (min-width: 1440px) {
+    .card {
+        height: 210px;
+        overflow-y: auto;
+    }
+}

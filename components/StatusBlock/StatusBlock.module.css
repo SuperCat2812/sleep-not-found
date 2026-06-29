@@ -48,3 +48,9 @@
     letter-spacing: 0.01em;
     color: var(--color-neutral-darkest);
 }
+
+@media (min-width: 1440px) {
+    .wrapper {
+        height: 127px;
+    }
+}
