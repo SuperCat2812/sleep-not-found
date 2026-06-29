@@ -9,6 +9,8 @@ import { api } from '@/lib/api/api';
 import CustomScroll from '@/components/CustomScroll/CustomScroll';
 import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
+import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
+import { deleteDiary } from '@/lib/diary-api-client';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;
@@ -97,6 +99,20 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             onSuccess={handleSuccess}
           />
         )}
+
+        <ConfirmationModal
+          id="delete"
+          title="Видалити?"
+          confirmButtonText="Так"
+          cancelButtonText="Ні"
+          onConfirm={async id => {
+            if (!id) return;
+
+            await deleteDiary(id);
+            handleSuccess();
+          }}
+          onCancel={() => {}}
+        />
       </section>
     </>
   );
