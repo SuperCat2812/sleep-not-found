@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
+import { getDiary } from '../../../lib/diary-api-server';
 import { cookies } from 'next/headers';
-import { api } from '../api';
+import { api } from '@/app/api/api';
 import { isAxiosError } from 'axios';
 import { logErrorResponse } from '../_utils/utils';
-import { DiaryResponse } from '@/types/diary-types';
 
 export async function GET(request: Request) {
   try {
@@ -11,37 +11,31 @@ export async function GET(request: Request) {
 
     const page = Number(searchParams.get('page') ?? 1);
     const limit = Number(searchParams.get('limit') ?? 10);
-    const cookieStore = await cookies();
-    const { data } = await api.get<DiaryResponse>('/diary', {
-      params: { page, limit },
-      headers: {
-        Cookie: cookieStore.toString(),
-        'Content-Type': 'application/json',
-      },
-    });
+
+    const data = await getDiary({ page, limit });
+
     return NextResponse.json(data);
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.response?.status || 400 }
       );
     }
-    logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }
     );
   }
 }
+
 export async function POST(request: Request) {
   try {
     const cookieStore = await cookies();
-
     const body = await request.json();
 
-    const res = await api.post('/notes', body, {
+    const res = await api.post('/diary', body, {
       headers: {
         Cookie: cookieStore.toString(),
         'Content-Type': 'application/json',
@@ -54,10 +48,9 @@ export async function POST(request: Request) {
       logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.status }
+        { status: error.response?.status || 400 }
       );
     }
-    logErrorResponse({ message: (error as Error).message });
     return NextResponse.json(
       { error: 'Internal Server Error' },
       { status: 500 }

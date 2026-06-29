@@ -36,9 +36,8 @@
   }
 }
 
-.createContainer > a {
+.createContainer > button {
   font-family: var(--font-lato);
-
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -50,6 +49,10 @@
   font-size: 14px;
   line-height: 1.6;
   margin-left: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 
   @media (min-width: 1440px) {
     font-size: 16px;
