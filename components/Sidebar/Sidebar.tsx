@@ -6,10 +6,12 @@ import css from './Sidebar.module.css';
 import Icon from '../Icon/Icon';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useAuthStore } from '@/lib/store/authStore';
-import { getMe } from '@/lib/api/clientApi';
+import { getMe, logout } from '@/lib/api/clientApi';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
+import { useRouter } from 'next/navigation';
 
 const Sidebar = () => {
+  const router = useRouter();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
 
@@ -30,11 +32,13 @@ const Sidebar = () => {
     fetchUser();
   }, [user, setUser, clearIsAuthenticated]);
 
-  const handleLogout = () => {
-    clearIsAuthenticated();
-  };
-
   const navHref = '/auth/login';
+
+  const handleLogout = async () => {
+    await logout();
+    clearIsAuthenticated();
+    router.push('/');
+  };
 
   return (
     <aside className={css.sidebar}>

@@ -4,15 +4,27 @@ import Link from 'next/link';
 import Icon from '../Icon/Icon';
 import css from './MobileMenu.module.css';
 import { useAuthStore } from '@/lib/store/authStore';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { useConfirmationModal } from '@/lib/store/confirmModalStore';
+import { logout } from '@/lib/api/clientApi';
+import { useRouter } from 'next/navigation';
 
 interface MobileMenuProps {
   onClose: () => void;
 }
 
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
-  const { user, isAuthenticated } = useAuthStore();
+  const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore();
+  const setOpen = useConfirmationModal().open;
+  const router = useRouter();
 
   const navHref = '/auth/login';
+  const handleLogout = async () => {
+    await logout();
+    clearIsAuthenticated();
+    onClose();
+    router.push('/');
+  };
 
   return (
     <div className={css.backdrop} onClick={onClose}>
@@ -24,7 +36,6 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
             onClick={onClose}
           >
             <Icon id="icon-Logo-leleka" className={css.logoIcon} />
-            <span>Лелека</span>
           </Link>
 
           <button
@@ -86,7 +97,11 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
               </div>
             </div>
 
-            <button className={css.logout} type="button">
+            <button
+              className={css.logout}
+              type="button"
+              onClick={() => setOpen('logoutBurger')}
+            >
               <Icon id="icon-logaut" className={css.logoutIcon} />
             </button>
           </div>
@@ -110,6 +125,14 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
           </div>
         )}
       </aside>
+      <ConfirmationModal
+        id="logoutBurger"
+        title="Ви точно хочете вийти?"
+        cancelButtonText="Ні"
+        confirmButtonText="Так"
+        onCancel={() => {}}
+        onConfirm={handleLogout}
+      />
     </div>
   );
 };
