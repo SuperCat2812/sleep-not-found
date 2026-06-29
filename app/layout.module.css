@@ -19,15 +19,6 @@
   min-width: 0;
   overflow-x: hidden;
   max-width: 100vi;
-  padding: 24px 20px;
-
-  @media only screen and (min-width: 768px) {
-    padding: 24px 32px;
-  }
-
-  @media only screen and (min-width: 1440px) {
-    padding: 32px 40px;
-  }
 }
 .position {
   @media only screen and (min-width: 1440px) {
@@ -39,4 +30,16 @@
 .main {
   width: 100%;
   margin-top: 24px;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 24px 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .content {
+    padding: 32px 40px;
+  }
 }

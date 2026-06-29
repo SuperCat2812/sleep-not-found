@@ -51,11 +51,11 @@ const Journey = async ({
   const currentWeek = await getWeekServer();
 
   return (
-    <>
+    <section>
       <GreetingBlock />
       <WeekSelector currentWeek={currentWeek.curWeekToPregnant} />
       {<JourneyDetails currentWeek={currentWeek.curWeekToPregnant} />}
-    </>
+    </section>
   );
 };
 

@@ -92,14 +92,13 @@ const Sidebar = () => {
       {isAuthenticated && user ? (
         <div className={css.userBar}>
           <div className={css.userInfo}>
-            <div className={css.avatar}>
-              <Image
-                src={user.avatarUrl}
-                alt="Users avatar"
-                width={40}
-                height={40}
-              />
-            </div>
+            <Image
+              className={css.avatar}
+              src={user.avatarUrl}
+              alt="Users avatar"
+              width={40}
+              height={40}
+            />
 
             <div className={css.userText}>
               <p className={css.name}>{user.name}</p>
