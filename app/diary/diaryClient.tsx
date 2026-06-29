@@ -61,9 +61,7 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
 
   return (
     <>
-      <div className={css.Greeting}>
-        <GreetingBlock />
-      </div>
+      <div className={css.Greeting}>{/* <GreetingBlock /> */}</div>
       <section className={css.sectionDiary}>
         <div className={css.diaryContainer}>
           <div className={css.title}>
