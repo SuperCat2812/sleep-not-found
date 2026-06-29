@@ -12,7 +12,7 @@ export default function DiaryDetailsClient({ diary }: DiaryDetailsClientProps) {
   const router = useRouter();
   const handleSuccess = async () => {
     try {
-      router.push('/dairy');
+      router.push('/diary');
     } catch {}
   };
 
