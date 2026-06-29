@@ -1,3 +1,4 @@
+import { isAxiosError } from 'axios';
 import { api } from './api';
 
 export interface Task {
@@ -28,5 +29,13 @@ export async function createTask(body: {
 }
 
 export async function updateTaskStatus(taskId: string, isDone: boolean): Promise<void> {
-  await api.patch(`/tasks/status/${taskId}`, { isDone });
+  try {
+    const { data } = await api.patch(`/tasks/status/${taskId}`, { isDone });
+    console.log('response:', data);
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.log('error response:', error.response?.data);
+      console.log('error details:', error.response?.data?.response);
+    }
+  }
 }
