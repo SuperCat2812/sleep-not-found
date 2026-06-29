@@ -1,22 +1,29 @@
 'use client';
 
-import { useEffect } from 'react';
-import Link from 'next/link';
-import css from './Sidebar.module.css';
-import Icon from '../Icon/Icon';
-import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
-import { useAuthStore } from '@/lib/store/authStore';
-import { getMe, logout } from '@/lib/api/clientApi';
-import { useConfirmationModal } from '@/lib/store/confirmModalStore';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import css from './Sidebar.module.css';
+
+import Icon from '../Icon/Icon';
+import Loader from '../Loader/Loader';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+
+import { getMe, logout } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
+import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 
 const Sidebar = () => {
   const router = useRouter();
+
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
 
   const setOpen = useConfirmationModal().open;
+
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     if (user) return;
@@ -36,9 +43,16 @@ const Sidebar = () => {
   const navHref = '/auth/login';
 
   const handleLogout = async () => {
-    await logout();
-    clearIsAuthenticated();
-    router.push('/');
+    try {
+      setIsLoggingOut(true);
+
+      await logout();
+
+      clearIsAuthenticated();
+      router.push('/');
+    } finally {
+      setIsLoggingOut(false);
+    }
   };
 
   return (
@@ -93,13 +107,17 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <button
-            className={css.logout}
-            type="button"
-            onClick={() => setOpen('logout')}
-          >
-            <Icon id="icon-logaut" className={css.logoutIcon} />
-          </button>
+          {isLoggingOut ? (
+            <Loader className={css.logoutLoader} />
+          ) : (
+            <button
+              className={css.logout}
+              type="button"
+              onClick={() => setOpen('logout')}
+            >
+              <Icon id="icon-logaut" className={css.logoutIcon} />
+            </button>
+          )}
 
           <ConfirmationModal
             id="logout"
