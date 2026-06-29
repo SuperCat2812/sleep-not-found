@@ -17,13 +17,13 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
-  padding: 16px 20px;
   overflow-x: hidden;
   max-width: 100vi;
 }
 .position {
   @media only screen and (min-width: 1440px) {
     width: 1128px;
+    max-width: 100%;
     margin: 0 auto;
   }
 }
