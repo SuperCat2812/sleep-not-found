@@ -14,7 +14,7 @@ interface DiaryEntryDetailsProps {
 const DiaryEntryDetails = ({ diary, onSuccess }: DiaryEntryDetailsProps) => {
   const setOpen = useConfirmationModal().open;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const router = useRouter();
+
   const handleSuccess = () => {
     setIsModalOpen(false);
     onSuccess();
