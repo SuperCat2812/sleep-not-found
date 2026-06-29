@@ -55,8 +55,7 @@ const RegistrationForm = () => {
   };
 
   return (
-    <>
-      <Icon id={'icon-Logo-leleka'} className={css.logo} />
+   
       <div className={css.wrapper}>
         <h1 className={css.title}>Реєстрація</h1>
         <Formik
@@ -132,7 +131,7 @@ const RegistrationForm = () => {
           )}
         </Formik>
       </div>
-    </>
+   
   );
 };
 export default RegistrationForm;

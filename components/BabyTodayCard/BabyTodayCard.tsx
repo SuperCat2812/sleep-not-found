@@ -26,6 +26,8 @@ const BabyTodayCard = ({
             alt="Малюк"
             fill
             style={{ objectFit: 'cover' }}
+            sizes="(max-width:767px) 287px, 257px"
+            priority
           />
         </div>
         <div className={styles.infoList}>
