@@ -3,11 +3,22 @@ import { DiaryNote } from '@/types/diary-types';
 import css from './DiaryEntryDetails.module.css';
 import Icon from '../Icon/Icon';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
+import AddDiaryEntryModal from '../AddDiaryEntryModal/AddDiaryEntryModal';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 interface DiaryEntryDetailsProps {
   diary: DiaryNote;
+  onSuccess: () => void;
 }
-const DiaryEntryDetails = ({ diary }: DiaryEntryDetailsProps) => {
+const DiaryEntryDetails = ({ diary, onSuccess }: DiaryEntryDetailsProps) => {
   const setOpen = useConfirmationModal().open;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    onSuccess();
+  };
   function formatDate(date: string) {
     return new Intl.DateTimeFormat('uk-UA', {
       day: '2-digit',
@@ -17,38 +28,58 @@ const DiaryEntryDetails = ({ diary }: DiaryEntryDetailsProps) => {
       .format(new Date(date))
       .replace(' р.', '');
   }
+
   return (
-    <div className={css.ContainerDetail}>
-      <div className={css.DiaryContainer}>
-        <div className={css.DiaryTitle}>
-          <h3>{diary.title}</h3>
-          <Icon id="icon-edit" className={css.IconDetail} />
+    <>
+      <div className={css.ContainerDetail}>
+        <div className={css.DiaryContainer}>
+          <div className={css.DiaryTitle}>
+            <h3>{diary.title}</h3>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className={css.editBtn}
+            >
+              <Icon id="icon-edit" className={css.IconDetail} />
+            </button>
+          </div>
+          <div className={css.DiaryData}>
+            <p>{formatDate(diary.date)}</p>
+            <button
+              className={css.DeleteBtn}
+              onClick={() => {
+                setOpen('delete', diary._id);
+              }}
+            >
+              <Icon id="icon-delete" className={css.IconDetail} />
+            </button>
+          </div>
         </div>
-        <div className={css.DiaryData}>
-          <p>{formatDate(diary.date)}</p>
-          <button
-            className={css.DeleteBtn}
-            onClick={() => {
-              setOpen('delete', diary._id);
-            }}
-          >
-            <Icon id="icon-delete" className={css.IconDetail} />
-          </button>
+        <div className={css.DiaryDescriptionContainer}>
+          <p className={css.DiaryDescription}>{diary.description}</p>
+          <ul className={css.EmotionList}>
+            {diary.emotions.map(emotion => {
+              return (
+                <li key={emotion._id}>
+                  <p className={css.DiaryEmotion}>{emotion.title}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
-      <div className={css.DiaryDescriptionContainer}>
-        <p className={css.DiaryDescription}>{diary.description}</p>
-        <ul className={css.EmotionList}>
-          {diary.emotions.map(emotion => {
-            return (
-              <li key={diary._id}>
-                <p className={css.DiaryEmotion}>{emotion.title}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
+      {isModalOpen && (
+        <AddDiaryEntryModal
+          onClose={() => setIsModalOpen(false)}
+          onSuccess={handleSuccess}
+          entryToEdit={{
+            _id: diary._id,
+            title: diary.title,
+            description: diary.description,
+            emotions: diary.emotions.map(emotion => emotion._id),
+          }}
+        />
+      )}
+    </>
   );
 };
 export default DiaryEntryDetails;

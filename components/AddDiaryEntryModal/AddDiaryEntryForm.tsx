@@ -75,11 +75,19 @@ export default function AddDiaryEntryForm({
       onSubmit={async (values, { setSubmitting }) => {
         try {
           if (entryToEdit) {
-            await fetch(`/api/diary/${entryToEdit._id}`, {
-              method: 'PATCH',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(values),
-            });
+            if (entryToEdit) {
+              const res = await fetch(`/api/diary/${entryToEdit._id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(values),
+              });
+
+              if (!res.ok) throw new Error();
+
+              onSuccess?.();
+              onClose();
+              return;
+            }
           } else {
             const res = await fetch('/api/diary', {
               method: 'POST',

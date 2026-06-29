@@ -8,6 +8,7 @@ import Icon from '@/components/Icon/Icon';
 import { api } from '@/lib/api/api';
 import CustomScroll from '@/components/CustomScroll/CustomScroll';
 import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
+import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;
@@ -59,35 +60,45 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
   };
 
   return (
-    <section className={css.sectionDiary}>
-      <div className={css.diaryContainer}>
-        <div className={css.title}>
-          <h2>Ваші записи</h2>
-          <div className={css.createContainer}>
-            <button onClick={() => setIsModalOpen(true)}>
-              <span className={css.newTask}>Новий запис</span>
-              <Icon id="icon-plus" className={css.iconPlus} />
-            </button>
+    <>
+      <div className={css.Greeting}>
+        <GreetingBlock />
+      </div>
+      <section className={css.sectionDiary}>
+        <div className={css.diaryContainer}>
+          <div className={css.title}>
+            <h2>Ваші записи</h2>
+            <div className={css.createContainer}>
+              <button onClick={() => setIsModalOpen(true)}>
+                <span className={css.newTask}>Новий запис</span>
+                <Icon id="icon-plus" className={css.iconPlus} />
+              </button>
+            </div>
+          </div>
+          <div className={css.diaryContainer}>
+            <CustomScroll>
+              <div className={css.diaryListScroll} onScroll={handleScroll}>
+                <DiaryList diarys={data} setId={setId} />
+              </div>
+            </CustomScroll>
           </div>
         </div>
-        <div className={css.diaryContainer}>
-          <CustomScroll>
-            <div className={css.diaryListScroll} onScroll={handleScroll}>
-              <DiaryList diarys={data} setId={setId} />
-            </div>
-          </CustomScroll>
+        <div className={css.diaryContainerDetails}>
+          {selectedDiary && (
+            <DiaryEntryDetails
+              diary={selectedDiary}
+              onSuccess={handleSuccess}
+            />
+          )}
         </div>
-      </div>
-      <div className={css.diaryContainerDetails}>
-        {selectedDiary && <DiaryEntryDetails diary={selectedDiary} />}
-      </div>
-      {isModalOpen && (
-        <AddDiaryEntryModal
-          onClose={() => setIsModalOpen(false)}
-          onSuccess={handleSuccess}
-        />
-      )}
-    </section>
+        {isModalOpen && (
+          <AddDiaryEntryModal
+            onClose={() => setIsModalOpen(false)}
+            onSuccess={handleSuccess}
+          />
+        )}
+      </section>
+    </>
   );
 };
 
