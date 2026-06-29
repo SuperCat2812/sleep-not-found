@@ -1,12 +1,8 @@
 import type { Metadata } from 'next';
 import { Lato, Comfortaa } from 'next/font/google';
 import '@blossom-carousel/react/style.css';
-import './globals.css';
-import css from './layout.module.css';
+import '../(private)/globals.css';
 
-import Header from '@/components/Header/Header';
-import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
-import Sidebar from '@/components/Sidebar/Sidebar';
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import { Toaster } from 'react-hot-toast';
 
@@ -34,21 +30,10 @@ export const metadata: Metadata = {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <html lang="uk">
-      <body className={`${css.body} ${lato.variable} ${comfortaa.variable}`}>
+      <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <Toaster position="top-center" reverseOrder={false} />
-          <Header />
-
-          <div className={css.wrapper}>
-            <Sidebar />
-
-            <div className={css.content}>
-              <div className={css.position}>
-                <Breadcrumbs />
-                <main className={css.main}>{children}</main>
-              </div>
-            </div>
-          </div>
+          <main>{children}</main>
         </TanStackProvider>
       </body>
     </html>

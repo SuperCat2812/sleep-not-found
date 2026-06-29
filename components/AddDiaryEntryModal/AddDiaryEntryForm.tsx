@@ -36,7 +36,10 @@ export default function AddDiaryEntryForm({
 }: AddDiaryEntryFormProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [emotionsList, setEmotionsList] = useState<Emotion[]>([]);
+  const [visibleCount, setVisibleCount] = useState(10);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchEmotions = async () => {
@@ -48,6 +51,7 @@ export default function AddDiaryEntryForm({
         toast.error('Не вдалось завантажити емоції');
       }
     };
+
     fetchEmotions();
   }, []);
 
@@ -60,9 +64,37 @@ export default function AddDiaryEntryForm({
         setIsDropdownOpen(false);
       }
     };
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setVisibleCount(10);
+    }
+  }, [isDropdownOpen]);
+
+  useEffect(() => {
+    const el = listRef.current;
+    if (!el || !isDropdownOpen) return;
+
+    const handleScroll = () => {
+      const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 10;
+
+      if (isBottom) {
+        setVisibleCount(prev => {
+          const next = prev + 10;
+          return next > emotionsList.length ? emotionsList.length : next;
+        });
+      }
+    };
+
+    el.addEventListener('scroll', handleScroll);
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, [isDropdownOpen, emotionsList]);
+
+  const visibleEmotions = emotionsList.slice(0, visibleCount);
 
   return (
     <Formik
@@ -75,19 +107,11 @@ export default function AddDiaryEntryForm({
       onSubmit={async (values, { setSubmitting }) => {
         try {
           if (entryToEdit) {
-            if (entryToEdit) {
-              const res = await fetch(`/api/diary/${entryToEdit._id}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(values),
-              });
-
-              if (!res.ok) throw new Error();
-
-              onSuccess?.();
-              onClose();
-              return;
-            }
+            await fetch(`/api/diary/${entryToEdit._id}`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(values),
+            });
           } else {
             const res = await fetch('/api/diary', {
               method: 'POST',
@@ -96,6 +120,7 @@ export default function AddDiaryEntryForm({
             });
             if (!res.ok) throw new Error();
           }
+
           onClose();
           onSuccess?.();
         } catch {
@@ -122,10 +147,11 @@ export default function AddDiaryEntryForm({
 
           <div>
             <label className={styles.label}>Категорії</label>
+
             <div className={styles.dropdownWrapper} ref={dropdownRef}>
               <div
                 className={styles.dropdownTrigger}
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onClick={() => setIsDropdownOpen(prev => !prev)}
               >
                 <div className={styles.tags}>
                   {values.emotions.length > 0 ? (
@@ -140,14 +166,18 @@ export default function AddDiaryEntryForm({
                     <span>Оберіть категорію</span>
                   )}
                 </div>
+
                 <Icon
                   id="icon-bottom"
-                  className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpen : ''}`}
+                  className={`${styles.arrow} ${
+                    isDropdownOpen ? styles.arrowOpen : ''
+                  }`}
                 />
               </div>
+
               {isDropdownOpen && (
-                <div className={styles.dropdownList}>
-                  {emotionsList.map(emotion => (
+                <div className={styles.dropdownList} ref={listRef}>
+                  {visibleEmotions.map(emotion => (
                     <label key={emotion._id} className={styles.dropdownItem}>
                       <input
                         type="checkbox"
@@ -156,6 +186,7 @@ export default function AddDiaryEntryForm({
                           const updated = values.emotions.includes(emotion._id)
                             ? values.emotions.filter(id => id !== emotion._id)
                             : [...values.emotions, emotion._id];
+
                           setFieldValue('emotions', updated);
                         }}
                       />
@@ -165,6 +196,7 @@ export default function AddDiaryEntryForm({
                 </div>
               )}
             </div>
+
             <ErrorMessage
               name="emotions"
               component="p"
