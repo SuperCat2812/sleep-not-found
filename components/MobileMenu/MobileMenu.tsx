@@ -90,14 +90,13 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
         {isAuthenticated && user ? (
           <div className={css.userBar}>
             <div className={css.userInfo}>
-              <div className={css.avatar}>
-                <Image
-                  src={user.avatarUrl}
-                  alt="Users avatar"
-                  width={40}
-                  height={40}
-                />
-              </div>
+              <Image
+                src={user.avatarUrl}
+                alt="Users avatar"
+                width={40}
+                height={40}
+                className={css.avatar}
+              />
 
               <div>
                 <p className={css.name}>{user.name}</p>
