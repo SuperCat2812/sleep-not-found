@@ -1,9 +1,6 @@
 import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
-import {
-  getWeekBabyByNumberServer,
-  getWeekServer,
-} from '@/lib/journey-api-server';
+import { getWeekServer } from '@/lib/journey-api-server';
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
@@ -15,32 +12,26 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const { weekNumber } = await params;
   const week = Number(weekNumber);
+
   if (!week || week < 1 || week > 42) {
     return { title: 'Сторінку не знайдено' };
   }
-  const data = await getWeekBabyByNumberServer(week);
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  const description = data
-    ? `Детальне відстеження росту малюка. ${data.analogy}. ${data.description}`
-    : `Детальне відстеження росту малюка на ${week} тижні`;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
   return {
     title: `${week} Тиждень | Лелека`,
-    description,
-
+    description: `Детальне відстеження росту малюка на ${week} тижні вагітності`,
     openGraph: {
       title: `${week} Тиждень | Лелека`,
-      description,
+      description: `Детальне відстеження росту малюка на ${week} тижні вагітності`,
       url: `${baseUrl}/journey/${week}`,
       images: [
         {
-          url: data?.image
-            ? `${baseUrl}/week/baby?${data.image}`
-            : `${baseUrl}/leleka.png }`,
+          url: `${baseUrl}/leleka.png`, // загальна картинка
           width: 1200,
           height: 630,
-          alt: `Week ${week} baby`,
+          alt: `Тиждень ${week}`,
         },
       ],
     },
@@ -61,7 +52,7 @@ const Journey = async ({
 
   return (
     <>
-      <GreetingBlock name="" />
+      <GreetingBlock />
       <WeekSelector currentWeek={currentWeek.curWeekToPregnant} />
       {<JourneyDetails currentWeek={currentWeek.curWeekToPregnant} />}
     </>
