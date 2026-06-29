@@ -31,7 +31,15 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
       const response = await api.get<DiaryResponse>('/diary', {
         params: { page: nextPage, limit: 10 },
       });
-      setData(prev => [...prev, ...response.data.diaryNotes]);
+      setData(prev => {
+        const existingIds = new Set(prev.map(item => item._id));
+
+        const newItems = response.data.diaryNotes.filter(
+          item => !existingIds.has(item._id)
+        );
+
+        return [...prev, ...newItems];
+      });
       setPage(nextPage);
     } catch {
     } finally {
@@ -78,8 +86,8 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             </div>
           </div>
           <div className={css.diaryContainer}>
-            <CustomScroll>
-              <div className={css.diaryListScroll} onScroll={handleScroll}>
+            <CustomScroll onScroll={handleScroll}>
+              <div className={css.diaryListScroll}>
                 <DiaryList diarys={data} setId={setId} />
               </div>
             </CustomScroll>
