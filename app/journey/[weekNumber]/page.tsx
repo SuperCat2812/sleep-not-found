@@ -61,7 +61,7 @@ const Journey = async ({
 
   return (
     <>
-      <GreetingBlock name="" />
+      <GreetingBlock />
       <WeekSelector currentWeek={currentWeek.curWeekToPregnant} />
       {<JourneyDetails currentWeek={currentWeek.curWeekToPregnant} />}
     </>
