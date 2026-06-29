@@ -8,6 +8,7 @@ import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 import { logout } from '@/lib/api/clientApi';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -89,7 +90,14 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
         {isAuthenticated && user ? (
           <div className={css.userBar}>
             <div className={css.userInfo}>
-              <div className={css.avatar}></div>
+              <div className={css.avatar}>
+                <Image
+                  src={user.avatarUrl}
+                  alt="Users avatar"
+                  width={40}
+                  height={40}
+                />
+              </div>
 
               <div>
                 <p className={css.name}>{user.name}</p>
