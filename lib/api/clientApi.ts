@@ -35,6 +35,18 @@ export const updateMe = async (userData: UpdateUserData): Promise<User> => {
   return data;
 };
 
+export interface UpdateOnboardingData {
+  babyGender: string;
+  dueDate: string;
+}
+
+export const updateOnboarding = async (
+  onboardingData: UpdateOnboardingData,
+): Promise<User> => {
+  const { data } = await api.patch<User>("/users/current", onboardingData);
+  return data;
+};
+
 export const updateAvatar = async (file: File): Promise<User> => {
   const formData = new FormData();
   formData.append("avatar", file);

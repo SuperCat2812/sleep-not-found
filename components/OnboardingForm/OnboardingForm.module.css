@@ -1,0 +1,200 @@
+.wrapper {
+  width: 100%;
+  max-width: 480px;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.title {
+  width: 100%;
+  max-width: 480px;
+  margin: 0;
+
+  font-family: var(--font-comfortaa), sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+
+  color: var(--color-neutral-darkest);
+}
+
+.avatarBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 24px;
+}
+
+.avatarButton {
+  width: 164px;
+  height: 164px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: var(--opacity-neutral-darkest-5);
+
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  font-size: 40px;
+  line-height: 1;
+}
+
+.uploadButton {
+  min-width: 168px;
+  height: 42px;
+  padding: 8px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: none;
+  border-bottom: 4px solid var(--opacity-neutral-darkest-15);
+  border-radius: 100px;
+
+  background-color: var(--opacity-neutral-darkest-5);
+  color: var(--color-neutral-darkest);
+
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+
+  cursor: pointer;
+}
+
+.uploadButton:hover {
+  background-color: var(--color-pastel-pink-lighter);
+  border-color: var(--color-pastel-pink);
+}
+
+.form {
+  width: 100%;
+  max-width: 480px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.field {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  width: 100%;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+
+  color: var(--color-neutral-darkest);
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  padding: 8px 12px;
+
+  border: 2px solid var(--opacity-transparent);
+  border-radius: 12px;
+
+  background-color: var(--opacity-neutral-darkest-5);
+  color: var(--color-neutral-darkest);
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: 1px solid var(--color-pastel-pink);
+}
+
+.saveButton {
+  width: 100%;
+  height: 42px;
+  margin-top: 0;
+  padding: 8px 20px;
+
+  border: none;
+  border-bottom: 4px solid var(--color-pastel-pink);
+  border-radius: 100px;
+
+  background-color: var(--color-pastel-pink-light);
+  color: var(--color-neutral-darkest);
+
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+
+  cursor: pointer;
+}
+
+.saveButton:disabled,
+.uploadButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.error {
+  margin-top: 4px;
+
+  color: var(--color-red);
+
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+/* Tablet + mobile тимчасово такий поки не піднастрою як треба */
+@media screen and (max-width: 1439px) {
+  .wrapper {
+    max-width: 480px;
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 40px;
+    line-height: 1.3;
+  }
+
+  .label,
+  .input,
+  .uploadButton,
+  .saveButton {
+    font-size: 14px;
+  }
+}
