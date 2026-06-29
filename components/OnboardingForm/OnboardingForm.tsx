@@ -10,7 +10,7 @@ import * as Yup from "yup";
 import { updateAvatar, updateOnboarding } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./OnboardingForm.module.css";
-import GenderSelect from "@/components/GenderSelect/GenderSelect";
+import GenderSelect, { GenderValue } from "@/components/GenderSelect/GenderSelect";
 import DueDatePicker from "@/components/DueDatePicker/DueDatePicker";
 
 interface OnboardingFormValues {
@@ -176,7 +176,7 @@ export default function OnboardingForm() {
               <GenderSelect
                 id="babyGender"
                 name="babyGender"
-                value={values.babyGender}
+                value={values.babyGender as GenderValue}
                 onChange={(value) => setFieldValue("babyGender", value)}
               />
 

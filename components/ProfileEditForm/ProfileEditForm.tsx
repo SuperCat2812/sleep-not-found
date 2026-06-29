@@ -9,7 +9,7 @@ import type { User } from "@/types/user";
 import { updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileEditForm.module.css";
-import GenderSelect from "@/components/GenderSelect/GenderSelect";
+import GenderSelect, { GenderValue } from "@/components/GenderSelect/GenderSelect";
 import DueDatePicker from "@/components/DueDatePicker/DueDatePicker";
 
 interface ProfileEditFormProps {
@@ -154,7 +154,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
                   <GenderSelect
                    id="babyGender"
                    name="babyGender"
-                   value={values.babyGender}
+                   value={values.babyGender as GenderValue}
                    onChange={(value) => setFieldValue("babyGender", value)}
                   />
                   <ErrorMessage
