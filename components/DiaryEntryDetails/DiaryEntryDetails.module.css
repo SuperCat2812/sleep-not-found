@@ -43,10 +43,16 @@
   line-height: 1.4;
   letter-spacing: 0.01em;
   display: flex;
+  width: 63%;
   gap: 16px;
   @media (min-width: 1440px) {
     font-size: 20px;
   }
+}
+.DiaryTitle > h3 {
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .DiaryData {
