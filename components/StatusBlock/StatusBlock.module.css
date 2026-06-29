@@ -23,7 +23,7 @@
 .card {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 4px;
     border-radius: 32px;
     padding: 16px;
     flex: 1;
@@ -47,4 +47,10 @@
     line-height: 120%;
     letter-spacing: 0.01em;
     color: var(--color-neutral-darkest);
+}
+
+@media (min-width: 1440px) {
+    .wrapper {
+        height: 127px;
+    }
 }

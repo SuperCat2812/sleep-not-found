@@ -1,18 +1,19 @@
 "use client";
 
+import { useAuthStore } from "@/lib/store/authStore";
 import styles from "./FeelingCheckCard.module.css";
 
 type FeelingCheckCardProps = {
   recommendation: string;
-  isAuthorized: boolean;
   onDiaryClick: () => void;
 };
 
 const FeelingCheckCard = ({
   recommendation,
-  isAuthorized,
   onDiaryClick,
 }: FeelingCheckCardProps) => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <div className={styles.card}>
       <h2 className={styles.title}>Як ви себе почуваєте?</h2>

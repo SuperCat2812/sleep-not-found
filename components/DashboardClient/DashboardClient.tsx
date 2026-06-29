@@ -1,46 +1,48 @@
 'use client';
 
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/lib/store/authStore';
 import TasksReminderCard from '@/components/TasksReminderCard/TasksReminderCard';
 import FeelingCheckCard from '@/components/FeelingCheckCard/FeelingCheckCard';
 import AddTaskModal from '@/components/AddTaskModal/AddTaskModal';
-import { fetchTasks, Task } from '@/lib/api/tasks';
+import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
 
 const DashboardClient = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isDiaryModalOpen, setIsDiaryModalOpen] = useState(false);
+  const router = useRouter();
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
-  const { data: tasksData } = useQuery({
-    queryKey: ['tasks'],
-    queryFn: fetchTasks,
-  });
+  const handleAddTask = () => {
+    if (!isAuthenticated) {
+      router.push('/auth/register');
+      return;
+    }
+    setIsTaskModalOpen(true);
+  };
 
-  const tasks: Task[] = Array.isArray(tasksData)
-    ? tasksData
-    : ((tasksData as any)?.tasks ?? []);
-
-  const mappedTasks = tasks.map(task => ({
-    id: task._id,
-    title: task.name,
-    date: task.date,
-    completed: task.isDone,
-  }));
+  const handleDiaryClick = () => {
+    if (!isAuthenticated) {
+      router.push('/auth/register');
+      return;
+    }
+    setIsDiaryModalOpen(true);
+  };
 
   return (
     <>
-      <TasksReminderCard
-        tasks={mappedTasks}
-        isAuthorized={true}
-        onToggle={() => {}}
-        onAddClick={() => setIsModalOpen(true)}
-      />
+      <TasksReminderCard onAddClick={handleAddTask} />
       <FeelingCheckCard
         recommendation="Занотуйте незвичні відчуття у тілі."
-        isAuthorized={false}
-        onDiaryClick={() => {}}
+        onDiaryClick={handleDiaryClick}
       />
-
-      {isModalOpen && <AddTaskModal onClose={() => setIsModalOpen(false)} />}
+      {isTaskModalOpen && (
+        <AddTaskModal onClose={() => setIsTaskModalOpen(false)} />
+      )}
+      {isDiaryModalOpen && (
+        <AddDiaryEntryModal onClose={() => setIsDiaryModalOpen(false)} />
+      )}
     </>
   );
 };
