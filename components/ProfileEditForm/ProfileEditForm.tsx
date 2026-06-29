@@ -9,6 +9,7 @@ import type { User } from "@/types/user";
 import { updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileEditForm.module.css";
+import GenderSelect from "@/components/GenderSelect/GenderSelect";
 
 interface ProfileEditFormProps {
   user: User;
@@ -99,7 +100,7 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
       onSubmit={handleSubmit}
       enableReinitialize
     >
-      {({ isSubmitting, resetForm }) => (
+      {({ isSubmitting, resetForm, values, setFieldValue }) => (
         <Form className={css.form}>
           <div className={css.fields}>
             <div className={css.field}>
@@ -149,16 +150,12 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
                   <label className={css.label} htmlFor="babyGender">
                     Стать дитини
                   </label>
-                  <Field
-                    as="select"
-                    id="babyGender"
-                    name="babyGender"
-                    className={css.input}
-                  >
-                    <option value="boy">Хлопчик</option>
-                    <option value="girl">Дівчинка</option>
-                    <option value="unknown">Ще не знаю</option>
-                  </Field>
+                  <GenderSelect
+                   id="babyGender"
+                   name="babyGender"
+                   value={values.babyGender}
+                   onChange={(value) => setFieldValue("babyGender", value)}
+                  />
                   <ErrorMessage
                     name="babyGender"
                     component="span"
