@@ -61,7 +61,7 @@ export default function OnboardingForm() {
   const [avatarPreview, setAvatarPreview] = useState<string>("");
 
   const initialValues: OnboardingFormValues = {
-    babyGender: "unknown",
+    babyGender: "",
     dueDate: "",
   };
 
@@ -127,13 +127,18 @@ export default function OnboardingForm() {
           aria-label="Завантажити фото"
         >
           {avatarPreview ? (
+             <img
+               src={avatarPreview}
+               alt="Попередній перегляд аватара"
+               className={css.avatarImage}
+             />
+            ) : (
             <img
-              src={avatarPreview}
-              alt="Попередній перегляд аватара"
-              className={css.avatarImage}
+              src="/images/avatar-placeholder.svg"
+              alt=""
+              className={css.avatarPlaceholder}
+              aria-hidden="true"
             />
-          ) : (
-            <span className={css.avatarPlaceholder}>🖼️</span>
           )}
         </button>
 
@@ -172,9 +177,12 @@ export default function OnboardingForm() {
                 name="babyGender"
                 className={css.input}
               >
-                <option value="unknown">Оберіть стать</option>
+                <option value="" disabled hidden>
+                  Оберіть стать
+                </option>
                 <option value="boy">Хлопчик</option>
                 <option value="girl">Дівчинка</option>
+                <option value="unknown">Ще не знаю</option>
               </Field>
 
               <ErrorMessage

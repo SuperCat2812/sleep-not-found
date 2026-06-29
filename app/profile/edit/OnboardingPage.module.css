@@ -21,18 +21,12 @@
 .formSide {
   flex: 1;
   min-height: 100vh;
-  padding: 0 64px;
+  padding: 48px 64px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.formSide::before {
-  content: "";
-  width: 100%;
-  height: 72px;
-  flex-shrink: 0;
+  justify-content: center;
 }
 
 .imageSide {
@@ -49,21 +43,56 @@
   flex: 1;
 
   background-color: var(--color-pastel-pink-lighter);
-  background-image: url("/images/onboarding-illustration.png");
+  background-image: url("/onboarding-illustration.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* Tablet + mobile тимчасово */
-@media screen and (max-width: 1439px) {
-  .formSide {
-    width: 100%;
-    padding: 32px 20px;
+/* Tablet */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .card {
+    min-height: 100vh;
   }
 
-  .formSide::before {
+  .formSide {
+    width: 100%;
+    min-height: auto;
+    padding: 32px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .imageSide {
     display: none;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .page {
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  .card {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+  }
+
+  .formSide {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .imageSide {

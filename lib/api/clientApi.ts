@@ -54,8 +54,9 @@ export const updateAvatar = async (file: File): Promise<User> => {
   const { data } = await api.patch<User>("/users/current/avatars", formData);
   return data;
 };
+
 export const login = async (loginData: LoginUserData): Promise<User> => {
   await api.post<User>("/auth/login", loginData);
   const user = await getMe();
   return user;
-}
+};
