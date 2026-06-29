@@ -30,14 +30,14 @@
   gap: 1rem;
   margin-bottom: 32px;
 
-  margin-inline: -16px;
-  padding-inline: 16px;
+  margin-inline: -20px;
+  padding-inline: 20px;
 }
 
 @media (min-width: 768px) {
   .carousel {
-    margin-inline: -24px;
-    padding-inline: 24px;
+    margin-inline: -30px;
+    padding-inline: 30px;
   }
 }
 
@@ -80,12 +80,12 @@
   }
 }
 
-.slide[data-active="true"] {
+.slide[data-active='true'] {
   background: #ffcbd3;
   border: 4px solid rgba(0, 0, 0, 0.15);
 }
 
-.slide[data-disabled="true"] {
+.slide[data-disabled='true'] {
   background: #f2f2f2;
   opacity: 0.6;
   pointer-events: none;
