@@ -2,6 +2,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import css from './WeekSelector.module.css';
 import { BlossomCarousel } from '@blossom-carousel/react';
+import { useEffect, useRef } from 'react';
 
 interface WeekSelectorProps {
   currentWeek: number;
@@ -11,6 +12,26 @@ function WeekSelector({ currentWeek }: WeekSelectorProps) {
   const router = useRouter();
   const params = useParams();
   const activeWeek = Number(params.weekNumber);
+  const activeRef = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    const active = activeRef.current;
+    if (!active) return;
+
+    const carousel =
+      (active.closest('[class*="carousel"]') as HTMLElement) ??
+      active.parentElement;
+    if (!carousel) return;
+
+    const carouselRect = carousel.getBoundingClientRect();
+    const activeRect = active.getBoundingClientRect();
+
+    carousel.scrollLeft +=
+      activeRect.left -
+      carouselRect.left -
+      carouselRect.width / 2 +
+      activeRect.width / 2;
+  }, []);
 
   return (
     <div className={css.wrapper}>
@@ -23,6 +44,7 @@ function WeekSelector({ currentWeek }: WeekSelectorProps) {
           return (
             <li
               key={week}
+              ref={isActive ? activeRef : null}
               className={css.slide}
               onClick={() => {
                 if (isDisabled) return;

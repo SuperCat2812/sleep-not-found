@@ -7,6 +7,7 @@ import { getWeekBabyByNumber, getWeekMomByNumber } from '@/lib/journey-api';
 import Image from 'next/image';
 import Loader from '@/components/Loader/Loader';
 import Icon from '@/components/Icon/Icon';
+import TasksReminderCard from '../TasksReminderCard/TasksReminderCard';
 
 function JourneyDetails({ currentWeek }: { currentWeek: number }) {
   const { tab, setTab } = useStoreTab();
@@ -124,6 +125,7 @@ function JourneyDetails({ currentWeek }: { currentWeek: number }) {
               </ul>
             </div>
           </div>
+          <TasksReminderCard onAddClick={() => {}} />
         </div>
       )}
     </div>
