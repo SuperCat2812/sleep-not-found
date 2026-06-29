@@ -75,7 +75,7 @@ const Sidebar = () => {
           <div className={css.userInfo}>
             <div className={css.avatar}></div>
 
-            <div>
+            <div className={css.userText}>
               <p className={css.name}>{user.name}</p>
               <p className={css.email}>{user.email}</p>
             </div>
