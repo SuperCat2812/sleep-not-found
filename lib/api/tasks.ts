@@ -7,8 +7,15 @@ export interface Task {
   isDone: boolean;
 }
 
-export async function fetchTasks(): Promise<Task[]> {
-  const { data } = await api.get<Task[]>('/tasks');
+export interface TasksResponse {
+  tasks: Task[];
+  totalCount: number;
+  totalPages: number;
+  page: number;
+}
+
+export async function fetchTasks(): Promise<TasksResponse> {
+  const { data } = await api.get<TasksResponse>('/tasks');
   return data;
 }
 
