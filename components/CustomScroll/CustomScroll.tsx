@@ -1,40 +1,44 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import css from "./CustomScroll.module.css";
+import { useEffect, useRef, useState } from 'react';
+import css from './CustomScroll.module.css';
+
 interface CustomScrollProps {
   children: React.ReactNode;
 }
+
 export default function CustomScroll({ children }: CustomScrollProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const [thumbTop, setThumbTop] = useState(0);
+  const [thumbHeight, setThumbHeight] = useState(56);
   const [isDragging, setIsDragging] = useState(false);
-
-  const thumbHeight = 56;
-
   const [showScrollbar, setShowScrollbar] = useState(false);
 
   const updateScrollbar = () => {
     const content = contentRef.current;
-    if (!content) return;
+    const track = trackRef.current;
+    if (!content || !track) return;
 
     const hasScroll = content.scrollHeight > content.clientHeight;
-
     setShowScrollbar(hasScroll);
 
     if (!hasScroll) {
       setThumbTop(0);
       return;
     }
-    const track = trackRef.current;
-    if (!track) return;
+
+    const newThumbHeight = Math.max(
+      40,
+      (content.clientHeight / content.scrollHeight) * track.clientHeight
+    );
 
     const maxScroll = content.scrollHeight - content.clientHeight;
-    const maxThumbTop = trackRef.current!.clientHeight - thumbHeight;
-
+    const maxThumbTop = track.clientHeight - newThumbHeight;
     const percent = content.scrollTop / maxScroll;
+
+    setThumbHeight(newThumbHeight);
     setThumbTop(percent * maxThumbTop);
   };
 
@@ -43,14 +47,13 @@ export default function CustomScroll({ children }: CustomScrollProps) {
     const track = trackRef.current;
     if (!content || !track) return;
 
-    const trackRect = track.getBoundingClientRect();
+    const maxThumbTop = track.clientHeight - thumbHeight;
+    if (maxThumbTop <= 0) return;
 
+    const trackRect = track.getBoundingClientRect();
     let newTop = clientY - trackRect.top - thumbHeight / 2;
 
-    const maxThumbTop = track.clientHeight - thumbHeight;
-
-    if (newTop < 0) newTop = 0;
-    if (newTop > maxThumbTop) newTop = maxThumbTop;
+    newTop = Math.max(0, Math.min(newTop, maxThumbTop));
 
     const percent = newTop / maxThumbTop;
 
@@ -62,7 +65,6 @@ export default function CustomScroll({ children }: CustomScrollProps) {
   const startDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(true);
-
     e.currentTarget.setPointerCapture(e.pointerId);
   };
 
@@ -75,34 +77,39 @@ export default function CustomScroll({ children }: CustomScrollProps) {
     setIsDragging(false);
     e.currentTarget.releasePointerCapture(e.pointerId);
   };
+
   useEffect(() => {
     updateScrollbar();
+
+    window.addEventListener('resize', updateScrollbar);
+
+    return () => {
+      window.removeEventListener('resize', updateScrollbar);
+    };
   }, [children]);
+
   return (
     <div className={css.wrapper}>
-      <div
-        ref={contentRef}
-        className={css.content}
-        onScroll={updateScrollbar}>
+      <div ref={contentRef} className={css.content} onScroll={updateScrollbar}>
         {children}
       </div>
 
-      {showScrollbar && (
+      <div
+        ref={trackRef}
+        className={`${css.scrollbar} ${!showScrollbar ? css.hidden : ''}`}
+      >
         <div
-          ref={trackRef}
-          className={css.scrollbar}>
-          <div
-            className={css.thumb}
-            onPointerDown={startDrag}
-            onPointerMove={drag}
-            onPointerUp={stopDrag}
-            style={{
-              height: `${thumbHeight}px`,
-              transform: `translateY(${thumbTop}px)`,
-            }}
-          />
-        </div>
-      )}
+          className={css.thumb}
+          onPointerDown={startDrag}
+          onPointerMove={drag}
+          onPointerUp={stopDrag}
+          onPointerCancel={stopDrag}
+          style={{
+            height: `${thumbHeight}px`,
+            transform: `translateY(${thumbTop}px)`,
+          }}
+        />
+      </div>
     </div>
   );
 }
