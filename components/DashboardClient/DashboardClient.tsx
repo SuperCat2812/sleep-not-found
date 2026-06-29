@@ -6,9 +6,11 @@ import { useAuthStore } from '@/lib/store/authStore';
 import TasksReminderCard from '@/components/TasksReminderCard/TasksReminderCard';
 import FeelingCheckCard from '@/components/FeelingCheckCard/FeelingCheckCard';
 import AddTaskModal from '@/components/AddTaskModal/AddTaskModal';
+import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
 
 const DashboardClient = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isDiaryModalOpen, setIsDiaryModalOpen] = useState(false);
   const router = useRouter();
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
@@ -17,7 +19,7 @@ const DashboardClient = () => {
       router.push('/auth/register');
       return;
     }
-    setIsModalOpen(true);
+    setIsTaskModalOpen(true);
   };
 
   const handleDiaryClick = () => {
@@ -25,7 +27,7 @@ const DashboardClient = () => {
       router.push('/auth/register');
       return;
     }
-    // TODO: відкрити AddDiaryEntryModal коли буде готовий
+    setIsDiaryModalOpen(true);
   };
 
   return (
@@ -35,7 +37,12 @@ const DashboardClient = () => {
         recommendation="Занотуйте незвичні відчуття у тілі."
         onDiaryClick={handleDiaryClick}
       />
-      {isModalOpen && <AddTaskModal onClose={() => setIsModalOpen(false)} />}
+      {isTaskModalOpen && (
+        <AddTaskModal onClose={() => setIsTaskModalOpen(false)} />
+      )}
+      {isDiaryModalOpen && (
+        <AddDiaryEntryModal onClose={() => setIsDiaryModalOpen(false)} />
+      )}
     </>
   );
 };
