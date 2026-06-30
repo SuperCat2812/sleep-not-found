@@ -61,7 +61,7 @@
 }
 
 .input:focus {
-  outline: 1px solid var(--color-pastel-pink);
+  outline: 1px solid var(--theme-accent);
 }
 
 /* Figma: nested Fields для select/date */
@@ -104,9 +104,9 @@
 }
 
 .saveButton {
-  background-color: var(--color-pastel-pink-light);
+  background-color: var(--theme-accent-light);
   color: var(--color-neutral-darkest);
-  border-bottom: 4px solid var(--color-pastel-pink);
+  border-bottom: 4px solid var(--theme-accent);
 }
 
 .error {

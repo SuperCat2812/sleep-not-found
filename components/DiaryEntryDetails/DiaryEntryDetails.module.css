@@ -1,5 +1,5 @@
 .ContainerDetail {
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   display: flex;
   justify-content: flex-start;
   flex-direction: column;

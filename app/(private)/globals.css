@@ -66,7 +66,7 @@ body {
 body {
   min-height: 100vh;
   color: var(--foreground);
-  background: var(--background);
+  background: var(--theme-bg);
   font-family: var(--font-lato);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,6 +103,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffcbd3;
+  background: var(--theme-accent);
   border-radius: 999px;
 }

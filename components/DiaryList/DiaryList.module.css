@@ -3,10 +3,10 @@
 }
 
 .diaryItem {
-  border: 1px solid #ffdae0;
+  border: 1px solid var(--theme-accent-light);
   border-radius: 16px;
   padding: 16px;
-  background: #ffdae0;
+  background: var(--theme-accent-light);
   margin-top: 16px;
   font-family: var(--font-lato);
 }
@@ -44,7 +44,7 @@
   border-radius: 100px;
   padding-block: 2px;
   padding-inline: 12px;
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;

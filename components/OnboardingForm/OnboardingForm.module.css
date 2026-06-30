@@ -90,8 +90,8 @@
 }
 
 .uploadButton:hover {
-  background-color: var(--color-pastel-pink-lighter);
-  border-color: var(--color-pastel-pink);
+  background-color: var(--theme-bg-light);
+  border-color: var(--theme-accent);
 }
 
 .form {
@@ -141,7 +141,7 @@
 }
 
 .input:focus {
-  outline: 1px solid var(--color-pastel-pink);
+  outline: 1px solid var(--theme-accent);
 }
 
 .saveButton {
@@ -151,10 +151,10 @@
   padding: 8px 20px;
 
   border: none;
-  border-bottom: 4px solid var(--color-pastel-pink);
+  border-bottom: 4px solid var(--theme-accent);
   border-radius: 100px;
 
-  background-color: var(--color-pastel-pink-light);
+  background-color: var(--theme-accent-light);
   color: var(--color-neutral-darkest);
 
   font: inherit;

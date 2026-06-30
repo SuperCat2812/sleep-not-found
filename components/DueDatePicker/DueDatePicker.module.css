@@ -29,7 +29,7 @@
 }
 
 .trigger:focus {
-  outline: 1px solid var(--color-pastel-pink);
+  outline: 1px solid var(--theme-accent);
 }
 
 .triggerOpen {
@@ -161,7 +161,7 @@
 }
 
 .daySelected {
-  background-color: var(--color-pastel-pink);
+  background-color: var(--theme-accent);
   color: var(--color-neutral-darkest);
   font-weight: 700;
 }

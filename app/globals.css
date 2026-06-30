@@ -56,6 +56,36 @@
   --color-red: #c60000;
 }
 
+:root[data-theme='girl'] {
+  --theme-bg: var(--color-pastel-pink-lightest);
+  --theme-bg-light: var(--color-pastel-pink-lighter);
+  --theme-accent: var(--color-pastel-pink);
+  --theme-accent-light: var(--color-pastel-pink-light);
+  --theme-accent-dark: var(--color-pastel-pink-dark);
+  --theme-text: var(--color-pastel-pink-darkest);
+  --theme-text-mid: var(--color-pastel-pink-darker);
+}
+
+:root[data-theme='boy'] {
+  --theme-bg: var(--color-french-pass-lightest);
+  --theme-bg-light: var(--color-french-pass-lighter);
+  --theme-accent: var(--color-french-pass);
+  --theme-accent-light: var(--color-french-pass-light);
+  --theme-accent-dark: var(--color-french-pass-dark);
+  --theme-text: var(--color-french-pass-darkest);
+  --theme-text-mid: var(--color-french-pass-darker);
+}
+
+:root[data-theme='unknown'] {
+  --theme-bg: var(--color-oasis-lightest);
+  --theme-bg-light: var(--color-oasis-lighter);
+  --theme-accent: var(--color-oasis);
+  --theme-accent-light: var(--color-oasis-light);
+  --theme-accent-dark: var(--color-oasis-dark);
+  --theme-text: var(--color-oasis-darkest);
+  --theme-text-mid: var(--color-oasis-darker);
+}
+
 html,
 body {
   max-width: 100%;
@@ -103,6 +133,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffcbd3;
+  background: var(--theme-accent);
   border-radius: 999px;
 }

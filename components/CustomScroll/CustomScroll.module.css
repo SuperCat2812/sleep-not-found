@@ -36,7 +36,7 @@
   left: -1.7px;
   border-radius: 4px;
   width: 10px;
-  background: #ffcbd3;
+  background: var(--theme-accent);
   cursor: grab;
   touch-action: none;
 }

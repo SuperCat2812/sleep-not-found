@@ -42,7 +42,7 @@
   height: 100%;
   flex: 1;
 
-  background-color: var(--color-pastel-pink-lighter);
+  background-color: var(--theme-bg-light);
   background-image: url('/onboarding-illustration.png');
   background-size: cover;
   background-position: center;

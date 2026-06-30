@@ -34,7 +34,7 @@
   --color-pastel-pink-lightest: #fff9fa;
   --color-pastel-pink-lighter: #fff4f6;
   --color-pastel-pink-light: #ffdae0;
-  --color-pastel-pink: #ffcbd3;
+  --color-pastel-pink: var(--theme-accent);
   --color-pastel-pink-dark: #cca2a8;
   --color-pastel-pink-darker: #665154;
   --color-pastel-pink-darkest: #4c3c3f;
@@ -103,6 +103,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffcbd3;
+  background: var(--theme-accent);
   border-radius: 999px;
 }

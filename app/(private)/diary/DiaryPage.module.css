@@ -14,7 +14,7 @@
   padding-block: 24px;
   padding-inline: 16px;
   width: 100%;
-  background: #fff4f6;
+  background: var(--theme-bg-light);
 }
 
 .title {
