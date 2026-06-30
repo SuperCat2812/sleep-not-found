@@ -3,7 +3,6 @@
   width: 100%;
   height: 93%;
   border-radius: 24px;
-  background: #fff7f9;
   overflow: hidden;
 }
 
@@ -36,7 +35,7 @@
   left: -1.7px;
   border-radius: 4px;
   width: 10px;
-  background: #ffcbd3;
+  background: var(--theme-accent);
   cursor: grab;
   touch-action: none;
 }

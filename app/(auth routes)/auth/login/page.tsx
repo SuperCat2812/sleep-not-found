@@ -1,10 +1,25 @@
-import LoginForm from "@/components/LoginForm/LoginForm";
-import Image from "next/image";
-import css from "./login.module.css";
-// import { Metadata } from "next";
+import LoginForm from '@/components/LoginForm/LoginForm';
+import Image from 'next/image';
+import css from './login.module.css';
+import { Metadata } from 'next';
 
-//metadata
-//я додам сюди коли визначимся з варіантом
+export const metadata: Metadata = {
+  title: 'Вхід',
+  description: 'Вхід в аккаунт користувача',
+  openGraph: {
+    title: 'Вхід в аккаунт',
+    description: 'Вхід в аккаунт користувача',
+    url: 'http://localhost:3000/auth/login',
+    images: [
+      {
+        url: '/eggs.png',
+        width: '1200',
+        height: '630',
+        alt: 'Лелека',
+      },
+    ],
+  },
+};
 
 const login = () => {
   return (

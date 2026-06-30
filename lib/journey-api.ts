@@ -1,8 +1,8 @@
-import { BabyByWeek, MomByWeek, WeeksData } from "@/types/journeyTypes";
-import { api } from "./api/api";
+import { BabyByWeek, MomByWeek, WeeksData } from '@/types/journeyTypes';
+import { api } from './api/api';
 
 export const getWeeks = async (): Promise<WeeksData> => {
-  const { data } = await api.get<WeeksData>("/weeks/greeting");
+  const { data } = await api.get<WeeksData>('/weeks/greeting');
   return data;
 };
 

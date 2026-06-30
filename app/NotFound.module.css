@@ -17,12 +17,12 @@
   font-weight: 600;
 }
 .link {
-  border-bottom: 4px solid #ffcbd3;
+  border-bottom: 4px solid var(--theme-accent);
   border-radius: 100px;
   padding-block: 8px;
   padding-inline: 20px;
 
-  background: #ffdae0;
+  background: var(--theme-accent-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,5 +44,5 @@
 }
 
 .link:hover {
-  background: #ffcbd3;
+  background: var(--theme-accent);
 }

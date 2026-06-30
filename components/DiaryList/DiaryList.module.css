@@ -3,10 +3,10 @@
 }
 
 .diaryItem {
-  border: 1px solid #ffdae0;
+  border: 1px solid var(--theme-accent-light);
   border-radius: 16px;
   padding: 16px;
-  background: #ffdae0;
+  background: var(--theme-accent-light);
   margin-top: 16px;
   font-family: var(--font-lato);
 }
@@ -20,6 +20,9 @@
 .DiaryTitle {
   font-weight: 600;
   font-size: 16px;
+  width: 50%;
+  overflow-wrap: break-word;
+  word-break: break-word;
   @media (min-width: 1440px) {
     font-size: 18px;
   }
@@ -44,7 +47,7 @@
   border-radius: 100px;
   padding-block: 2px;
   padding-inline: 12px;
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;

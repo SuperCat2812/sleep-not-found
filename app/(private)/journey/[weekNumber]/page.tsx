@@ -54,7 +54,7 @@ const Journey = async ({
     <section>
       <GreetingBlock />
       <WeekSelector currentWeek={currentWeek.curWeekToPregnant} />
-      {<JourneyDetails currentWeek={currentWeek.curWeekToPregnant} />}
+      <JourneyDetails currentWeek={currentWeek.curWeekToPregnant} />
     </section>
   );
 };

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import css from "./GenderSelect.module.css";
+import { useEffect, useRef, useState } from 'react';
+import css from './GenderSelect.module.css';
 
-export type GenderValue = "boy" | "girl" | "unknown" | "";
+export type GenderValue = 'boy' | 'girl' | 'unknown' | '';
 
 interface GenderSelectProps {
   value: GenderValue;
@@ -13,24 +13,24 @@ interface GenderSelectProps {
   placeholder?: string;
 }
 
-const genderOptions: Array<{ value: Exclude<GenderValue, "">; label: string }> =
+const genderOptions: Array<{ value: Exclude<GenderValue, ''>; label: string }> =
   [
-    { value: "boy", label: "Хлопчик" },
-    { value: "girl", label: "Дівчинка" },
-    { value: "unknown", label: "Ще не знаю" },
+    { value: 'boy', label: 'Хлопчик' },
+    { value: 'girl', label: 'Дівчинка' },
+    { value: 'unknown', label: 'Ще не знаю' },
   ];
 
 export default function GenderSelect({
   value,
   onChange,
-  name = "babyGender",
-  id = "babyGender",
-  placeholder = "Оберіть стать",
+  name = 'babyGender',
+  id = 'babyGender',
+  placeholder = 'Оберіть стать',
 }: GenderSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = genderOptions.find((option) => option.value === value);
+  const selectedOption = genderOptions.find(option => option.value === value);
   const selectedLabel = selectedOption?.label ?? placeholder;
 
   useEffect(() => {
@@ -40,10 +40,10 @@ export default function GenderSelect({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -55,34 +55,32 @@ export default function GenderSelect({
   return (
     <div
       ref={wrapperRef}
-      className={`${css.wrapper} ${isOpen ? css.wrapperOpen : ""}`}
+      className={`${css.wrapper} ${isOpen ? css.wrapperOpen : ''}`}
     >
       <input type="hidden" id={id} name={name} value={value} />
 
       <button
         type="button"
-        className={`${css.trigger} ${isOpen ? css.triggerOpen : ""}`}
-        onClick={() => setIsOpen((prev) => !prev)}
+        className={`${css.trigger} ${isOpen ? css.triggerOpen : ''}`}
+        onClick={() => setIsOpen(prev => !prev)}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-    >
+      >
         <span className={value ? css.value : css.placeholder}>
           {selectedLabel}
         </span>
 
-        <span className={`${css.arrow} ${isOpen ? css.arrowOpen : ""}`}>
-          ▾
-        </span>
+        <span className={`${css.arrow} ${isOpen ? css.arrowOpen : ''}`}>▾</span>
       </button>
 
       {isOpen && (
         <ul className={css.dropdown} role="listbox">
-          {genderOptions.map((option) => (
+          {genderOptions.map(option => (
             <li key={option.value} className={css.item}>
               <button
                 type="button"
                 className={`${css.option} ${
-                  option.value === value ? css.optionSelected : ""
+                  option.value === value ? css.optionSelected : ''
                 }`}
                 onClick={() => handleSelect(option.value)}
                 role="option"

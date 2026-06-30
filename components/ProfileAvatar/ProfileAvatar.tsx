@@ -1,26 +1,27 @@
-"use client";
+'use client';
 
-import { ChangeEvent, useRef, useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { ChangeEvent, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
-import type { User } from "@/types/user";
-import { updateAvatar } from "@/lib/api/clientApi";
-import { useAuthStore } from "@/lib/store/authStore";
-import css from "./ProfileAvatar.module.css";
+import type { User } from '@/types/user';
+import { updateAvatar } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
+import css from './ProfileAvatar.module.css';
+import Image from 'next/image';
 
 interface ProfileAvatarProps {
   user: User;
 }
 
-const MAX_FILE_SIZE = 1024 * 1024; // 1 MB
+const MAX_FILE_SIZE = 1024 * 1024;
 
 export default function ProfileAvatar({ user }: ProfileAvatarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 
   const queryClient = useQueryClient();
-  const setUser = useAuthStore((state) => state.setUser);
+  const setUser = useAuthStore(state => state.setUser);
 
   const handleUploadClick = () => {
     inputRef.current?.click();
@@ -35,8 +36,8 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      toast.error("Фото занадто велике. Оберіть файл до 1 MB.");
-      input.value = "";
+      toast.error('Фото занадто велике. Оберіть файл до 1 MB.');
+      input.value = '';
       return;
     }
 
@@ -51,14 +52,14 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
       };
 
       setUser(mergedUser);
-      queryClient.setQueryData(["currentUser"], mergedUser);
+      queryClient.setQueryData(['currentUser'], mergedUser);
 
-      toast.success("Фото профілю оновлено");
+      toast.success('Фото профілю оновлено');
     } catch {
-      toast.error("Не вдалося оновити фото");
+      toast.error('Не вдалося оновити фото');
     } finally {
       setIsUploading(false);
-      input.value = "";
+      input.value = '';
     }
   };
 
@@ -66,10 +67,16 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     <div className={css.wrapper}>
       <div className={css.avatarBox}>
         {user.avatarUrl ? (
-          <img src={user.avatarUrl} alt={user.name} className={css.avatar} />
+          <Image
+            src={user.avatarUrl}
+            alt={user.name}
+            className={css.avatar}
+            width={132}
+            height={132}
+          />
         ) : (
           <div className={css.placeholder}>
-            {user.name?.charAt(0).toUpperCase() || "?"}
+            {user.name?.charAt(0).toUpperCase() || '?'}
           </div>
         )}
       </div>
@@ -84,7 +91,7 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
           onClick={handleUploadClick}
           disabled={isUploading}
         >
-          {isUploading ? "Завантаження..." : "Завантажити нове фото"}
+          {isUploading ? 'Завантаження...' : 'Завантажити нове фото'}
         </button>
 
         <input

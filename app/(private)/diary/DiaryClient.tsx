@@ -11,6 +11,8 @@ import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryMod
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
 import { deleteDiary } from '@/lib/diary-api-client';
+import { isAxiosError } from 'axios';
+import { NextResponse } from 'next/server';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;
@@ -41,7 +43,20 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
         return [...prev, ...newItems];
       });
       setPage(nextPage);
-    } catch {
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.log(error.response?.data);
+
+        return NextResponse.json(
+          error.response?.data ?? { error: error.message },
+          { status: error.response?.status ?? 500 }
+        );
+      }
+
+      return NextResponse.json(
+        { error: 'Internal Server Error' },
+        { status: 500 }
+      );
     } finally {
       setIsLoading(false);
     }
@@ -54,7 +69,21 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
       });
       setData(response.data.diaryNotes);
       setPage(1);
-    } catch {}
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.log(error.response?.data);
+
+        return NextResponse.json(
+          error.response?.data ?? { error: error.message },
+          { status: error.response?.status ?? 500 }
+        );
+      }
+
+      return NextResponse.json(
+        { error: 'Internal Server Error' },
+        { status: 500 }
+      );
+    }
   };
 
   const selectedDiary = data.find(diary => diary._id === id);
@@ -98,6 +127,8 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             <DiaryEntryDetails
               diary={selectedDiary}
               onSuccess={handleSuccess}
+              setIsModalOpen={setIsModalOpen}
+              isModalOpen={isModalOpen}
             />
           )}
         </div>
@@ -119,7 +150,9 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             await deleteDiary(id);
             handleSuccess();
           }}
-          onCancel={() => {}}
+          onCancel={() => {
+            setIsModalOpen(false);
+          }}
         />
       </section>
     </>

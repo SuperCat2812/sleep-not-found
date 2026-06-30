@@ -5,20 +5,25 @@ import DiaryEntryDetails from '@/components/DiaryEntryDetails/DiaryEntryDetails'
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
 import { deleteDiary } from '@/lib/diary-api-client';
 import { DiaryNote } from '@/types/diary-types';
+import { useState } from 'react';
 interface DiaryDetailsClientProps {
   diary: DiaryNote;
 }
 export default function DiaryDetailsClient({ diary }: DiaryDetailsClientProps) {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const handleSuccess = async () => {
-    try {
-      router.push('/diary');
-    } catch {}
+    router.push('/diary');
   };
 
   return (
     <>
-      <DiaryEntryDetails diary={diary} onSuccess={handleSuccess} />
+      <DiaryEntryDetails
+        diary={diary}
+        onSuccess={handleSuccess}
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}
+      />
 
       <ConfirmationModal
         id="delete"
@@ -31,7 +36,9 @@ export default function DiaryDetailsClient({ diary }: DiaryDetailsClientProps) {
           await deleteDiary(id);
           router.push('/diary');
         }}
-        onCancel={() => {}}
+        onCancel={() => {
+          setIsModalOpen(false);
+        }}
       />
     </>
   );

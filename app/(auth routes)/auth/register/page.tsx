@@ -1,11 +1,25 @@
-import RegistrationForm from "@/components/RegistrationForm/RegistrationForm";
-import Image from "next/image";
+import RegistrationForm from '@/components/RegistrationForm/RegistrationForm';
+import Image from 'next/image';
+import css from './register.module.css';
+import { Metadata } from 'next';
 
-import css from "./register.module.css";
-// import { Metadata } from "next";
-
-//metadata
-//я додам сюди коли визначимся з варіантом
+export const metadata: Metadata = {
+  title: 'Реєстрація',
+  description: 'Реєстрація нового користувача',
+  openGraph: {
+    title: 'Реєстрація нового користувача',
+    description: 'Реєстрація нового користувача',
+    url: 'http://localhost:3000/auth/register',
+    images: [
+      {
+        url: '/leleka.png',
+        width: '1200',
+        height: '630',
+        alt: 'Яйця лелеки',
+      },
+    ],
+  },
+};
 
 const register = () => {
   return (

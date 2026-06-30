@@ -83,8 +83,8 @@
 }
 
 .uploadButton:hover {
-  background-color: var(--color-pastel-pink-lighter);
-  border-color: var(--color-pastel-pink);
+  background-color: var(--theme-bg-light);
+  border-color: var(--theme-accent);
 }
 
 @media screen and (min-width: 768px) and (max-width: 1439px) {

@@ -17,6 +17,7 @@ interface MobileMenuProps {
 const MobileMenu = ({ onClose }: MobileMenuProps) => {
   const { user, isAuthenticated, clearIsAuthenticated } = useAuthStore();
   const setOpen = useConfirmationModal().open;
+  const setClose = useConfirmationModal().close;
   const router = useRouter();
 
   const navHref = '/auth/login';
@@ -137,7 +138,7 @@ const MobileMenu = ({ onClose }: MobileMenuProps) => {
         title="Ви точно хочете вийти?"
         cancelButtonText="Ні"
         confirmButtonText="Так"
-        onCancel={() => {}}
+        onCancel={setClose}
         onConfirm={handleLogout}
       />
     </div>
