@@ -36,7 +36,15 @@ export const getMe = async (): Promise<User> => {
     if (error instanceof AxiosError) {
       console.log('GETME ERROR STATUS:', error.response?.status);
       console.log('GETME ERROR DATA:', error.response?.data);
+
+      if (error.response?.status === 401) {
+        await api.get('/auth/session');
+
+        const { data } = await api.get<User>('/users/current');
+        return data;
+      }
     }
+
     throw error;
   }
 };
