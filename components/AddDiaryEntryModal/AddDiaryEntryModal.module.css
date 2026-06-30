@@ -279,7 +279,7 @@
 
 .submitBtn:hover,
 .submitBtn:focus {
-  background-color: #fff0f2;
+  background-color: var(--theme-bg-light);
 }
 
 .submitBtn:active {

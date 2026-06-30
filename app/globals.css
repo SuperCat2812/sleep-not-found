@@ -65,6 +65,7 @@
   --theme-text: var(--color-pastel-pink-darkest);
   --theme-text-mid: var(--color-pastel-pink-darker);
   --theme-hover-light: #fff4f6;
+  --bg-theme: #fff;
 }
 
 :root[data-theme='boy'] {
@@ -76,6 +77,7 @@
   --theme-text: var(--color-french-pass-darkest);
   --theme-text-mid: var(--color-french-pass-darker);
   --theme-hover-light: #e5fafe;
+  --bg-theme: #fbfefe;
 }
 
 :root[data-theme='unknown'] {
@@ -87,6 +89,7 @@
   --theme-text: var(--color-oasis-darkest);
   --theme-text-mid: var(--color-oasis-darker);
   --theme-hover-light: #fefbf4;
+  --bg-theme: #fff;
 }
 
 html,
@@ -99,7 +102,7 @@ body {
 body {
   min-height: 100vh;
   color: var(--foreground);
-  background: var(--background);
+  background: var(--bg-theme);
   font-family: var(--font-lato);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
