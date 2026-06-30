@@ -10,7 +10,6 @@ import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryMod
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
 import { isAxiosError } from 'axios';
-import { NextResponse } from 'next/server';
 import { deleteDiary } from '@/lib/api/clientApi';
 import { DiaryNote, DiaryResponse } from '@/types/types';
 
@@ -52,17 +51,9 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
     } catch (error) {
       if (isAxiosError(error)) {
         console.log(error.response?.data);
-
-        return NextResponse.json(
-          error.response?.data ?? { error: error.message },
-          { status: error.response?.status ?? 500 }
-        );
+      } else {
+        console.log('Loader more error:', error);
       }
-
-      return NextResponse.json(
-        { error: 'Internal Server Error' },
-        { status: 500 }
-      );
     } finally {
       setIsLoading(false);
     }
@@ -78,17 +69,9 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
     } catch (error) {
       if (isAxiosError(error)) {
         console.log(error.response?.data);
-
-        return NextResponse.json(
-          error.response?.data ?? { error: error.message },
-          { status: error.response?.status ?? 500 }
-        );
+      } else {
+        console.log('Refresh error:', error);
       }
-
-      return NextResponse.json(
-        { error: 'Internal Server Error' },
-        { status: 500 }
-      );
     }
   };
 
