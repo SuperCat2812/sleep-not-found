@@ -121,8 +121,8 @@
 }
 
 .cancelBtn {
-  border-bottom: 4px solid #ffcbd3;
-  background: #ffdae0;
+  border-bottom: 4px solid var(--theme-accent);
+  background: var(--theme-accent-light);
 }
 .cancelBtn:hover,
 .cancelBtn:focus {
@@ -131,7 +131,7 @@
 }
 .confirmBtn:hover,
 .confirmBtn:focus {
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
 }
 .confirmBtn {

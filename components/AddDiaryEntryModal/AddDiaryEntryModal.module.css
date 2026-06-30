@@ -162,7 +162,7 @@
   overflow-y: auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   scrollbar-width: thin;
-  scrollbar-color: #ffcbd3 transparent;
+  scrollbar-color: var(--theme-accent) transparent;
   padding: 6px 0;
   margin: 0;
   list-style: none;
@@ -177,7 +177,7 @@
 }
 
 .dropdownList::-webkit-scrollbar-thumb {
-  background: #ffcbd3;
+  background: var(--theme-accent);
   border-radius: 4px;
 }
 
@@ -269,8 +269,8 @@
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
-  background-color: #ffdae0;
-  box-shadow: 0 4px 0px #ffcbd3;
+  background-color: var(--theme-accent-light);
+  box-shadow: 0 4px 0px var(--theme-accent);
   transition:
     background-color 200ms ease,
     transform 100ms ease,
@@ -279,13 +279,13 @@
 
 .submitBtn:hover,
 .submitBtn:focus {
-  background-color: #fff0f2;
+  background-color: var(--theme-bg-light);
 }
 
 .submitBtn:active {
   transform: translateY(4px);
   box-shadow: 0 0px 0px transparent;
-  background-color: #ffdae0;
+  background-color: var(--theme-accent-light);
 }
 
 .error {

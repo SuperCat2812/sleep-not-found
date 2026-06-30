@@ -28,7 +28,7 @@
   padding: 16px;
   flex: 1;
   height: 105px;
-  background: var(--color-pastel-pink-lighter);
+  background: var(--theme-bg-light);
   justify-content: center;
 }
 

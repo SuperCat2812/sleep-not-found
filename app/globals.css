@@ -39,7 +39,7 @@
   --color-pastel-pink-darker: #665154;
   --color-pastel-pink-darkest: #4c3c3f;
   --color-scheme-foreground-alt: var(--color-pastel-pink-light);
-  --color-oasis-light: #fef1db;
+  --color-oasis-light: #fefbf4;
   --color-oasis: #feeccc;
   --color-oasis-dark: #cbbca3;
   --color-oasis-darker: #655e51;
@@ -56,6 +56,42 @@
   --color-red: #c60000;
 }
 
+:root[data-theme='girl'] {
+  --theme-bg: var(--color-pastel-pink-lightest);
+  --theme-bg-light: var(--color-pastel-pink-lighter);
+  --theme-accent: var(--color-pastel-pink);
+  --theme-accent-light: var(--color-pastel-pink-light);
+  --theme-accent-dark: var(--color-pastel-pink-dark);
+  --theme-text: var(--color-pastel-pink-darkest);
+  --theme-text-mid: var(--color-pastel-pink-darker);
+  --theme-hover-light: #fff4f6;
+  --bg-theme: #fff;
+}
+
+:root[data-theme='boy'] {
+  --theme-bg: var(--color-french-pass-lightest);
+  --theme-bg-light: var(--color-french-pass-lighter);
+  --theme-accent: var(--color-french-pass);
+  --theme-accent-light: var(--color-french-pass-light);
+  --theme-accent-dark: var(--color-french-pass-dark);
+  --theme-text: var(--color-french-pass-darkest);
+  --theme-text-mid: var(--color-french-pass-darker);
+  --theme-hover-light: #e5fafe;
+  --bg-theme: #fbfefe;
+}
+
+:root[data-theme='unknown'] {
+  --theme-bg: var(--color-oasis-lightest);
+  --theme-bg-light: var(--color-oasis-lighter);
+  --theme-accent: var(--color-oasis);
+  --theme-accent-light: var(--color-oasis-light);
+  --theme-accent-dark: var(--color-oasis-dark);
+  --theme-text: var(--color-oasis-darkest);
+  --theme-text-mid: var(--color-oasis-darker);
+  --theme-hover-light: #fefbf4;
+  --bg-theme: #fff;
+}
+
 html,
 body {
   max-width: 100%;
@@ -66,7 +102,7 @@ body {
 body {
   min-height: 100vh;
   color: var(--foreground);
-  background: var(--background);
+  background: var(--bg-theme);
   font-family: var(--font-lato);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,6 +139,6 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ffcbd3;
+  background: var(--theme-accent);
   border-radius: 999px;
 }

@@ -18,7 +18,7 @@
 }
 
 .toggle {
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 100px;
   padding: 4px;
@@ -63,7 +63,7 @@
 }
 
 .button[data-active='true'] {
-  background: #ffdae0;
+  background: var(--theme-accent-light);
   font-weight: 500;
   line-height: 1.6;
 }
@@ -83,7 +83,7 @@
 }
 
 .feeling {
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   border-radius: 32px;
   display: flex;
   flex-direction: column;
@@ -147,7 +147,7 @@
 .tipsBox {
   border-radius: 32px;
   padding: 24px;
-  background: #fff4f6;
+  background: var(--theme-bg-light);
   margin-bottom: 24px;
 
   @media only screen and (min-width: 1440px) {
@@ -203,7 +203,7 @@
 .detailsBaby {
   border-radius: 32px;
   padding: 24px;
-  background: #fff4f6;
+  background: var(--theme-bg-light);
 
   @media only screen and (min-width: 1440px) {
     display: flex;
@@ -305,7 +305,7 @@
 }
 
 .factBox {
-  background: #ffdae0;
+  background: var(--theme-accent-light);
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;

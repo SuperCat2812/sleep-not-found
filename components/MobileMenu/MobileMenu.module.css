@@ -106,7 +106,7 @@
 }
 
 .link:hover {
-  background-color: #fff1f5;
+  background-color: var(--theme-hover-light);
 }
 
 .icon {

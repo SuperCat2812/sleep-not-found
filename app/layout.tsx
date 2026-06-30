@@ -6,6 +6,7 @@ import css from './layout.module.css';
 
 import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 import { Toaster } from 'react-hot-toast';
+import { ThemeProvider } from '@/components/ThemeProvider/ThemeProvider';
 
 const lato = Lato({
   subsets: ['latin'],
@@ -33,8 +34,10 @@ export default function RootLayout({
     <html lang="uk">
       <body className={`${css.body} ${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
-          <Toaster position="top-center" reverseOrder={false} />
-          {children}
+          <ThemeProvider>
+            <Toaster position="top-center" reverseOrder={false} />
+            {children}
+          </ThemeProvider>
         </TanStackProvider>
       </body>
     </html>

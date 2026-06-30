@@ -8,15 +8,17 @@ import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useAuthStore } from '@/lib/store/authStore';
 import { checkSession, getMe, logout } from '@/lib/api/clientApi';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 const Sidebar = () => {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
 
   const setOpen = useConfirmationModal().open;
+  const setClose = useConfirmationModal().close;
 
   useEffect(() => {
     if (user) return;
@@ -37,6 +39,11 @@ const Sidebar = () => {
 
   const navHref = '/auth/login';
 
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
+
   const handleLogout = async () => {
     await logout();
     clearIsAuthenticated();
@@ -50,27 +57,33 @@ const Sidebar = () => {
       </Link>
 
       <nav className={css.nav}>
-        <Link href={isAuthenticated ? '/' : navHref} className={css.link}>
+        <Link
+          href={isAuthenticated ? '/' : navHref}
+          className={`${css.link} ${isActive('/') ? css.active : ''}`}
+        >
           <Icon id="icon-calendar" className={css.icon} />
           <span>Мій день</span>
         </Link>
 
         <Link
           href={isAuthenticated ? '/journey' : navHref}
-          className={css.link}
+          className={`${css.link} ${isActive('/journey') ? css.active : ''}`}
         >
           <Icon id="icon-travel" className={css.icon} />
           <span>Подорож</span>
         </Link>
 
-        <Link href={isAuthenticated ? '/diary' : navHref} className={css.link}>
+        <Link
+          href={isAuthenticated ? '/diary' : navHref}
+          className={`${css.link} ${isActive('/diary') ? css.active : ''}`}
+        >
           <Icon id="icon-book" className={css.icon} />
           <span>Щоденник</span>
         </Link>
 
         <Link
           href={isAuthenticated ? '/profile' : navHref}
-          className={css.link}
+          className={`${css.link} ${isActive('/profile') ? css.active : ''}`}
         >
           <Icon id="icon-profile" className={css.icon} />
           <span>Профіль</span>
@@ -107,7 +120,7 @@ const Sidebar = () => {
             title="Ви точно хочете вийти?"
             cancelButtonText="Ні"
             confirmButtonText="Так"
-            onCancel={() => {}}
+            onCancel={setClose}
             onConfirm={handleLogout}
           />
         </div>
