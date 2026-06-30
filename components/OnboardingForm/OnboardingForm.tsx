@@ -136,13 +136,17 @@ export default function OnboardingForm() {
               src={avatarPreview}
               alt="Попередній перегляд аватара"
               className={css.avatarImage}
+              width={164}
+              height={164}
             />
           ) : (
             <Image
               src="/images/avatar-placeholder.svg"
-              alt=""
+              alt="Avatar"
               className={css.avatarPlaceholder}
               aria-hidden="true"
+              width={164}
+              height={164}
             />
           )}
         </button>
