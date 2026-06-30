@@ -142,3 +142,72 @@ button {
   background: var(--theme-accent);
   border-radius: 999px;
 }
+
+body {
+  cursor: pointer;
+}
+
+[blossom-carousel] *,
+a,
+button,
+[role='button'],
+.clickable {
+  cursor: pointer;
+}
+
+/* ===== girl — рожевий ===== */
+:root[data-theme='girl'] body {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2l7 19 2.5-7.5L20 11z' fill='%23ffcbd3' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+      2 2,
+    auto;
+}
+
+:root[data-theme='girl'] [blossom-carousel] *,
+:root[data-theme='girl'] a,
+:root[data-theme='girl'] button,
+:root[data-theme='girl'] [role='button'],
+:root[data-theme='girl'] .clickable {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l16 8-7 2-3 7-6-17z' fill='%23cca2a8' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E")
+      4 4,
+    pointer;
+}
+
+/* ===== boy — блакитний ===== */
+:root[data-theme='boy'] body {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2l7 19 2.5-7.5L20 11z' fill='%23adeffe' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+      2 2,
+    auto;
+}
+
+:root[data-theme='boy'] [blossom-carousel] *,
+:root[data-theme='boy'] a,
+:root[data-theme='boy'] button,
+:root[data-theme='boy'] [role='button'],
+:root[data-theme='boy'] .clickable {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l16 8-7 2-3 7-6-17z' fill='%2398c1cb' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E")
+      4 4,
+    pointer;
+}
+
+/* ===== unknown — жовтий ===== */
+:root[data-theme='unknown'] body {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M3 2l7 19 2.5-7.5L20 11z' fill='%23feeccc' stroke='white' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")
+      2 2,
+    auto;
+}
+
+:root[data-theme='unknown'] [blossom-carousel] *,
+:root[data-theme='unknown'] a,
+:root[data-theme='unknown'] button,
+:root[data-theme='unknown'] [role='button'],
+:root[data-theme='unknown'] .clickable {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l16 8-7 2-3 7-6-17z' fill='%23cbbca3' stroke='white' stroke-width='1.5'/%3E%3C/svg%3E")
+      4 4,
+    pointer;
+}
