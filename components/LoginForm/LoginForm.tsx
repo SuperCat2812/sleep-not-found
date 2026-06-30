@@ -34,13 +34,15 @@ const LoginForm = () => {
       const res = await login(values);
       if (res) {
         setUser(res);
-        router.push('/');
         actions.resetForm();
+        router.push('/');
       } else {
         toast.error('Перевірте пошту чи пароль');
       }
     } catch {
       toast.error('Перевірте пошту чи пароль');
+    } finally {
+      actions.setSubmitting(false);
     }
   };
   return (
@@ -51,7 +53,7 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
         validationSchema={LoginFormSchema}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form className={css.form}>
             <div className={css.fieldGroup}>
               <Field
@@ -84,8 +86,12 @@ const LoginForm = () => {
               />
             </div>
 
-            <button type="submit" className={css.button}>
-              Увійти
+            <button
+              type="submit"
+              className={css.button}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Увійти...' : 'Увійти'}
             </button>
           </Form>
         )}
