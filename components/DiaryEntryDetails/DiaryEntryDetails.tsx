@@ -1,9 +1,9 @@
 'use client';
-import { DiaryNote } from '@/types/diary-types';
 import css from './DiaryEntryDetails.module.css';
 import Icon from '../Icon/Icon';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 import AddDiaryEntryModal from '../AddDiaryEntryModal/AddDiaryEntryModal';
+import { DiaryNote } from '@/types/types';
 
 interface DiaryEntryDetailsProps {
   diary: DiaryNote;

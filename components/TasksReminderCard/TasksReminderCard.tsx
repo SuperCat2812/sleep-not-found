@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/lib/store/authStore';
-import { fetchTasks, updateTaskStatus, Task } from '@/lib/api/tasks';
 import AddTaskModal from '@/components/AddTaskModal/AddTaskModal';
 import styles from './TasksReminderCard.module.css';
+import { fetchTasks, updateTaskStatus } from '@/lib/api/clientApi';
+import { Task } from '@/types/types';
 
 const startOfDay = (date: Date) => {
   const d = new Date(date);

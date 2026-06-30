@@ -1,4 +1,4 @@
-import { getWeekServer } from '@/lib/journey-api-server';
+import { getWeekServer } from '@/lib/api/serverApi';
 import { redirect } from 'next/navigation';
 
 export const page = async () => {

@@ -1,5 +1,5 @@
+import { getEmotions } from '@/lib/api/serverApi';
 import { NextResponse } from 'next/server';
-import { getEmotions } from '@/lib/emotions';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

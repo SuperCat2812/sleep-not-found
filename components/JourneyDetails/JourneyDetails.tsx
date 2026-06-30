@@ -3,11 +3,11 @@ import css from './JourneyDetails.module.css';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useStoreTab } from '@/lib/store/tabStore';
-import { getWeekBabyByNumber, getWeekMomByNumber } from '@/lib/journey-api';
 import Image from 'next/image';
 import Loader from '@/components/Loader/Loader';
 import Icon from '@/components/Icon/Icon';
 import TasksReminderCard from '../TasksReminderCard/TasksReminderCard';
+import { getWeekBabyByNumber, getWeekMomByNumber } from '@/lib/api/clientApi';
 
 function JourneyDetails({ currentWeek }: { currentWeek: number }) {
   const { tab, setTab } = useStoreTab();

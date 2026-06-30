@@ -1,6 +1,6 @@
-import { getDiary } from '@/lib/diary-api-server';
 import { Metadata } from 'next';
 import DiaryDetailsClient from './DiaryDetailsClient';
+import { getDiary } from '@/lib/api/serverApi';
 interface DiaryDetailsProps {
   params: Promise<{ entryId: string }>;
 }
