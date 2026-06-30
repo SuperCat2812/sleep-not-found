@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { createTask, Task } from '@/lib/api/tasks';
 import css from './AddTaskForm.module.css';
+import { isAxiosError } from 'axios';
 
 interface TaskFormValues {
   name: string;
@@ -37,8 +38,10 @@ export default function AddTaskForm({ onClose }: AddTaskFormProps) {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       onClose();
     },
-    onError: (error: any) => {
-      const msg = error.response?.data?.message || 'Сталася помилка';
+    onError: (error: unknown) => {
+      const msg = isAxiosError(error)
+        ? (error.response?.data?.message ?? 'Сталася помилка')
+        : 'Сталася помилка';
       toast.error(msg);
     },
   });
