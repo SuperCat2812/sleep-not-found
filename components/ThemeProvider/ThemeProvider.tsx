@@ -1,12 +1,12 @@
 'use client';
 
 import { useAuthStore } from '@/lib/store/authStore';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const gender = useAuthStore(state => state.user?.babyGender) ?? 'unknown';
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.dataset.theme = gender;
   }, [gender]);
 
