@@ -132,9 +132,10 @@ export default function ProfileEditForm({ user }: ProfileEditFormProps) {
                 <Field
                   id="email"
                   name="email"
-                  className={css.input}
+                  className={`${css.input} ${css.disabledInput}`}
                   type="email"
                   placeholder="hanna@gmail.com"
+                  disabled
                />
                 <ErrorMessage
                   name="email"
