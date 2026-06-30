@@ -63,3 +63,8 @@ export const login = async (loginData: LoginUserData): Promise<User> => {
 export const logout = async (): Promise<void> => {
   await api.post('/auth/logout');
 };
+
+export const checkSession = async () => {
+  const { data } = await api.get('/auth/session');
+  return data.success;
+};

@@ -8,6 +8,5 @@ export const checkServerSession = async () => {
       Cookie: cookieStore.toString(),
     },
   });
-
   return res;
 };

@@ -1,4 +1,4 @@
-import styles from "./MomTipCard.module.css";
+import styles from './MomTipCard.module.css';
 
 type MomTipCardProps = {
   tip: string;
