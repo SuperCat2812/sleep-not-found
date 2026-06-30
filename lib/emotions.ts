@@ -15,11 +15,16 @@ export interface EmotionsResponse {
   limit: number;
 }
 
-export const getEmotions = async () => {
+export interface EmotionsParams {
+  page: number;
+  limit: number;
+}
+
+export const getEmotions = async ({ page, limit }: EmotionsParams) => {
   try {
     const cookieStore = await cookies();
     const { data } = await api.get<EmotionsResponse>('/emotions', {
-      params: { limit: 100 },
+      params: { page, limit },
       headers: {
         Cookie: cookieStore.toString(),
       },

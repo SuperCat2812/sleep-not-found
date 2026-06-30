@@ -105,18 +105,25 @@
   height: 24px;
 }
 
-.DeleteBtn {
-  border: none;
-  background-color: transparent;
-}
-
 .EmotionList {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
+.DeleteBtn {
+  border: none;
+  background-color: transparent;
+}
 
 .editBtn {
   border: none;
   background-color: transparent;
+}
+
+.DeleteBtn:hover,
+.DeleteBtn:focus,
+.editBtn:hover,
+.editBtn:focus {
+  background-color: var(--theme-accent);
+  transition: background 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }

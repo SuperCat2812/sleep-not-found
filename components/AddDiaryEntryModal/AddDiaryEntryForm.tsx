@@ -2,10 +2,11 @@
 
 import { Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import toast from 'react-hot-toast';
 import styles from './AddDiaryEntryModal.module.css';
 import Icon from '@/components/Icon/Icon';
+import CustomScroll from '@/components/CustomScroll/CustomScroll';
 
 interface Emotion {
   _id: string;
@@ -36,23 +37,31 @@ export default function AddDiaryEntryForm({
 }: AddDiaryEntryFormProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [emotionsList, setEmotionsList] = useState<Emotion[]>([]);
-  const [visibleCount, setVisibleCount] = useState(10);
-
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isLoadingEmotions, setIsLoadingEmotions] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
+  const loaderRef = useRef<HTMLDivElement>(null);
+
+  const fetchEmotions = async (pageNum: number) => {
+    setIsLoadingEmotions(true);
+    try {
+      const res = await fetch(`/api/emotions?page=${pageNum}&limit=10`);
+      const data = await res.json();
+      setEmotionsList(prev =>
+        pageNum === 1 ? data.emotions : [...prev, ...data.emotions]
+      );
+      setTotalPages(data.totalPages);
+      setPage(pageNum);
+    } catch {
+      toast.error('Не вдалось завантажити емоції');
+    } finally {
+      setIsLoadingEmotions(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchEmotions = async () => {
-      try {
-        const res = await fetch('/api/emotions');
-        const data = await res.json();
-        setEmotionsList(data.emotions);
-      } catch {
-        toast.error('Не вдалось завантажити емоції');
-      }
-    };
-
-    fetchEmotions();
+    fetchEmotions(1);
   }, []);
 
   useEffect(() => {
@@ -64,37 +73,32 @@ export default function AddDiaryEntryForm({
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (isDropdownOpen) {
-      setVisibleCount(10);
-    }
-  }, [isDropdownOpen]);
+  const loadMoreRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node || !isDropdownOpen) return;
 
-  useEffect(() => {
-    const el = listRef.current;
-    if (!el || !isDropdownOpen) return;
+      const observer = new IntersectionObserver(
+        entries => {
+          if (
+            entries[0].isIntersecting &&
+            page < totalPages &&
+            !isLoadingEmotions
+          ) {
+            fetchEmotions(page + 1);
+          }
+        },
+        { threshold: 1 }
+      );
 
-    const handleScroll = () => {
-      const isBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 10;
-
-      if (isBottom) {
-        setVisibleCount(prev => {
-          const next = prev + 10;
-          return next > emotionsList.length ? emotionsList.length : next;
-        });
-      }
-    };
-
-    el.addEventListener('scroll', handleScroll);
-    return () => el.removeEventListener('scroll', handleScroll);
-  }, [isDropdownOpen, emotionsList]);
-
-  const visibleEmotions = emotionsList.slice(0, visibleCount);
+      observer.observe(node);
+      return () => observer.disconnect();
+    },
+    [isDropdownOpen, page, totalPages, isLoadingEmotions]
+  );
 
   return (
     <Formik
@@ -120,7 +124,6 @@ export default function AddDiaryEntryForm({
             });
             if (!res.ok) throw new Error();
           }
-
           onClose();
           onSuccess?.();
         } catch {
@@ -147,11 +150,10 @@ export default function AddDiaryEntryForm({
 
           <div>
             <label className={styles.label}>Категорії</label>
-
             <div className={styles.dropdownWrapper} ref={dropdownRef}>
               <div
                 className={styles.dropdownTrigger}
-                onClick={() => setIsDropdownOpen(prev => !prev)}
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
                 <div className={styles.tags}>
                   {values.emotions.length > 0 ? (
@@ -166,37 +168,48 @@ export default function AddDiaryEntryForm({
                     <span>Оберіть категорію</span>
                   )}
                 </div>
-
                 <Icon
                   id="icon-bottom"
-                  className={`${styles.arrow} ${
-                    isDropdownOpen ? styles.arrowOpen : ''
-                  }`}
+                  className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpen : ''}`}
                 />
               </div>
-
               {isDropdownOpen && (
-                <div className={styles.dropdownList} ref={listRef}>
-                  {visibleEmotions.map(emotion => (
-                    <label key={emotion._id} className={styles.dropdownItem}>
-                      <input
-                        type="checkbox"
-                        checked={values.emotions.includes(emotion._id)}
-                        onChange={() => {
-                          const updated = values.emotions.includes(emotion._id)
-                            ? values.emotions.filter(id => id !== emotion._id)
-                            : [...values.emotions, emotion._id];
-
-                          setFieldValue('emotions', updated);
-                        }}
-                      />
-                      {emotion.title}
-                    </label>
-                  ))}
+                <div className={styles.dropdownListWrapper}>
+                  <CustomScroll>
+                    <div>
+                      {emotionsList.map(emotion => (
+                        <label
+                          key={emotion._id}
+                          className={styles.dropdownItem}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={values.emotions.includes(emotion._id)}
+                            onChange={() => {
+                              const updated = values.emotions.includes(
+                                emotion._id
+                              )
+                                ? values.emotions.filter(
+                                    id => id !== emotion._id
+                                  )
+                                : [...values.emotions, emotion._id];
+                              setFieldValue('emotions', updated);
+                            }}
+                          />
+                          {emotion.title}
+                        </label>
+                      ))}
+                      <div ref={loadMoreRef} style={{ height: 1 }} />
+                      {isLoadingEmotions && (
+                        <div className={styles.dropdownItem}>
+                          Завантаження...
+                        </div>
+                      )}
+                    </div>
+                  </CustomScroll>
                 </div>
               )}
             </div>
-
             <ErrorMessage
               name="emotions"
               component="p"
