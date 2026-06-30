@@ -1,4 +1,3 @@
-import { User } from '@/types/user';
 import { api } from './api';
 import {
   BabyByWeek,
@@ -10,6 +9,7 @@ import {
   TasksResponse,
   UpdateOnboardingData,
   UpdateUserData,
+  User,
   WeeksData,
 } from '@/types/types';
 import { AxiosError } from 'axios';
