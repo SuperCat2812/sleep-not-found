@@ -4,16 +4,20 @@ import css from './DiaryEntryDetails.module.css';
 import Icon from '../Icon/Icon';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 import AddDiaryEntryModal from '../AddDiaryEntryModal/AddDiaryEntryModal';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface DiaryEntryDetailsProps {
   diary: DiaryNote;
   onSuccess: () => void;
+  setIsModalOpen: (boolean: boolean) => void;
+  isModalOpen: boolean;
 }
-const DiaryEntryDetails = ({ diary, onSuccess }: DiaryEntryDetailsProps) => {
+const DiaryEntryDetails = ({
+  diary,
+  onSuccess,
+  setIsModalOpen,
+  isModalOpen,
+}: DiaryEntryDetailsProps) => {
   const setOpen = useConfirmationModal().open;
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSuccess = () => {
     setIsModalOpen(false);

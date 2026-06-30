@@ -1,5 +1,5 @@
 import { getDiary } from '@/lib/diary-api-server';
-import DiaryClient from './diaryClient';
+import DiaryClient from './DiaryClient';
 import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Щоденник',
