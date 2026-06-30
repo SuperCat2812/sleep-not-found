@@ -2,27 +2,19 @@
 import css from './DiaryEntryDetails.module.css';
 import Icon from '../Icon/Icon';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
-import AddDiaryEntryModal from '../AddDiaryEntryModal/AddDiaryEntryModal';
 import { DiaryNote } from '@/types/types';
 
 interface DiaryEntryDetailsProps {
   diary: DiaryNote;
   onSuccess: () => void;
-  setIsModalOpen: (boolean: boolean) => void;
-  isModalOpen: boolean;
+  onEdit: (entry: DiaryNote) => void;
 }
 const DiaryEntryDetails = ({
   diary,
   onSuccess,
-  setIsModalOpen,
-  isModalOpen,
+  onEdit,
 }: DiaryEntryDetailsProps) => {
   const setOpen = useConfirmationModal().open;
-
-  const handleSuccess = () => {
-    setIsModalOpen(false);
-    onSuccess();
-  };
   function formatDate(date: string) {
     return new Intl.DateTimeFormat('uk-UA', {
       day: '2-digit',
@@ -39,10 +31,7 @@ const DiaryEntryDetails = ({
         <div className={css.DiaryContainer}>
           <div className={css.DiaryTitle}>
             <h3>{diary.title}</h3>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className={css.editBtn}
-            >
+            <button onClick={() => onEdit(diary)} className={css.editBtn}>
               <Icon id="icon-edit" className={css.IconDetail} />
             </button>
           </div>
@@ -71,18 +60,6 @@ const DiaryEntryDetails = ({
           </ul>
         </div>
       </div>
-      {isModalOpen && (
-        <AddDiaryEntryModal
-          onClose={() => setIsModalOpen(false)}
-          onSuccess={handleSuccess}
-          entryToEdit={{
-            _id: diary._id,
-            title: diary.title,
-            description: diary.description,
-            emotions: diary.emotions.map(emotion => emotion._id),
-          }}
-        />
-      )}
     </>
   );
 };

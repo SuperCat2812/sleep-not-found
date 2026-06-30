@@ -24,6 +24,12 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalEntry, setModalEntry] = useState<DiaryNote | null>(null);
+
+  const handleEdit = (entry: DiaryNote) => {
+    setModalEntry(entry);
+    setIsModalOpen(true);
+  };
 
   const loaderMore = async () => {
     if (isLoading || page >= diarys.totalPages) return;
@@ -108,7 +114,12 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
           <div className={css.title}>
             <h2>Ваші записи</h2>
             <div className={css.createContainer}>
-              <button onClick={() => setIsModalOpen(true)}>
+              <button
+                onClick={() => {
+                  setModalEntry(null);
+                  setIsModalOpen(true);
+                }}
+              >
                 <span className={css.newTask}>Новий запис</span>
                 <Icon id="icon-plus" className={css.iconPlus} />
               </button>
@@ -127,8 +138,7 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
             <DiaryEntryDetails
               diary={selectedDiary}
               onSuccess={handleSuccess}
-              setIsModalOpen={setIsModalOpen}
-              isModalOpen={isModalOpen}
+              onEdit={handleEdit}
             />
           )}
         </div>
@@ -136,6 +146,16 @@ const DiaryClient = ({ diarys }: DiaryClientProps) => {
           <AddDiaryEntryModal
             onClose={() => setIsModalOpen(false)}
             onSuccess={handleSuccess}
+            entryToEdit={
+              modalEntry
+                ? {
+                    _id: modalEntry._id,
+                    title: modalEntry.title,
+                    description: modalEntry.description,
+                    emotions: modalEntry.emotions.map(emotion => emotion._id),
+                  }
+                : undefined
+            }
           />
         )}
 
