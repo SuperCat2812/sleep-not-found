@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 import css from './Sidebar.module.css';
 
@@ -18,6 +19,8 @@ import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const Sidebar = () => {
+  const setClose = useConfirmationModal().close;
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
@@ -47,12 +50,13 @@ const Sidebar = () => {
   const handleLogout = () => {
     if (isLoggingOut) return;
 
+    setClose();
     setIsLoggingOut(true);
 
     setTimeout(async () => {
       try {
         await Promise.all([logout(), wait(500)]);
-
+        queryClient.clear();
         clearIsAuthenticated();
         router.replace('/');
       } catch (error) {
