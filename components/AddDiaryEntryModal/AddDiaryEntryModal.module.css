@@ -380,6 +380,7 @@
     max-height: 160px;
   }
 }
+
 .dropdownListWrapper {
   position: absolute;
   top: 100%;
@@ -388,4 +389,8 @@
   height: 200px;
   z-index: 100;
   margin-top: 4px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
 }
