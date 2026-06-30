@@ -67,7 +67,13 @@ export default function ProfileAvatar({ user }: ProfileAvatarProps) {
     <div className={css.wrapper}>
       <div className={css.avatarBox}>
         {user.avatarUrl ? (
-          <Image src={user.avatarUrl} alt={user.name} className={css.avatar} />
+          <Image
+            src={user.avatarUrl}
+            alt={user.name}
+            className={css.avatar}
+            width={132}
+            height={132}
+          />
         ) : (
           <div className={css.placeholder}>
             {user.name?.charAt(0).toUpperCase() || '?'}
