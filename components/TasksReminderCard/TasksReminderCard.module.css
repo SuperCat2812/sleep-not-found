@@ -126,3 +126,14 @@
   flex-direction: column;
   gap: 0;
 }
+
+.groupLabel {
+  font-family: var(--font-lato);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 160%;
+  color: #000;
+  list-style: none;
+  padding-bottom: 4px;
+  padding-top: 8px;
+}
