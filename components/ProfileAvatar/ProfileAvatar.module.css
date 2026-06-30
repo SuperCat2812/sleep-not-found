@@ -88,14 +88,13 @@
 
 .uploadButton:hover,
 .uploadButton:focus-visible {
-  background-color: var(--color-pastel-pink-lighter);
-  border-color: var(--color-pastel-pink);
+  background-color: var(--theme-bg-light);
+  border-color: var(--theme-accent);
 
   transition:
-  background 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67),
-  border-color 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    background 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67),
+    border-color 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
 }
-
 
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .wrapper {
