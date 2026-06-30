@@ -41,19 +41,34 @@ export default function AddDiaryEntryForm({
   const [totalPages, setTotalPages] = useState(1);
   const [isLoadingEmotions, setIsLoadingEmotions] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const loaderRef = useRef<HTMLDivElement>(null);
 
   const fetchEmotions = async (pageNum: number) => {
     setIsLoadingEmotions(true);
     try {
-      const res = await fetch(`/api/emotions?page=${pageNum}&limit=10`);
+      const res = await fetch(`/api/emotions?page=${pageNum}&limit=10`, {
+        credentials: 'include',
+      });
+      if (!res.ok) {
+        throw new Error(`Failed to load emotions: ${res.status}`);
+      }
       const data = await res.json();
+      const emotions = Array.isArray(data)
+        ? data
+        : Array.isArray(data.emotions)
+          ? data.emotions
+          : [];
+
+      if (emotions.length === 0 && pageNum === 1) {
+        toast.error('Категорії емоцій не знайдено');
+      }
+
       setEmotionsList(prev =>
-        pageNum === 1 ? data.emotions : [...prev, ...data.emotions]
+        pageNum === 1 ? emotions : [...prev, ...emotions]
       );
-      setTotalPages(data.totalPages);
+      setTotalPages(typeof data.totalPages === 'number' ? data.totalPages : 1);
       setPage(pageNum);
-    } catch {
+    } catch (error) {
+      console.error('Failed to fetch emotions:', error);
       toast.error('Не вдалось завантажити емоції');
     } finally {
       setIsLoadingEmotions(false);
@@ -61,7 +76,18 @@ export default function AddDiaryEntryForm({
   };
 
   useEffect(() => {
-    fetchEmotions(1);
+    let isMounted = true;
+
+    const loadInitialEmotions = async () => {
+      if (!isMounted) return;
+      await fetchEmotions(1);
+    };
+
+    loadInitialEmotions();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {

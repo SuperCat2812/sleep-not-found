@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { api } from './api';
+import { api } from '@/app/api/api';
 import { AxiosError } from 'axios';
 // import { BabyByWeek, WeeksData } from '@/types/journeyTypes';
 import {
