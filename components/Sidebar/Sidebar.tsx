@@ -17,6 +17,7 @@ const Sidebar = () => {
     useAuthStore();
 
   const setOpen = useConfirmationModal().open;
+  const setClose = useConfirmationModal().close;
 
   useEffect(() => {
     if (user) return;
@@ -105,7 +106,7 @@ const Sidebar = () => {
             title="Ви точно хочете вийти?"
             cancelButtonText="Ні"
             confirmButtonText="Так"
-            onCancel={() => {}}
+            onCancel={setClose}
             onConfirm={handleLogout}
           />
         </div>

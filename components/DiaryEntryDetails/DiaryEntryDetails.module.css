@@ -107,6 +107,7 @@
 
 .DeleteBtn {
   border: none;
+  background-color: transparent;
 }
 
 .EmotionList {
@@ -117,4 +118,5 @@
 
 .editBtn {
   border: none;
+  background-color: transparent;
 }
