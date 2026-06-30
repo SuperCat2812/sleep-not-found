@@ -56,12 +56,15 @@ const Sidebar = () => {
     setTimeout(async () => {
       try {
         await Promise.all([logout(), wait(500)]);
-        queryClient.clear();
-        clearIsAuthenticated();
-        router.replace('/');
       } catch (error) {
         console.error(error);
       } finally {
+        clearIsAuthenticated();
+        queryClient.clear();
+
+        router.replace('/');
+        router.refresh();
+
         setIsLoggingOut(false);
       }
     }, 0);
@@ -149,13 +152,21 @@ const Sidebar = () => {
           </div>
         ) : (
           <div className={css.authBar}>
-            <Link href="/auth/register" className={css.registerButton}>
+            <button
+              type="button"
+              className={css.registerButton}
+              onClick={() => router.push('/auth/register')}
+            >
               Зареєструватися
-            </Link>
+            </button>
 
-            <Link href="/auth/login" className={css.loginButton}>
+            <button
+              type="button"
+              className={css.loginButton}
+              onClick={() => router.push('/auth/login')}
+            >
               Увійти
-            </Link>
+            </button>
           </div>
         )}
       </aside>
