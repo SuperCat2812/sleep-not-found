@@ -122,25 +122,18 @@
 }
 
 .taskContent {
-<<<<<<< HEAD
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-=======
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
 
 .groupLabel {
-    font-family: var(--font-lato);
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 160%;
-    color: #000;
-    list-style: none;
-    padding-bottom: 4px;
-    padding-top: 8px;
+  font-family: var(--font-lato);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 160%;
+  color: #000;
+  list-style: none;
+  padding-bottom: 4px;
+  padding-top: 8px;
 }
->>>>>>> 7f26a16dfda5b4c29e18291ce0804f274b13b36f
