@@ -17,12 +17,15 @@ export async function proxy(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  if (!accessToken) {
-    if (refreshToken) {
+  let refreshed = false;
+
+  if (refreshToken) {
+    try {
       const data = await checkServerSession();
       const setCookie = data.headers['set-cookie'];
 
       if (setCookie) {
+        refreshed = true;
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
           const parsed = parse(cookieStr);
@@ -36,29 +39,18 @@ export async function proxy(request: NextRequest) {
           if (parsed.refreshToken)
             cookieStore.set('refreshToken', parsed.refreshToken, options);
         }
-        if (isPublicRoute) {
-          return NextResponse.redirect(new URL('/', request.url), {
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-        }
-        if (isPrivateRoute) {
-          return NextResponse.next({
-            headers: {
-              Cookie: cookieStore.toString(),
-            },
-          });
-        }
       }
+    } catch (error) {
+      console.log('Session refresh failed:', error);
     }
+  }
 
-    if (isPublicRoute) {
-      return NextResponse.next();
-    }
-
+  if (!accessToken && !refreshed) {
     if (isPrivateRoute) {
       return NextResponse.redirect(new URL('/auth/login', request.url));
+    }
+    if (isPublicRoute) {
+      return NextResponse.next();
     }
   }
 
