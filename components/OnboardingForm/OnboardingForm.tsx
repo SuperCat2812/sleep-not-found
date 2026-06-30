@@ -112,7 +112,10 @@ export default function OnboardingForm() {
       queryClient.setQueryData(['currentUser'], updatedUser);
 
       toast.success('Дані збережено', { duration: 3000 });
-      router.push('/');
+
+      setTimeout(() => {
+        router.replace('/');
+      }, 300);
     } catch {
       toast.error('Не вдалося зберегти дані', { duration: 3000 });
     } finally {
