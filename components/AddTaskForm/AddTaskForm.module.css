@@ -250,3 +250,37 @@
   -webkit-appearance: none;
   appearance: none;
 }
+
+/* Стилізація тригера DueDatePicker ЗОВНІ, без редагування файлів самого
+   DueDatePicker. Працює завдяки структурі DOM: DueDatePicker рендерить
+   <div className="wrapper"><input hidden/><button>...</button>{calendar}</div>,
+   тож кнопка-тригер завжди є прямим нащадком кореневого div. */
+.dateFieldWrapper {
+  width: 100%;
+}
+
+.dateFieldWrapper > div > button {
+  width: 100%;
+  height: 52px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font-family: 'Lato', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  background-color: #f1f1f1;
+  outline: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  cursor: pointer;
+  transition: border 300ms cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+.dateFieldWrapper > div > button:hover,
+.dateFieldWrapper > div > button:focus {
+  background-color: #e8e8e8;
+  border: 1px solid #f9a8c9;
+}

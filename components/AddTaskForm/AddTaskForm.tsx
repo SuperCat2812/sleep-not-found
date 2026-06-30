@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { createTask, Task } from '@/lib/api/tasks';
+import DueDatePicker from '@/components/DueDatePicker/DueDatePicker';
 import css from './AddTaskForm.module.css';
 
 interface TaskFormValues {
@@ -22,6 +23,12 @@ const validationSchema = Yup.object({
 
 function getTodayDate() {
   return new Date().toISOString().split('T')[0];
+}
+
+function getMaxDate() {
+  const date = new Date();
+  date.setFullYear(date.getFullYear() + 5);
+  return date.toISOString().split('T')[0];
 }
 
 interface AddTaskFormProps {
@@ -49,7 +56,7 @@ export default function AddTaskForm({ onClose }: AddTaskFormProps) {
       validationSchema={validationSchema}
       onSubmit={values => mutate(values)}
     >
-      {({ errors, touched }) => (
+      {({ errors, touched, values, setFieldValue, setFieldTouched }) => (
         <Form className={css.form} noValidate>
           <div className={css.field}>
             <label className={css.label} htmlFor="name">
@@ -71,12 +78,19 @@ export default function AddTaskForm({ onClose }: AddTaskFormProps) {
             <label className={css.label} htmlFor="date">
               Дата
             </label>
-            <Field
-              id="date"
-              name="date"
-              type="date"
-              className={`${css.input} ${errors.date && touched.date ? css.inputError : ''}`}
-            />
+            <div className={css.dateFieldWrapper}>
+              <DueDatePicker
+                id="date"
+                name="date"
+                value={values.date}
+                onChange={date => {
+                  setFieldValue('date', date);
+                  setFieldTouched('date', true);
+                }}
+                minDate={getTodayDate()}
+                maxDate={getMaxDate()}
+              />
+            </div>
             <ErrorMessage name="date">
               {msg => <p className={css.errorMsg}>{msg}</p>}
             </ErrorMessage>
