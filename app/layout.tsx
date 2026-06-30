@@ -43,6 +43,7 @@ export default function RootLayout({
               reverseOrder={false}
               toastOptions={{
                 duration: 3000,
+                removeDelay: 500,
               }}
             />
             {children}
