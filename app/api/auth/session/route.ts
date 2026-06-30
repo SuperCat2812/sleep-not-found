@@ -18,7 +18,7 @@ export async function GET() {
       );
     }
 
-    const apiRes = await api.get('auth/session', {
+    const apiRes = await api.get('/auth/session', {
       headers: {
         Cookie: cookieStore.toString(),
       },
