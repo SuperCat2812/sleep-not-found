@@ -16,7 +16,9 @@ export interface TasksResponse {
 }
 
 export async function fetchTasks(): Promise<TasksResponse> {
-  const { data } = await api.get<TasksResponse>('/tasks');
+  const { data } = await api.get<TasksResponse>('/tasks', {
+    params: { limit: 100 },
+  });
   return data;
 }
 

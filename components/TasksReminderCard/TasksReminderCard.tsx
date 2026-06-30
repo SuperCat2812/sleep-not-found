@@ -49,22 +49,23 @@ const TasksReminderCard = () => {
     completed: task.isDone,
   }));
 
-  const today = startOfDay(new Date());
-  const weekLater = new Date(today);
-  weekLater.setDate(today.getDate() + 7);
+  const formatDateKey = (d: Date) => {
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
-  const todayTasks = tasks.filter(t => {
-    const d = startOfDay(new Date(t.date));
-    return d.getTime() === today.getTime() && !t.completed;
-  });
+  const todayKey = formatDateKey(new Date());
+
+  const todayTasks = tasks.filter(t => t.date === todayKey && !t.completed);
 
   const weekTasks = tasks.filter(t => {
-    const d = startOfDay(new Date(t.date));
-    return (
-      d.getTime() > today.getTime() &&
-      d.getTime() <= weekLater.getTime() &&
-      !t.completed
-    );
+    if (t.completed || t.date === todayKey) return false;
+    const taskDate = new Date(t.date + 'T00:00:00');
+    const today = new Date(todayKey + 'T00:00:00');
+    const diffDays = (taskDate.getTime() - today.getTime()) / 86400000;
+    return diffDays > 0 && diffDays <= 7;
   });
 
   const completedTasks = tasks.filter(t => t.completed);
