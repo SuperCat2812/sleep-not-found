@@ -3,21 +3,14 @@
   min-height: 100dvh;
   overflow: hidden;
 }
-/*
-коли ми приберемо з загального layout все в окремий layout для
-приватних шляхів і заберуться стилі то ось тоді wrapper 
-спрацює і не буде скрола
-*/
+
 .image {
   display: none;
   @media screen and (min-width: 1440px) {
     display: block;
     height: 100dvh;
-    /* width: 50vw; */
     width: 50%;
-    object-fit: cover; /* якщо я залишу cover то воно то заповнить 50% екрану але буде обрізана картинка
-    можна просто позиціонувати на повністю верх */
-    /* object-fit: contain; */
+    object-fit: cover;
     object-position: right center;
   }
 }

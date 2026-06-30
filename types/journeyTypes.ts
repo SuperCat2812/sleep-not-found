@@ -29,7 +29,7 @@ interface MomFeelings {
   states: string[];
   sensationDescr: string;
 }
-type Tips = "Харчування" | "Активність" | "Відпочинок та комфорт";
+type Tips = 'Харчування' | 'Активність' | 'Відпочинок та комфорт';
 interface MomComfortTips {
   category: Tips;
   tip: string;

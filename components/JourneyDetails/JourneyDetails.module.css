@@ -16,6 +16,7 @@
     width: 1064px;
   }
 }
+
 .toggle {
   background: var(--theme-bg-light);
   border: 1px solid rgba(255, 255, 255, 0);
@@ -35,6 +36,7 @@
     width: 572px;
   }
 }
+
 .button {
   border-radius: 100px;
   padding: 10px, 24px;
@@ -59,6 +61,7 @@
     width: 295px;
   }
 }
+
 .button[data-active='true'] {
   background: var(--theme-accent-light);
   font-weight: 500;
@@ -72,11 +75,13 @@
     gap: 24px;
   }
 }
+
 .wrapper {
   display: flex;
   gap: 24px;
   flex-direction: column;
 }
+
 .feeling {
   background: var(--theme-bg-light);
   border-radius: 32px;
@@ -89,6 +94,7 @@
     width: 650px;
   }
 }
+
 .feelingTitle {
   font-family: var(--font-comfortaa);
   font-weight: 700;
@@ -101,11 +107,13 @@
     font-size: 20px;
   }
 }
+
 .tag {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
 }
+
 .momTag {
   font-family: var(--font-lato);
   font-weight: 600;
@@ -123,6 +131,7 @@
     font-size: 14px;
   }
 }
+
 .momDescription {
   font-family: var(--font-lato);
   font-weight: 400;
@@ -134,11 +143,13 @@
     font-size: 16px;
   }
 }
+
 .tipsBox {
   border-radius: 32px;
   padding: 24px;
   background: var(--theme-bg-light);
   margin-bottom: 24px;
+
   @media only screen and (min-width: 1440px) {
     margin-bottom: 0;
     width: 650px;
@@ -151,12 +162,14 @@
   flex-direction: column;
   gap: 8px;
 }
+
 .tipsItem {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 8px;
 }
+
 .tipsTitle {
   font-family: 'Lato', sans-serif;
   font-weight: 700;
@@ -168,11 +181,13 @@
     font-size: 16px;
   }
 }
+
 .tipsIcon {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
+
 .tipsText {
   font-family: var(--font-lato);
   font-weight: 400;
@@ -197,6 +212,7 @@
     overflow-y: auto;
   }
 }
+
 .babyImage {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 24px;
@@ -238,6 +254,7 @@
     font-size: 16px;
   }
 }
+
 .fact {
   font-family: var(--font-lato);
   font-weight: 700;
@@ -250,6 +267,7 @@
     font-size: 16px;
   }
 }
+
 .factDescription {
   font-family: var(--font-lato);
   font-weight: 400;
@@ -262,16 +280,19 @@
     font-size: 16px;
   }
 }
+
 .factWrapper {
   display: flex;
   align-items: center;
   gap: 8px;
   justify-content: flex-start;
 }
+
 .iconFact {
   width: 24px;
   height: 24px;
 }
+
 .imageWrapper {
   display: flex;
   flex-direction: column;

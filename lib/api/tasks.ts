@@ -28,7 +28,10 @@ export async function createTask(body: {
   return data;
 }
 
-export async function updateTaskStatus(taskId: string, isDone: boolean): Promise<void> {
+export async function updateTaskStatus(
+  taskId: string,
+  isDone: boolean
+): Promise<void> {
   try {
     const { data } = await api.patch(`/tasks/status/${taskId}`, { isDone });
     console.log('response:', data);

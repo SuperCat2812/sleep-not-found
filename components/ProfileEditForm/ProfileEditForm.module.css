@@ -11,19 +11,16 @@
   justify-content: space-between;
 }
 
-/* Figma: Fields */
 .fields {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* Figma: Content */
 .field {
   width: 100%;
 }
 
-/* Figma: Input */
 .inputGroup {
   display: flex;
   flex-direction: column;
@@ -37,7 +34,6 @@
   color: var(--color-neutral-darkest);
 }
 
-/* Figma: Text input / Select */
 .input {
   width: 100%;
   height: 40px;
@@ -64,14 +60,12 @@
   outline: 1px solid var(--theme-accent);
 }
 
-/* Figma: nested Fields для select/date */
 .selectFields {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-/* Figma: Actions */
 .actions {
   display: flex;
   justify-content: flex-end;

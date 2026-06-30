@@ -6,7 +6,7 @@ import css from './Sidebar.module.css';
 import Icon from '../Icon/Icon';
 import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { useAuthStore } from '@/lib/store/authStore';
-import { getMe, logout } from '@/lib/api/clientApi';
+import { checkSession, getMe, logout } from '@/lib/api/clientApi';
 import { useConfirmationModal } from '@/lib/store/confirmModalStore';
 import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
@@ -25,6 +25,8 @@ const Sidebar = () => {
 
     const fetchUser = async () => {
       try {
+        const ok = await checkSession();
+        if (!ok) return;
         const currentUser = await getMe();
         setUser(currentUser);
       } catch {
