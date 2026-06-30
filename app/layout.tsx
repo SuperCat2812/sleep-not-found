@@ -39,7 +39,14 @@ export default function RootLayout({
       <body className={`${css.body} ${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <ThemeProvider>
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{
+                duration: 3000,
+                removeDelay: 500,
+              }}
+            />
             {children}
           </ThemeProvider>
         </TanStackProvider>
