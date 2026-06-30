@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import css from "./DueDatePicker.module.css";
+import { useEffect, useMemo, useRef, useState } from 'react';
+import css from './DueDatePicker.module.css';
 
 interface DueDatePickerProps {
   id?: string;
@@ -14,42 +14,42 @@ interface DueDatePickerProps {
 }
 
 const monthNames = [
-  "січень",
-  "лютий",
-  "березень",
-  "квітень",
-  "травень",
-  "червень",
-  "липень",
-  "серпень",
-  "вересень",
-  "жовтень",
-  "листопад",
-  "грудень",
+  'січень',
+  'лютий',
+  'березень',
+  'квітень',
+  'травень',
+  'червень',
+  'липень',
+  'серпень',
+  'вересень',
+  'жовтень',
+  'листопад',
+  'грудень',
 ];
 
-const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Нд"];
+const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
 
 const formatDateValue = (date: Date) => {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
 
   return `${year}-${month}-${day}`;
 };
 
 const formatDisplayDate = (value: string) => {
   if (!value) {
-    return "";
+    return '';
   }
 
-  const [year, month, day] = value.split("-");
+  const [year, month, day] = value.split('-');
 
   return `${day}.${month}.${year}`;
 };
 
 const parseDateValue = (value: string) => {
-  const [year, month, day] = value.split("-").map(Number);
+  const [year, month, day] = value.split('-').map(Number);
 
   return new Date(year, month - 1, day);
 };
@@ -71,13 +71,13 @@ const isAfterDate = (date: Date, maxDate: string) => {
 };
 
 export default function DueDatePicker({
-  id = "dueDate",
-  name = "dueDate",
+  id = 'dueDate',
+  name = 'dueDate',
   value,
   onChange,
   minDate,
   maxDate,
-  placeholder = "дд. мм. рррр",
+  placeholder = 'дд. мм. рррр',
 }: DueDatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -96,10 +96,10 @@ export default function DueDatePicker({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -125,7 +125,7 @@ export default function DueDatePicker({
   }, [visibleMonth]);
 
   const handlePreviousMonth = () => {
-    setVisibleMonth((current) => {
+    setVisibleMonth(current => {
       const nextDate = new Date(current);
       nextDate.setMonth(current.getMonth() - 1);
       return nextDate;
@@ -133,7 +133,7 @@ export default function DueDatePicker({
   };
 
   const handleNextMonth = () => {
-    setVisibleMonth((current) => {
+    setVisibleMonth(current => {
       const nextDate = new Date(current);
       nextDate.setMonth(current.getMonth() + 1);
       return nextDate;
@@ -157,8 +157,8 @@ export default function DueDatePicker({
 
       <button
         type="button"
-        className={`${css.trigger} ${isOpen ? css.triggerOpen : ""}`}
-        onClick={() => setIsOpen((prev) => !prev)}
+        className={`${css.trigger} ${isOpen ? css.triggerOpen : ''}`}
+        onClick={() => setIsOpen(prev => !prev)}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
       >
@@ -180,8 +180,7 @@ export default function DueDatePicker({
             </button>
 
             <p className={css.monthTitle}>
-              {monthNames[visibleMonth.getMonth()]}{" "}
-              {visibleMonth.getFullYear()}
+              {monthNames[visibleMonth.getMonth()]} {visibleMonth.getFullYear()}
             </p>
 
             <button
@@ -195,7 +194,7 @@ export default function DueDatePicker({
           </div>
 
           <div className={css.weekDays}>
-            {weekDays.map((day) => (
+            {weekDays.map(day => (
               <span key={day} className={css.weekDay}>
                 {day}
               </span>
@@ -203,7 +202,7 @@ export default function DueDatePicker({
           </div>
 
           <div className={css.days}>
-            {calendarDays.map((date) => {
+            {calendarDays.map(date => {
               const dateValue = formatDateValue(date);
               const isCurrentMonth =
                 date.getMonth() === visibleMonth.getMonth();
@@ -216,8 +215,8 @@ export default function DueDatePicker({
                   key={dateValue}
                   type="button"
                   className={`${css.day} ${
-                    !isCurrentMonth ? css.dayOutside : ""
-                  } ${isSelected ? css.daySelected : ""}`}
+                    !isCurrentMonth ? css.dayOutside : ''
+                  } ${isSelected ? css.daySelected : ''}`}
                   onClick={() => handleSelectDate(date)}
                   disabled={isDisabled}
                 >

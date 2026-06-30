@@ -8,7 +8,10 @@ interface CustomScrollProps {
   onScroll?: (e: React.UIEvent<HTMLDivElement>) => void;
 }
 
-export default function CustomScroll({ children,onScroll}: CustomScrollProps) {
+export default function CustomScroll({
+  children,
+  onScroll,
+}: CustomScrollProps) {
   const contentRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -91,11 +94,14 @@ export default function CustomScroll({ children,onScroll}: CustomScrollProps) {
 
   return (
     <div className={css.wrapper}>
-      <div ref={contentRef} className={css.content} onScroll={e => {
-        updateScrollbar();
-        onScroll?.(e);
-      }
-      }>
+      <div
+        ref={contentRef}
+        className={css.content}
+        onScroll={e => {
+          updateScrollbar();
+          onScroll?.(e);
+        }}
+      >
         {children}
       </div>
 

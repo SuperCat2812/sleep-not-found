@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useAuthStore } from "@/lib/store/authStore";
-import styles from "./FeelingCheckCard.module.css";
+import { useAuthStore } from '@/lib/store/authStore';
+import styles from './FeelingCheckCard.module.css';
 
 type FeelingCheckCardProps = {
   recommendation: string;
@@ -12,7 +12,7 @@ const FeelingCheckCard = ({
   recommendation,
   onDiaryClick,
 }: FeelingCheckCardProps) => {
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
   return (
     <div className={styles.card}>

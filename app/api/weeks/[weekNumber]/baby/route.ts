@@ -1,15 +1,15 @@
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
-import { isAxiosError } from "axios";
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { isAxiosError } from 'axios';
 
-import { api } from "@/app/api/api";
-import { logErrorResponse } from "@/app/api/_utils/utils";
+import { api } from '@/app/api/api';
+import { logErrorResponse } from '@/app/api/_utils/utils';
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ weekNumber: string }> },
+  { params }: { params: Promise<{ weekNumber: string }> }
 ) {
   try {
     const { weekNumber } = await params;
@@ -35,7 +35,7 @@ export async function GET(
         },
         {
           status: error.response?.status ?? 500,
-        },
+        }
       );
     }
 
@@ -44,8 +44,8 @@ export async function GET(
     });
 
     return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
+      { error: 'Internal Server Error' },
+      { status: 500 }
     );
   }
 }
