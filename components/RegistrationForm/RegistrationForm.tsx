@@ -43,13 +43,15 @@ const RegistrationForm = () => {
       const res = await register(values);
       if (res) {
         setUser(res);
-        router.push('/profile/edit');
         actions.resetForm();
+        router.push('/profile/edit');
       } else {
         toast.error('Невірний формат пошти чи пароля');
       }
     } catch {
       toast.error('Невірний формат пошти чи пароля');
+    } finally {
+      actions.setSubmitting(false);
     }
   };
 
@@ -61,7 +63,7 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit}
         validationSchema={RegisterFormSchema}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, isSubmitting }) => (
           <Form className={css.form}>
             <div className={css.fieldGroup}>
               <label htmlFor={`${fieldId}-name`} className={css.label}>
@@ -116,8 +118,12 @@ const RegistrationForm = () => {
                 className={css.error}
               />
             </div>
-            <button className={css.button} type="submit">
-              Зареєструватись
+            <button
+              className={css.button}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Реєстрація...' : 'Зареєструватись'}
             </button>
             <p className={css.paragraph}>
               Вже маєте аккаунт?{' '}
