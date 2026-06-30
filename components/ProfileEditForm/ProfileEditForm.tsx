@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import type { User } from "@/types/user";
-import { updateMe } from "@/lib/api/profileApi";
+import { updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileEditForm.module.css";
 import GenderSelect, { GenderValue } from "@/components/GenderSelect/GenderSelect";
