@@ -48,20 +48,21 @@ const refreshServerSession = async () => {
   }
 };
 
-export const checkServerSession = async () => {
+export const checkServerSession = async (cookie: string) => {
   try {
-    const cookieStore = await cookies();
     const res = await api.get('/auth/session', {
       headers: {
-        Cookie: cookieStore.toString(),
+        Cookie: cookie,
       },
     });
+
     return res;
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log('ERROR:', error.response?.status);
       console.log('ERROR:', error.response?.data);
     }
+
     throw error;
   }
 };

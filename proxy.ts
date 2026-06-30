@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { checkServerSession } from '@/lib/api/serverApi';
 
@@ -8,9 +7,8 @@ const publicRoutes = ['/auth/login', '/auth/register'];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
-  const refreshToken = cookieStore.get('refreshToken')?.value;
+  const accessToken = request.cookies.get('accessToken')?.value;
+  const refreshToken = request.cookies.get('refreshToken')?.value;
 
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route));
   const isPrivateRoute = privateRoutes.some(route =>
@@ -19,7 +17,9 @@ export async function proxy(request: NextRequest) {
 
   if (!accessToken && refreshToken) {
     try {
-      const data = await checkServerSession();
+      const data = await checkServerSession(
+        request.headers.get('cookie') ?? ''
+      );
       const setCookie = data.headers['set-cookie'];
 
       if (data.status === 200 && setCookie) {
@@ -37,11 +37,9 @@ export async function proxy(request: NextRequest) {
             maxAge: parsed['Max-Age'] ? Number(parsed['Max-Age']) : undefined,
           };
           if (parsed.accessToken) {
-            request.cookies.set('accessToken', parsed.accessToken);
             response.cookies.set('accessToken', parsed.accessToken, options);
           }
           if (parsed.refreshToken) {
-            request.cookies.set('refreshToken', parsed.refreshToken);
             response.cookies.set('refreshToken', parsed.refreshToken, options);
           }
         }
@@ -73,6 +71,7 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
+    '/',
     '/journey/:path*',
     '/diary/:path*',
     '/profile',
