@@ -24,8 +24,11 @@ export async function proxy(request: NextRequest) {
       const data = await checkServerSession();
       const setCookie = data.headers['set-cookie'];
 
-      if (setCookie) {
+      if (data.status === 200) {
         refreshed = true;
+      }
+
+      if (setCookie) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
           const parsed = parse(cookieStr);
@@ -38,6 +41,21 @@ export async function proxy(request: NextRequest) {
             cookieStore.set('accessToken', parsed.accessToken, options);
           if (parsed.refreshToken)
             cookieStore.set('refreshToken', parsed.refreshToken, options);
+        }
+
+        if (isPublicRoute) {
+          return NextResponse.redirect(new URL('/', request.url), {
+            headers: {
+              Cookie: cookieStore.toString(),
+            },
+          });
+        }
+        if (isPrivateRoute) {
+          return NextResponse.next({
+            headers: {
+              Cookie: cookieStore.toString(),
+            },
+          });
         }
       }
     } catch (error) {

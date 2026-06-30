@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { parse } from 'cookie';
 import { api } from '@/app/api/api';
 import { AxiosError } from 'axios';
 // import { BabyByWeek, WeeksData } from '@/types/journeyTypes';
@@ -10,6 +11,42 @@ import {
   EmotionsResponse,
   WeeksData,
 } from '@/types/types';
+
+const refreshServerSession = async () => {
+  const cookieStore = await cookies();
+  const refreshToken = cookieStore.get('refreshToken')?.value;
+  if (!refreshToken) {
+    return;
+  }
+
+  const res = await api.get('/auth/session', {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+
+  const setCookie = res.headers['set-cookie'];
+  if (!setCookie) {
+    return;
+  }
+
+  const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+  for (const cookieStr of cookieArray) {
+    const parsed = parse(cookieStr);
+    const options = {
+      expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+      path: parsed.Path,
+      maxAge: Number(parsed['Max-Age']),
+    };
+
+    if (parsed.accessToken) {
+      cookieStore.set('accessToken', parsed.accessToken, options);
+    }
+    if (parsed.refreshToken) {
+      cookieStore.set('refreshToken', parsed.refreshToken, options);
+    }
+  }
+};
 
 export const checkServerSession = async () => {
   try {
@@ -29,19 +66,13 @@ export const checkServerSession = async () => {
   }
 };
 export const getDashboardDataServer = async (): Promise<WeeksData> => {
-  try {
+  return retryWithRefresh(async () => {
     const cookieStore = await cookies();
     const { data } = await api.get<WeeksData>('/weeks/greeting', {
       headers: { Cookie: cookieStore.toString() },
     });
     return data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('DASHBOARD ERROR:', error.response?.status);
-      console.log('DASHBOARD ERROR:', error.response?.data);
-    }
-    throw error;
-  }
+  });
 };
 
 export const getDashboardDataPublicServer = async (): Promise<WeeksData> => {
@@ -57,8 +88,24 @@ export const getDashboardDataPublicServer = async (): Promise<WeeksData> => {
   }
 };
 
-export const getDiary = async ({ page, limit }: DiaryParams) => {
+const retryWithRefresh = async <T>(fn: () => Promise<T>): Promise<T> => {
   try {
+    return await fn();
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
+      try {
+        await refreshServerSession();
+        return await fn();
+      } catch (refreshError) {
+        throw error;
+      }
+    }
+    throw error;
+  }
+};
+
+export const getDiary = async ({ page, limit }: DiaryParams) => {
+  return retryWithRefresh(async () => {
     const cookieStore = await cookies();
     const { data } = await api.get<DiaryResponse>('/diary', {
       params: { page, limit },
@@ -67,17 +114,11 @@ export const getDiary = async ({ page, limit }: DiaryParams) => {
       },
     });
     return data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('DIARY ERROR STATUS:', error.response?.status);
-      console.log('DIARY ERROR DATA:', error.response?.data);
-    }
-    throw error;
-  }
+  });
 };
 
 export const getEmotions = async ({ page, limit }: EmotionsParams) => {
-  try {
+  return retryWithRefresh(async () => {
     const cookieStore = await cookies();
     const { data } = await api.get<EmotionsResponse>('/emotions', {
       params: { page, limit },
@@ -86,35 +127,23 @@ export const getEmotions = async ({ page, limit }: EmotionsParams) => {
       },
     });
     return data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('EMOTIONS ERROR STATUS:', error.response?.status);
-      console.log('EMOTIONS ERROR DATA:', error.response?.data);
-    }
-    throw error;
-  }
+  });
 };
 
 export const getWeekServer = async (): Promise<WeeksData> => {
-  try {
+  return retryWithRefresh(async () => {
     const cookieStore = await cookies();
     const { data } = await api.get<WeeksData>('/weeks/greeting', {
       headers: { Cookie: cookieStore.toString() },
     });
     return data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('GET WEEK ERROR STATUS:', error.response?.status);
-      console.log('GET WEEK ERROR DATA:', error.response?.data);
-    }
-    throw error;
-  }
+  });
 };
 
 export const getWeekBabyByNumberServer = async (
   weekNumber: number
 ): Promise<BabyByWeek> => {
-  try {
+  return retryWithRefresh(async () => {
     const cookieStore = await cookies();
 
     const { data } = await api.get<BabyByWeek>(`/weeks/${weekNumber}/baby`, {
@@ -124,11 +153,5 @@ export const getWeekBabyByNumberServer = async (
     });
 
     return data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('GET INFO ERROR STATUS:', error.response?.status);
-      console.log('GET INFO ERROR DATA:', error.response?.data);
-    }
-    throw error;
-  }
+  });
 };
