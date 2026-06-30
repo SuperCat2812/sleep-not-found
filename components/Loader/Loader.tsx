@@ -1,8 +1,16 @@
+import clsx from 'clsx';
 import css from './Loader.module.css';
 
-function Loader() {
+interface LoaderProps {
+  className?: string;
+}
+
+function Loader({ className }: LoaderProps) {
   return (
-    <div className={css.container} aria-label="Loading content">
+    <div
+      className={clsx(css.container, className)}
+      aria-label="Loading content"
+    >
       <span className={css.loadText}>...Loading...</span>
 
       <div className={css.dotsWrapper} aria-hidden="true">

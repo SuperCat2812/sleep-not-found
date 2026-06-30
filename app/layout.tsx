@@ -23,6 +23,9 @@ const comfortaa = Comfortaa({
 export const metadata: Metadata = {
   title: 'Лелека',
   description: 'Персональний помічник для майбутніх мам',
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
