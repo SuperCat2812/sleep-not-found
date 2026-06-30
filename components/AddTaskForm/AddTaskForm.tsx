@@ -4,10 +4,11 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { createTask, Task } from '@/lib/api/tasks';
 import DueDatePicker from '@/components/DueDatePicker/DueDatePicker';
 import css from './AddTaskForm.module.css';
 import { isAxiosError } from 'axios';
+import { Task } from '@/types/types';
+import { createTask } from '@/lib/api/clientApi';
 
 interface TaskFormValues {
   name: string;

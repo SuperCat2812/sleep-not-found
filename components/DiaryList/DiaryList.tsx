@@ -1,4 +1,4 @@
-import { DiaryNote } from '@/types/diary-types';
+import { DiaryNote } from '@/types/types';
 import css from './DiaryList.module.css';
 import Link from 'next/link';
 

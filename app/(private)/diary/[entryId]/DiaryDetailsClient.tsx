@@ -3,9 +3,9 @@
 import { useRouter } from 'next/navigation';
 import DiaryEntryDetails from '@/components/DiaryEntryDetails/DiaryEntryDetails';
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
-import { deleteDiary } from '@/lib/diary-api-client';
-import { DiaryNote } from '@/types/diary-types';
 import { useState } from 'react';
+import { deleteDiary } from '@/lib/api/clientApi';
+import { DiaryNote } from '@/types/types';
 interface DiaryDetailsClientProps {
   diary: DiaryNote;
 }

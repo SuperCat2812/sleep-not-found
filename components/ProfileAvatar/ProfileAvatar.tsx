@@ -4,11 +4,11 @@ import { ChangeEvent, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import type { User } from '@/types/user';
 import { updateAvatar } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 import css from './ProfileAvatar.module.css';
 import Image from 'next/image';
+import { User } from '@/types/types';
 
 interface ProfileAvatarProps {
   user: User;

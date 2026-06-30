@@ -5,12 +5,13 @@ import * as Yup from "yup";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import type { User } from "@/types/user";
+// import type { User } from "@/types/user";
 import { updateMe } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import css from "./ProfileEditForm.module.css";
 import GenderSelect, { GenderValue } from "@/components/GenderSelect/GenderSelect";
 import DueDatePicker from "@/components/DueDatePicker/DueDatePicker";
+import { User } from "@/types/types";
 
 interface ProfileEditFormProps {
   user: User;

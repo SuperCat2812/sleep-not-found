@@ -1,9 +1,9 @@
 import JourneyDetails from '@/components/JourneyDetails/JourneyDetails';
 import WeekSelector from '@/components/WeekSelector/WeekSelector';
-import { getWeekServer } from '@/lib/journey-api-server';
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
+import { getWeekServer } from '@/lib/api/serverApi';
 
 export const generateMetadata = async ({
   params,
@@ -28,7 +28,7 @@ export const generateMetadata = async ({
       url: `${baseUrl}/journey/${week}`,
       images: [
         {
-          url: `${baseUrl}/leleka.png`, // загальна картинка
+          url: `${baseUrl}/leleka.png`, 
           width: 1200,
           height: 630,
           alt: `Тиждень ${week}`,

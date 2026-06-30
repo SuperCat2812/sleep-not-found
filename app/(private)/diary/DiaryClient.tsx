@@ -2,7 +2,6 @@
 import DiaryList from '@/components/DiaryList/DiaryList';
 import css from './DiaryPage.module.css';
 import { useState } from 'react';
-import { DiaryNote, DiaryResponse } from '@/types/diary-types';
 import DiaryEntryDetails from '@/components/DiaryEntryDetails/DiaryEntryDetails';
 import Icon from '@/components/Icon/Icon';
 import { api } from '@/lib/api/api';
@@ -10,9 +9,10 @@ import CustomScroll from '@/components/CustomScroll/CustomScroll';
 import AddDiaryEntryModal from '@/components/AddDiaryEntryModal/AddDiaryEntryModal';
 import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
 import ConfirmationModal from '@/components/ConfirmationModal/ConfirmationModal';
-import { deleteDiary } from '@/lib/diary-api-client';
 import { isAxiosError } from 'axios';
 import { NextResponse } from 'next/server';
+import { deleteDiary } from '@/lib/api/clientApi';
+import { DiaryNote, DiaryResponse } from '@/types/types';
 
 interface DiaryClientProps {
   diarys: DiaryResponse;

@@ -3,11 +3,8 @@ import StatusBlock from '@/components/StatusBlock/StatusBlock';
 import BabyTodayCard from '@/components/BabyTodayCard/BabyTodayCard';
 import MomTipCard from '@/components/MomTipCard/MomTipCard';
 import DashboardClient from '@/components/DashboardClient/DashboardClient';
-import {
-  getDashboardDataServer,
-  getDashboardDataPublicServer,
-} from '@/lib/api/dashboardApiServer';
 import styles from './page.module.css';
+import { getDashboardDataPublicServer, getDashboardDataServer } from '@/lib/api/serverApi';
 
 const DashboardPage = async () => {
   let weekData = null;
