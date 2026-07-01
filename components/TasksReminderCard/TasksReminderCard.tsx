@@ -9,12 +9,6 @@ import styles from './TasksReminderCard.module.css';
 import { fetchTasks, updateTaskStatus } from '@/lib/api/clientApi';
 import { Task } from '@/types/types';
 
-const startOfDay = (date: Date) => {
-  const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
-
 const TasksReminderCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
@@ -61,12 +55,13 @@ const TasksReminderCard = () => {
 
   const todayTasks = tasks.filter(t => t.date === todayKey && !t.completed);
 
-  const weekTasks = tasks.filter(t => {
+  const futureTasks = tasks.filter(t => {
     if (t.completed || t.date === todayKey) return false;
+
     const taskDate = new Date(t.date + 'T00:00:00');
     const today = new Date(todayKey + 'T00:00:00');
-    const diffDays = (taskDate.getTime() - today.getTime()) / 86400000;
-    return diffDays > 0 && diffDays <= 7;
+
+    return taskDate.getTime() > today.getTime();
   });
 
   const completedTasks = tasks.filter(t => t.completed);
@@ -124,10 +119,10 @@ const TasksReminderCard = () => {
                 {todayTasks.map(renderTask)}
               </>
             )}
-            {weekTasks.length > 0 && (
+            {futureTasks.length > 0 && (
               <>
-                <li className={styles.groupLabel}>Найближчий тиждень:</li>
-                {weekTasks.map(renderTask)}
+                <li className={styles.groupLabel}>Найближчі завдання:</li>
+                {futureTasks.map(renderTask)}
               </>
             )}
             {completedTasks.length > 0 && (
