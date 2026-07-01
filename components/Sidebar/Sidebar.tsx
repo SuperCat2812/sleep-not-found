@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 
 import css from './Sidebar.module.css';
@@ -22,13 +22,18 @@ const Sidebar = () => {
   const setClose = useConfirmationModal().close;
   const queryClient = useQueryClient();
   const router = useRouter();
-
+  const pathname = usePathname();
   const { user, isAuthenticated, setUser, clearIsAuthenticated } =
     useAuthStore();
 
   const setOpen = useConfirmationModal().open;
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/';
+    return pathname.startsWith(href);
+  };
 
   useEffect(() => {
     if (user || !isAuthenticated) return;
@@ -84,14 +89,17 @@ const Sidebar = () => {
         </Link>
 
         <nav className={css.nav}>
-          <Link href={isAuthenticated ? '/' : navHref} className={css.link}>
+          <Link
+            href={isAuthenticated ? '/' : navHref}
+            className={`${css.link} ${isActive('/') ? css.active : ''}`}
+          >
             <Icon id="icon-calendar" className={css.icon} />
             <span>Мій день</span>
           </Link>
 
           <Link
             href={isAuthenticated ? '/journey' : navHref}
-            className={css.link}
+            className={`${css.link} ${isActive('/journey') ? css.active : ''}`}
           >
             <Icon id="icon-travel" className={css.icon} />
             <span>Подорож</span>
@@ -99,7 +107,7 @@ const Sidebar = () => {
 
           <Link
             href={isAuthenticated ? '/diary' : navHref}
-            className={css.link}
+            className={`${css.link} ${isActive('/diary') ? css.active : ''}`}
           >
             <Icon id="icon-book" className={css.icon} />
             <span>Щоденник</span>
@@ -107,7 +115,7 @@ const Sidebar = () => {
 
           <Link
             href={isAuthenticated ? '/profile' : navHref}
-            className={css.link}
+            className={`${css.link} ${isActive('/profile') ? css.active : ''}`}
           >
             <Icon id="icon-profile" className={css.icon} />
             <span>Профіль</span>

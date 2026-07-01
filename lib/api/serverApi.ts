@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers';
-import { parse } from 'cookie';
 import { api } from '@/app/api/api';
 import { AxiosError } from 'axios';
 import {
@@ -11,41 +10,24 @@ import {
   WeeksData,
 } from '@/types/types';
 
-const refreshServerSession = async () => {
+export const refreshServerSession = async (cookieHeader?: string) => {
   const cookieStore = await cookies();
-  const refreshToken = cookieStore.get('refreshToken')?.value;
-  if (!refreshToken) {
-    return;
+
+  const cookie = cookieHeader ?? cookieStore.toString();
+
+  if (!cookie.includes('refreshToken=')) {
+    return null;
   }
 
   const res = await api.get('/auth/session', {
     headers: {
-      Cookie: cookieStore.toString(),
+      Cookie: cookie,
     },
   });
 
-  const setCookie = res.headers['set-cookie'];
-  if (!setCookie) {
-    return;
-  }
-
-  const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
-  for (const cookieStr of cookieArray) {
-    const parsed = parse(cookieStr);
-    const options = {
-      expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
-      path: parsed.Path,
-      maxAge: Number(parsed['Max-Age']),
-    };
-
-    if (parsed.accessToken) {
-      cookieStore.set('accessToken', parsed.accessToken, options);
-    }
-    if (parsed.refreshToken) {
-      cookieStore.set('refreshToken', parsed.refreshToken, options);
-    }
-  }
+  return res;
 };
+
 export const getDashboardDataServer = async (): Promise<WeeksData> => {
   return retryWithRefresh(async () => {
     const cookieStore = await cookies();
