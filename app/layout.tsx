@@ -23,7 +23,6 @@ const comfortaa = Comfortaa({
 export const metadata: Metadata = {
   title: 'Лелека',
   description: 'Персональний помічник для майбутніх мам',
-  manifest: '/manifest.json',
   icons: {
     icon: '/favicon.svg',
   },

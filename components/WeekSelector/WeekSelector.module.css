@@ -23,23 +23,40 @@
     font-size: 16px;
   }
 }
+.stick {
+  position: relative;
+  overflow: visible;
+
+  margin-inline: -32px;
+
+  @media only screen and (min-width: 1440px) {
+    margin-inline: -40px;
+  }
+}
 
 .carousel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 99;
-  margin-top: 24px;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 97px;
   gap: 1rem;
-  margin-top: 122px;
+  margin-top: 16px;
   user-select: none;
 
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  padding-inline: 32px;
+
   @media only screen and (min-width: 1440px) {
-    margin-top: 133px;
+    padding-inline: 40px;
   }
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
 .slide {
