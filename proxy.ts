@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parse } from 'cookie';
-import { checkServerSession } from '@/lib/api/serverApi';
+import { checkServerSession } from '@/lib/api/clientApi';
 
 const privateRoutes = ['/profile', '/journey', '/diary'];
 const publicRoutes = ['/auth/login', '/auth/register'];

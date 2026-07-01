@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { api } from '@/app/api/api';
 import { AxiosError } from 'axios';
-// import { BabyByWeek, WeeksData } from '@/types/journeyTypes';
 import {
   BabyByWeek,
   DiaryParams,
@@ -47,25 +46,6 @@ const refreshServerSession = async () => {
     }
   }
 };
-
-export const checkServerSession = async (cookie: string) => {
-  try {
-    const res = await api.get('/auth/session', {
-      headers: {
-        Cookie: cookie,
-      },
-    });
-
-    return res;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('ERROR:', error.response?.status);
-      console.log('ERROR:', error.response?.data);
-    }
-
-    throw error;
-  }
-};
 export const getDashboardDataServer = async (): Promise<WeeksData> => {
   return retryWithRefresh(async () => {
     const cookieStore = await cookies();
@@ -81,10 +61,6 @@ export const getDashboardDataPublicServer = async (): Promise<WeeksData> => {
     const { data } = await api.get<WeeksData>('/weeks/greeting/public');
     return data;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log('DASHBOARD PUBLIC ERROR:', error.response?.status);
-      console.log('DASHBOARD PUBLIC ERROR:', error.response?.data);
-    }
     throw error;
   }
 };
@@ -97,7 +73,7 @@ const retryWithRefresh = async <T>(fn: () => Promise<T>): Promise<T> => {
       try {
         await refreshServerSession();
         return await fn();
-      } catch (refreshError) {
+      } catch (error) {
         throw error;
       }
     }
