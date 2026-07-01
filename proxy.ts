@@ -64,7 +64,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (isPublicRoute) {
+  if (isPublicRoute && accessToken) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
